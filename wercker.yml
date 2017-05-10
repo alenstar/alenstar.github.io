@@ -1,9 +1,10 @@
 box: debian
 build:
   steps:
-    - install-packages:
-        packages: git  curl libcurl3
     - arjen/hugo-build:
-        version: "1.15.2"
         theme: herring-cove
         flags: --buildDrafts=true
+    - script:
+        name: ls stuff
+        code: |
+          ls -haltr /pipeline/source/public
