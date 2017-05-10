@@ -8,6 +8,7 @@ build:
         name: ls stuff
         code: |
           ls -haltr /pipeline/source/public
+
 deploy:
   steps:
     - script:
