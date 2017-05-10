@@ -4,6 +4,6 @@ build:
     - install-packages:
         packages: git  curl libcurl3
     - arjen/hugo-build:
-        version: "0.14"
+        version: "1.16.3"
         theme: herring-cove
         flags: --buildDrafts=true
