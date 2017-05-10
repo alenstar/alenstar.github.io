@@ -38,3 +38,14 @@ Once completed it’s a good idea to do a quick check if everything is working b
 hugo server --theme=herring-cove  
 ```
 
+### Deploy  
+
+``` bash  
+git checkout gh-pages
+git branch -d master
+git push origin --delete master
+git checkout -b master
+git push origin master
+git branch -d master
+```
+
