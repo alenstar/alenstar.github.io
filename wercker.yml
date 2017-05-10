@@ -6,7 +6,7 @@ build:
     - script:
         name: download theme
         code: |
-            $(git clone https://github.com/alenstar/blog ./themes/herring-cove)
+            $(git clone https://github.com/spf13/herring-cove ./themes/herring-cove)
     - arjen/hugo-build:
         version: "0.14"
         theme: herring-cove
