@@ -25,33 +25,4 @@ deploy:
         token: $GIT_TOKEN
         domain: alenstar.github.io
         basedir: public
-
-deploy-master:
-  steps:
-    - script:
-        token: $GIT_TOKEN
-        repo: alenstar.github.io
-        domain: alenstar.github.io
-        path: public
-        code: |
-          remote="https://$WERCKER_GH_PAGES_TOKEN@github.com/$repo.git"
-          if ! type "git" > /dev/null; then
-            apt-get update
-            apt-get install -y git-core
-          fi
-          rm -rf .git
-          git init
-          git config user.email "pleasemailus@wercker.com"
-          git config user.name "werckerbot"
-          git remote add origin "$remote"
-          git fetch origin
-          git branch --track master origin/master
-          git add -A
-          git commit -m "Deploy from $WERCKER_STARTED_BY"
-          result="$(git push $remote master:$branch)"
-          if [[ $? -ne 0 ]]; then
-            warning "$result"
-            fail "Failed deploying to Github Pages"
-          else
-            success "Deployed to Github Pages"
-          fi
+        branch: master
