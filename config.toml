@@ -1,4 +1,4 @@
-baseURL = "http://alenstar.github.io/"
+baseURL = "https://alenstar.github.io/"
 # HTML Language Code Reference, such as en, zh-cn
 languageCode = "zh-cn"
 title = "alenstar blog"
