@@ -49,3 +49,9 @@ git push origin master
 git branch -d master
 ```
 
+```
+git checkout -b dev
+git push origin --delete master
+git branch -d master
+git push origin dev
+```
