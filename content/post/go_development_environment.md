@@ -2,7 +2,7 @@
 categories = ["y"]
 date = "2017-05-12T23:50:33+08:00"
 description = "Go语言是谷歌推出的一种全新的编程语言， 可以在不损失应用程序性能的情况下降低代码的复杂性。"
-tags = ["golang"]
+tags = ["go", "golang", "development"]
 title = "golang开发环境搭建"
 
 +++
@@ -11,7 +11,7 @@ title = "golang开发环境搭建"
 笔者使用的是Debian sid 直接使用apt-get安装就好  
 
 ```   
-    sudo apt-get install golang -y  
+$ sudo apt-get install golang -y  
 ```  
 
 ### 配置环境变量  
@@ -20,8 +20,8 @@ title = "golang开发环境搭建"
 go将从这里寻找package, go get 下载的package将保存刀$GOPATH/src目录下, go install 安装的程序将放在$GOPATH/bin目录下, %GOPATH/pkg下放的是预编译的package object文件  
 
 ```   
-    sudo echo "export GOPATH=$HOME/workspace/golang" >> ~/.bashrc  
-    sudo echo "export export PATH=$GOPATH/bin:$PATH" >> ~/.bashrc  
+$ sudo echo "export GOPATH=$HOME/workspace/golang" >> ~/.bashrc  
+$ sudo echo "export export PATH=$GOPATH/bin:$PATH" >> ~/.bashrc  
 ```  
 
 #### 2. 测试golang环境  
@@ -32,13 +32,13 @@ golang按 域名/用户名(或组织名)/项目名 的形式组织package.
 #####    2.1 创建测试用项目目录  
     
 ```   
-mkdir -p $GOPATH/hello.com/test/hello  
+$ mkdir -p $GOPATH/hello.com/test/hello  
 ```  
 
 #####    2.2 编写hello.go程序 
 
 ```
-touch $GOPATH/hello.com/test/hello/main.go
+$ touch $GOPATH/hello.com/test/hello/main.go
 ```
 
 用喜欢的编辑器打开main.go文件编辑 

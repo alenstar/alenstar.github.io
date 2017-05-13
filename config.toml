@@ -18,7 +18,7 @@ hasCJKLanguage = true
 	# Disqus comment
 	disqusShortname = "https-alenstar-github-io"
 	# Disable disqus comments by set `enableDisqus = "false"`
-	enableDisqus = true
+	enableDisqus = false
 
 	# Duoshuo comment
 	duoshuoShortname = "your_duoshuo_short_name"

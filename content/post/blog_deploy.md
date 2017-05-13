@@ -19,12 +19,12 @@ github可以自动检测pages, 我们按它的规则发布到gh-pages分支, 或
 #### 1.1 建立dev分支, 移除master分支
 ```
 #建立并进入dev分支
-git checkout -b dev
+$ git checkout -b dev
 #移除master分支
-git push origin --delete master
-git branch -d master
+$ git push origin --delete master
+$ git branch -d master
 #同步dev分支
-git push -u origin dev
+$ git push -u origin dev
 ```
 
 #### 1.2 配置远程仓库
@@ -85,9 +85,9 @@ deploy下的branch设置为master, 用于发布的分支； basedir是要发布�
 
 #### 2.2 提交wercker.yml, 开始第一次构建  
 ```
-git add wercker.yml 
-git commit -m "added wercker.yml"
-git push
+$ git add wercker.yml 
+$ git commit -m "added wercker.yml"
+$ git push
 ```   
 
 回到Wercker下, 我们可以在Applications下blog应用的Runs看到构建脚本开始运行了. 

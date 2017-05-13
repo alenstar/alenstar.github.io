@@ -10,18 +10,18 @@ title = "建立个人博客"
 ### 1. 安装hugo  
 *先要配置好go开发环境*
 ```
-go get -v github.com/spf13/hugo  
-go install github.com/spf13/hugo
+$ go get -v github.com/spf13/hugo  
+$ go install github.com/spf13/hugo
 ``` 
 
 ### 2. 生成站点  
 使用hugo new site 命令生成站点, 如生成到$HOME/workspace/blog目录:  
 ```
-hugo new site $HOME/workspace/blog
+$ hugo new site $HOME/workspace/blog
 ```  
 这样就在$HOME/workspace/blog目录下生成啦初始站点, 进入目录:  
 ```
-cd $HOME/workspace/blog
+$ cd $HOME/workspace/blog
 ```  
 站点目录结构:  
 ```
@@ -38,17 +38,17 @@ config.toml
 exampleSite 是主题的一个示例站点，里面有配置文件、关于页面的一些示例。   
 ```
 #创建themes目录
-mkdir themes
+$ mkdir themes
 #下载主题cactus-plus
-cd themes 
-git clone https://github.com/nodejh/hugo-theme-cactus-plus.git 
+$ cd themes 
+$ git clone https://github.com/nodejh/hugo-theme-cactus-plus.git 
 #移除.git, 避免和站点项目的.git冲突, 
 #当然也可以使用submodule形式组织
-rm -rf .git
+$ rm -rf .git
 #将示例模板放到站点根目录
-mv exampleSite/* ../
+$ mv exampleSite/* ../
 # 回到站点根目录
-cd ..
+$ cd ..
 ```
 
 ### 4. 主题配置
@@ -67,30 +67,30 @@ Git是一款免费、开源的分布式版本控制系统，用于敏捷高效�
 #### 5.1 初始化本地仓库
 ```
 #hugo默认生成站点到public目录, 我们不需要保留它
-echo "public" >> .gitignore
-echo "User-agent: *\nDisallow:" > static/robots.txt
-git init
-git commit -a -m "Initial commit"
+$ echo "public" >> .gitignore
+$ echo "User-agent: *\nDisallow:" > static/robots.txt
+$ git init
+$ git commit -a -m "Initial commit"
 ```  
 
 #### 5.2 关联远程仓库(github)  
 注册并登录github, create repository
 ```
-git remote add origin git@github.com:YourUsername/yourblog.git
-git push -u origin master
+$ git remote add origin git@github.com:YourUsername/yourblog.git
+$ git push -u origin master
 ```
 ### 6. 添加文章  
 ```  
 #添加文章到content/post目录下
-hugo new post/first.md  
+$ hugo new post/first.md  
 #编辑文章, 添加到仓库并提交
-git add content
-git commit -m "added first.md"
-git push
+$ git add content
+$ git commit -m "added first.md"
+$ git push
 ```  
 
 ### 7. 运行本地站点 
 hugo会监测文件的变动, 我们可以用浏览器访问 http://localhost:1313 ,实时查看文章变动.
 ``` shell  
-hugo server --theme=cactus-plus --buildDrafts  
+$ hugo server --theme=cactus-plus --buildDrafts  
 ```  
