@@ -8,7 +8,11 @@ title = "发布个人博客"
 +++
 
 ### 1. 修改blog仓库设置
-github可以自动检测pages, 我们按它的规则发布到gh-pages分支, 或者发布到docs目录下, 通过YourName.github.io就可以进入我们的blog, 但是笔者使用过程中发现发布到gh-pages分支时,访问blog的路径成了YourName.github.io/yourblog, 没有实现我想要的效果(YourName.github.io), 而发布到docs目录太麻烦, 而其不便于管理, 就不考虑了. 于是笔者想到发布到master分支, 使用dev分支管理文章, master分支用于发布, 这就可以使用YourName.github.io域名直接访问blog.  
+github可以自动检测pages, 我们按它的规则发布到gh-pages分支, 或者发布到docs目录下, 通过YourName.github.io就可以进入我们的blog.
+   
+但是笔者使用过程中发现发布到gh-pages分支时,访问blog的路径成了YourName.github.io/yourblog,没有实现我想要的效果, 访问blog的路径为YourName.github.io, 而发布到docs目录太麻烦, 而其不便于管理, 就不考虑了.   
+
+于是笔者想到发布到master分支, 使用dev分支管理文章, master分支用于发布, 这就可以使用YourName.github.io域名直接访问blog.  
 
 我们可以使用CI/CD服务来实现我们的blog的自动构建和发布, 这样可以省去手工构建和发布的繁琐事务, 每次 git push 之后自动构建并发布到master分支, 实现自动化运维.
 
