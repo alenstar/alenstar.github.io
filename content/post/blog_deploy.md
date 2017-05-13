@@ -35,12 +35,14 @@ git push -u origin dev
 ### 2. 配置 CI/CD 
 CI/CD服务我们可以使用wercker, 它提供免费的服务. 
 
+{{< figure src="/images/wercker.jpg" title="" >}}
+
 访问 (Wercker)[http://www.wercker.com/] , 选择 Get Started for free, 进入登录页面, 我们用github登录就可以啦. 
 
 点击 Create 按钮创建一个Application, 选择 Use Github, 进入github仓库选择页面, 选择我们的blog仓库 YourName.github.io  其它默认, 直到Finsih.  
 
 #### 2.1 配置wercker.yml  
-* yml文件使用空格缩进 *
+*yml文件使用空格缩进*
 
 在Wercker的Registry下我们可以看到很多wercker.yml配置脚本, 这里我就直接贴出我的配置啦.  
 ```
@@ -106,4 +108,4 @@ git push
 在本地blog仓库下添加新文章, 编辑之后, 添加并提交到dev分支, 就可以触发Workflow, 在Wercker上我们可以看到各个阶段的执行情况.  
 
 ### 4. 访问我们的blog 
-打开https://YourName.github.io地址就可以访问我们的blog了.  
+打开 https://YourName.github.io 地址就可以访问我们的blog了.  
