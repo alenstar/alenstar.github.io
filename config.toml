@@ -16,9 +16,9 @@ hasCJKLanguage = true
 	enableRSS = false
 
 	# Disqus comment
-	disqusShortname = "your_disqus_short_name"
+	disqusShortname = "https-alenstar-github-io"
 	# Disable disqus comments by set `enableDisqus = "false"`
-	enableDisqus = false
+	enableDisqus = true
 
 	# Duoshuo comment
 	duoshuoShortname = "your_duoshuo_short_name"
@@ -70,4 +70,4 @@ hasCJKLanguage = true
 [social]
 	#facebook-square = "your_facebook_link"
 	#twitter-square = "your_twitter_link"
- 	github-square = "github.com/alenstar"
+ 	github-square = "https://github.com/alenstar"
