@@ -41,6 +41,82 @@ std::forward用途是：如果函数forward的实参的数据类型是左值引�
 
 std::move是个模板函数，把输入的左值或右值转换为右值引用类型的临终值。其核心是强制类型转换static_cast<Type&&>()语句。
 
+### 移动构造函数
+```
+// 一般实现, 拷贝构造
+class ArrayWrapper
+{
+    public:
+        ArrayWrapper (int n)
+            : _p_vals( new int[ n ] )
+            , _size( n )
+        {}
+        // copy constructor
+        ArrayWrapper (const ArrayWrapper& other)
+            : _p_vals( new int[ other._size  ] )
+            , _size( other._size )
+        {
+            for ( int i = 0; i < _size; ++i )
+            {
+                _p_vals[ i ] = other._p_vals[ i ];
+            }
+        }
+        ~ArrayWrapper ()
+        {
+            delete [] _p_vals;
+        }
+    private:
+    int *_p_vals;
+    int _size;
+};
+
+// 使用移动构造函数实现
+class ArrayWrapper
+{
+public:
+    // default constructor produces a moderately sized array
+    ArrayWrapper ()
+        : _p_vals( new int[ 64 ] )
+        , _size( 64 )
+    {}
+ 
+    ArrayWrapper (int n)
+        : _p_vals( new int[ n ] )
+        , _size( n )
+    {}
+ 
+    // move constructor
+    ArrayWrapper (ArrayWrapper&& other)
+        : _p_vals( other._p_vals  )
+        , _size( other._size )
+    {
+        other._p_vals = NULL;
+        other._size = 0;
+    }
+ 
+    // copy constructor
+    ArrayWrapper (const ArrayWrapper& other)
+        : _p_vals( new int[ other._size  ] )
+        , _size( other._size )
+    {
+        for ( int i = 0; i < _size; ++i )
+        {
+            _p_vals[ i ] = other._p_vals[ i ];
+        }
+    }
+    ~ArrayWrapper ()
+    {
+        delete [] _p_vals;
+    }
+ 
+private:
+    int *_p_vals;
+    int _size;
+};
+
+
+```
+
 ### 示例测试 
 代码:
 ```
