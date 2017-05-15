@@ -24,4 +24,11 @@
 		{{ if .Site.Params.enableRSS }}
 		<link href="{{ .Site.RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
 		{{ end }}
+
+		{{ if .Site.Params.enableCanvas }}
+		<style>
+		.canvas-box{position: fixed;left: 0;top: 0;z-index: -1;}
+		.nav-box{z-index: 10;color:#fff;transform: translate(-50%,-50%);}
+		</style>	
+		{{ end }}
 	</head>

@@ -1,5 +1,6 @@
 	{{ partial "head.html" . }}
 	<body>
+	<div class="body-box">
 	{{ partial "nav.html" . }}
 	{{ partial "profile.html" . }}
 
@@ -24,6 +25,13 @@
 
 	<div class="dd">
 	</div>
+	</div>
+
+	{{ if .Site.Params.enableCanvas }}
+	<div class="canvas-box">
+		<canvas id="canvas"></canvas>
+	</div>
+	{{ end }}
 
 	{{ partial "js.html" . }}
 	</body>
