@@ -7,7 +7,12 @@ title = "Rust 原生类型"
 
 +++
 
-## 布尔型 bool
+Rust是基于表达式的语言, 它只有两种语句:
+* 声明语句
+* 表达式语句
+其它一切是表达式.
+
+### 布尔型 bool
 
 bool型只有两种值, `true` or `false` :
 
@@ -16,7 +21,7 @@ let x = true；// 声明不可变绑定x, rust自动推导出类型为bool型 ru
 let y: bool = false；// 声明bool型不可变绑定y
 ```
 
-## char
+### char
 
 `char` 类型代表一个单独的 Unicode 字符的值。你可以用单引号（ `'` ）创建 `char` ：
 
@@ -120,7 +125,7 @@ let z = tuple.2;
 在Rust中函数也是一个类型
 
 ```
-fn foo(x: i32) -> i32 { x } // 函数实例
+fn foo(x: i32) -> i32 { x } // 函数实例, 返回值为x
 
 let x: fn(i32) -> i32 = foo; // 将函数foo绑定到x上
 ```
