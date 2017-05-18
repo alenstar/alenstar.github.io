@@ -16,6 +16,7 @@ hasCJKLanguage = true
 	enableRSS = false
 	
 	enableCanvas = false
+	enableJQComments = true
 
 	# Disqus comment
 	disqusShortname = "https-alenstar-github-io"

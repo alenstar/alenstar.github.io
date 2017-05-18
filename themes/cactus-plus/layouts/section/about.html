@@ -15,6 +15,10 @@
         {{ partial "duoshuo.html" . }}
     {{ end }}
 
+    {{ if .Site.Params.enableJQComments }}
+        {{ partial "jqcomments.html" . }}
+    {{ end }}
+    
     {{ partial "footer.html" . }}
 </section>
 
