@@ -17,7 +17,8 @@ hasCJKLanguage = true
 	
 	enableCanvas = false
 	enableJQComments = true
-
+    enableShare = false
+    
 	# Disqus comment
 	disqusShortname = "https-alenstar-github-io"
 	# Disable disqus comments by set `enableDisqus = "false"`

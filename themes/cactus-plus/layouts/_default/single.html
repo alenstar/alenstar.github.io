@@ -35,7 +35,11 @@
                     {{ .Content }}
                 </section>
             </article>
-
+            
+            {{ if .Site.Params.enableShare }}
+                {{ partial "bdshare.html" . }}
+            {{ end }}
+            
             {{ if .Site.Params.enableGithubIssuesTips }}
                 {{ partial "github-issues-tip.html" . }}
             {{ end }}
