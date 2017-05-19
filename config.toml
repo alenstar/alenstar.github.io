@@ -16,7 +16,7 @@ hasCJKLanguage = true
 	enableRSS = false
 	
 	enableCanvas = false
-	enableJQComments = true
+	enableJQComments = false
     enableShare = false
     
 	# Disqus comment
