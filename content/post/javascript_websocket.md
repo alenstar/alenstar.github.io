@@ -34,12 +34,20 @@ title = "websocket Javascript 客户端"
 > readyState 连接状态， 只读  
  
 #### ES6封装
+
+定义连接状态常量
+
 ```
-  const WsStateDisconnected = 0;
-  const WsStateDisconnecting = 1;
-  const WsStateConnected = 2;
-  const WsStateConnecting = 3;
-  class SimpleWSocket {
+  const WsStateDisconnected = 0; // 连接断开
+  const WsStateDisconnecting = 1; // 正在断开连接
+  const WsStateConnected = 2; // 连接正常
+  const WsStateConnecting = 3; // 正在连接
+```
+
+构造websocket对象
+
+```
+class SimpleWSocket {
     constructor(url) {
       this.wsState = WsStateDisconnected;
       this.timer = null;
@@ -47,7 +55,10 @@ title = "websocket Javascript 客户端"
       this.ws = null;
       this.isreconnect = false;
     }
+}
+```
 
+```
     connect() {
         if (this.wsState === WsStateConnected) {
           this.disconnect();
@@ -107,7 +118,9 @@ title = "websocket Javascript 客户端"
         }
       }.bind(this);
     }
+```
 
+```
     disconnect() {
       this.setreconnect(false);
       if (this.ws !== null) {
@@ -147,6 +160,12 @@ title = "websocket Javascript 客户端"
       }
     }
 
+```
+
+继承实现自定义处理方法
+
+```
+class SimpleWSocket {
     // virtual function
     onclose() {
       // TODO
