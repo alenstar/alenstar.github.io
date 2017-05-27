@@ -154,8 +154,8 @@ object Singleton {
  * 可以使用companion修饰单例，则访问其属性或方法时，允许省略单例名
  * SingletonClass.doSomething() // 访问内部单例对象方法
  */
-class SingletonClass {
-    companion object Singleton {
+class Singleton {
+    companion object {
         fun doSomething() {
             println("doSomething")
         }
