@@ -2,7 +2,7 @@
 categories = ["y"]
 date = "2017-05-27T16:42:34+08:00"
 description = "html5带来了websocket, 可以实时双向通信，传送二进制数据， 为web应用带来了更多的可能；本例使用ES6进行封装，实现自动重连"
-tags = ["javascript", "development"]
+tags = ["javascript"]
 title = "websocket Javascript 客户端"
 
 +++
@@ -83,6 +83,7 @@ class SimpleWSocket {
               // TODO process arraybuffer message
           }
         }
+        this.onmessage(e.data);
       }.bind(this);
 
       this.ws.onclose = function (e) {

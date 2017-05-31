@@ -2,7 +2,7 @@
 categories = ["y"]
 date = "2017-05-27T14:52:02+08:00"
 description = "还在为实现单例而纠结吗？， 来用kotlin吧， 简单的关键字就能实现单例。"
-tags = ["java", "kotlin", "development"]
+tags = ["java", "kotlin"]
 title = "Java 和 Kotlin 单例实现"
 
 +++

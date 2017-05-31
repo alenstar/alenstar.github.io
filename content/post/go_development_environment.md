@@ -2,7 +2,7 @@
 categories = ["y"]
 date = "2017-05-12T23:50:33+08:00"
 description = "Go语言是谷歌推出的一种全新的编程语言， 可以在不损失应用程序性能的情况下降低代码的复杂性。"
-tags = ["go", "golang", "development"]
+tags = ["go"]
 title = "golang开发环境搭建"
 
 +++

@@ -2,7 +2,7 @@
 categories = ["y"]
 date = "2017-05-14T08:39:43+08:00"
 description = "c++11 的推出, 带来了一系列新特性, 如auto自动类型推导, std::tuple元组"
-tags = ["c/c++", "development"]
+tags = ["c/c++"]
 title = "C++11 类型推导和元组"
 
 +++

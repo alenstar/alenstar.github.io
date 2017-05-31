@@ -2,7 +2,7 @@
 categories = ["y"]
 date = "2017-05-13T13:28:13+08:00"
 description = "C++11发布已久, 然而对于很多新特性, 还不了解. 这次抽时间学习一下 移动语义和右值引用(T&&) "
-tags = ["c/c++", "development"]
+tags = ["c/c++"]
 title = "C++11 移动语义和右值引用"
 +++
 

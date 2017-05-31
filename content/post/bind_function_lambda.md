@@ -2,7 +2,7 @@
 categories = ["y"]
 date = "2017-05-14T07:48:00+08:00"
 description = "std::bind, std::function 和 lambda表达式, 这一系列函数可以极大地提高c++编程效率. "
-tags = ["c/c++", "development"]
+tags = ["c/c++"]
 title = "C++11 bind function & lambda expressions"
 
 +++

@@ -2,7 +2,7 @@
 categories = ["y"]
 date = "2017-05-13T20:42:57+08:00"
 description = "Rust 是一种系统编程语言。 它具有惊人的运行速度，能够防止程序错误，并保证了线程安全。"
-tags = ["rust", "development"]
+tags = ["rust"]
 title = "Rust开发环境搭建"
 
 +++

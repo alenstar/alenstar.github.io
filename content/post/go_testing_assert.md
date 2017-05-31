@@ -2,7 +2,7 @@
 categories = ["y"]
 date = "2017-05-14T15:30:18+08:00"
 description = "go 标准库提供测试框架, 但是它还不够简洁, assert库提供更加简洁的断言测试"
-tags = ["go", "golang", "development"]
+tags = ["go"]
 title = "go 单元测试框架 assert"
 
 +++

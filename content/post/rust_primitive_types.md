@@ -2,7 +2,7 @@
 categories = ["y"]
 date = "2017-05-15T22:10:40+08:00"
 description = "Rust 有一系列被认为是“原生”的类型。这意味着它们是内建在语言中的。Rust被构建为在标准库中也提供了一些建立在这些类型之上的有用的类型，不过它们也大部分是原生的。"
-tags = ["rust", "development"]
+tags = ["rust"]
 title = "Rust 原生类型"
 
 +++
