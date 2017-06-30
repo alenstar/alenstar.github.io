@@ -241,19 +241,19 @@ func test12() {
     c := make(chan string, 1)
     c <- time.Now().String()
     select {
-	case s := <-c:
-		fmt.Println(s) // ok
-	default:
-		fmt.Println("chan empty 1")
-	}
-	select {
-	case s := <-c:
-		fmt.Println(s) 
-	case <-time.After(time.Second * 3):
-		fmt.Println("timeout 3s")
-	//default:
-	//	fmt.Println("chan empty 2")
-	}
+    case s := <-c:
+        fmt.Println(s) // ok
+    default:
+        fmt.Println("chan empty 1")
+    }
+    select {
+    case s := <-c:
+        fmt.Println(s) 
+    case <-time.After(time.Second * 3):
+        fmt.Println("timeout 3s")
+    //default:
+    //  fmt.Println("chan empty 2")
+    }
 }
 ```
 
