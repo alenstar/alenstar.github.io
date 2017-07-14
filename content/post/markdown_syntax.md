@@ -1,12 +1,13 @@
 +++
 categories = ["y"]
 date = "2017-07-14T09:37:22+08:00"
-description = "Markdown 语法说明"
+description = "Markdown 基本语法说明"
 tags = ["markdown"]
 title = "引用 https://daringfireball.net/projects/markdown 的Markdown语法说明， 方便查阅， 有时间再翻译吧。"
 
 +++
 
+[Github上的Markdown语法说明](https://guides.github.com/features/mastering-markdown/)
 
 Markdown: Syntax
 ================
