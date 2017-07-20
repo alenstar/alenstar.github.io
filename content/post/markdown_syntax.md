@@ -1,7 +1,7 @@
 +++
 categories = ["y"]
 date = "2017-07-14T09:37:22+08:00"
-description = "引用 https://daringfireball.net/projects/markdown 的Markdown语法说明， 方便查阅， 有时间再翻译吧。"
+description = "内容引用 daringfireball.net/projects/markdown 的Markdown语法说明, 方便查阅, 有时间再翻译吧. "
 tags = ["markdown"]
 title = "Markdown 基本语法说明"
 
