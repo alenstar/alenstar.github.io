@@ -54,7 +54,7 @@ if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
 endif()
 
 # 设置变量 PROJECT_NAME 并初始化， 使用 ${XXX} 引用, 如: ${PROJECT_NAME} 
-set(PROJECT_NAME "cmark")
+set(PROJECT_NAME "xxx")
 
 add_definitions(-DDEBUG) # 添加宏定义
 
@@ -65,8 +65,8 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -ggdb")
 include_directories(src) 
 include_directories(include) 
 
-# 设置 CMARK_TESTS 为 OFF
-set(CMARK_TESTS OFF CACHE BOOL "")
+# 设置 XXX_TESTS 为 OFF
+set(XXX_TESTS OFF CACHE BOOL "")
 # 添加子目录, 子目录要包含CMakeLists.txt文件
 add_subdirectory(src) 
 
@@ -92,13 +92,13 @@ project(lib) # 项目名称
 # 可以在 add_subdirectory(xxx) 时用 set(XXX OFF|ON CACHE BOOL "") 来设置值
 #        名称 描述        默认值[ON | OFF]
 # option(XXX "描述 ... " ON) 
-option(CMARK_TESTS "Build cmark tests and enable testing" ON)
-option(CMARK_STATIC "Build static library" ON)
-option(CMARK_SHARED "Build shared library" ON)
+option(XXX_TESTS "Build xxx tests and enable testing" ON)
+option(XXX_STATIC "Build static library" ON)
+option(XXX_SHARED "Build shared library" ON)
 
 # 根据 option 条件编译
 # if 语句 支持逻辑运算 [AND | OR | NOT] ; #支持else分支: if() else() endif()
-if(CMARK_TESTS) 
+if(XXX_TESTS) 
   # TODO
   # enable_testing()
   # add_subdirectory(test testdir)
