@@ -34,22 +34,52 @@ myproject  # 工程目录
 ### 入口CMakeLists.txt文件分析
 
 ```
-cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR) # 设置最低cmake版本要求
+# 设置最低cmake版本要求
+cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR) 
 
-project(myproject) # 设置项目名称
+#支持 pkg-config
+include(FindPkgConfig)
+#检查 libcurl cairo 等模块， 并获取它们的LIBS和INCLUDE, 结果保存到变量 LB_LIBS_XXX 中
+# LB_LIBS_INCLUDE_DIRS # 保存包含路径
+# LB_LIBS_LIBRARIES # 保存连接库
+pkg_check_modules(LB_LIBS REQUIRED libcurl cairo）
+
+
+# 设置项目名称
+project(myproject) 
+
+# 检查编译目录和源码是否为同一目录， 如果是则提示错误
+if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+    message(FATAL_ERROR "Do not build in-source.\nPlease remove CMakeCache.txt and the CMakeFiles/ directory.\nThen: mkdir build ; cd build ; cmake .. ; make")
+endif()
+
+# 设置变量 PROJECT_NAME 并初始化， 使用 ${XXX} 引用, 如: ${PROJECT_NAME} 
+set(PROJECT_NAME "cmark")
 
 add_definitions(-DDEBUG) # 添加宏定义
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -ggdb") // 设置CMAKE_C_FLAGS, `${CMAKE_C_FLAGS}` 可取出CMAKE_C_FLAGS的值
+# 设置CMAKE_C_FLAGS, `${CMAKE_C_FLAGS}` 可取出CMAKE_C_FLAGS的值
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -ggdb") 
 
-include_directories(src) # 添加include目录
+# 添加include目录(-l)
+include_directories(src) 
 include_directories(include) 
 
-add_subdirectory(src) # 添加子目录, 子目录要包含CMakeLists.txt文件
+# 设置 CMARK_TESTS 为 OFF
+set(CMARK_TESTS OFF CACHE BOOL "")
+# 添加子目录, 子目录要包含CMakeLists.txt文件
+add_subdirectory(src) 
 
-add_executable(example example.c) # 添加可执行文件 example 的生成规则, 后面接依赖文件或者文件列表
-target_link_libraries(example lib) # 设置可执行文件 example 的链接库, 后面接的可以是系统库, 也可以是 子目录下的自定义库
+# 添加可执行文件 example 的生成规则, 后面接依赖文件或者文件列表
+add_executable(example example.c) 
+# 设置可执行文件 example 的链接库, 后面接的可以是系统库, 也可以是 子目录下的自定义库
+target_link_libraries(example lib) 
 
+# 检测是否配置了编译类型[Release|Debug], 如果没有配置则配置为Release
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Release" CACHE STRING
+  "Choose the type of build, options are: Debug Profile Release Asan Ubsan." FORCE)
+endif(NOT CMAKE_BUILD_TYPE)
 ```
 
 ### 子CMakeLists.txt文件
@@ -58,12 +88,32 @@ target_link_libraries(example lib) # 设置可执行文件 example 的链接库,
 cmake_minimum_required(VERSION 2.6) / cmake 版本要求
 project(lib) # 项目名称
 
-include_directories(./) # 设置包含目录( `./` 当前目录)
+# 设置option 
+# 可以在 add_subdirectory(xxx) 时用 set(XXX OFF|ON CACHE BOOL "") 来设置值
+#        名称 描述        默认值[ON | OFF]
+# option(XXX "描述 ... " ON) 
+option(CMARK_TESTS "Build cmark tests and enable testing" ON)
+option(CMARK_STATIC "Build static library" ON)
+option(CMARK_SHARED "Build shared library" ON)
 
-set(SRC_FILES arch.c base.c common.c data.c) # 设置文件列表SRC_FILES (自定义名称) 的文件内容( 包含的文件 )
+# 根据 option 条件编译
+# if 语句 支持逻辑运算 [AND | OR | NOT] ; #支持else分支: if() else() endif()
+if(CMARK_TESTS) 
+  # TODO
+  # enable_testing()
+  # add_subdirectory(test testdir)
+endif()
 
-add_library(lib STATIC ${SRC_FILES}) # 添加静态库 lib 的生成规则, 依赖 SRC_FILES
-add_library(lib_shared SHARED ${SRC_FILES}) # 添加动态态库 lib 的生成规则, 依赖 SRC_FILES
+# 设置包含目录( `./` 当前目录)
+include_directories(./) 
+
+# 设置文件列表SRC_FILES (自定义名称) 的文件内容( 包含的文件 )
+set(SRC_FILES arch.c base.c common.c data.c) 
+
+# 添加静态库 lib 的生成规则, 依赖 SRC_FILES
+add_library(lib STATIC ${SRC_FILES}) 
+# 添加动态态库 lib 的生成规则, 依赖 SRC_FILES
+add_library(lib_shared SHARED ${SRC_FILES}) 
 ```
 
 ### 构建项目
