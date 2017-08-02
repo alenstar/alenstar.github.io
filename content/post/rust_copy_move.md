@@ -41,13 +41,10 @@ impl S {
 }
 
 fn main() {
-    let set_flag = |mut s: S| { s.set_flag(true); };
+    let set_flag = |mut s: S| { s.set_flag(true); s.print();};
     let mut s = S::new();
     // 自动 copy s ， 机使用 Copy 语义
     set_flag(s);
-    s.print();
-
-    let mut s = S::new();
     s.print();
 }
 
