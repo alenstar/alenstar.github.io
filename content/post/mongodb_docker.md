@@ -14,6 +14,10 @@ title = "Docker下部署MongoDB"
 # ExecStart=/usr/bin/docker daemon -g /opt/docker -H fd:// $DOCKER_OPTS
 # /opt/docker 为自定义目录 
 vim /lib/systemd/system/docker.service
+
+# restart server
+systemctl reload
+systemctl d
 ```
 
 2. ENTRYPOINT 与 CMD
