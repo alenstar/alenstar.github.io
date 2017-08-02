@@ -10,6 +10,9 @@ title = "Docker下部署MongoDB"
 1. 修改Docker默认的镜像目录
 
 ```
+# stop server
+systemctl stop docker
+
 # 用以下一行来替换 ExecStart=/usr/bin/dockerd -H fd:// $DOCKER_OPTS
 # ExecStart=/usr/bin/docker daemon -g /opt/docker -H fd:// $DOCKER_OPTS
 # /opt/docker 为自定义目录 
@@ -17,7 +20,7 @@ vim /lib/systemd/system/docker.service
 
 # restart server
 systemctl reload
-systemctl d
+systemctl start docker
 ```
 
 2. ENTRYPOINT 与 CMD
