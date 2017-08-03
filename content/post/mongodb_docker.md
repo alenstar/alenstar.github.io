@@ -18,8 +18,9 @@ systemctl stop docker
 # /opt/docker 为自定义目录 
 vim /lib/systemd/system/docker.service
 
-# restart server
-systemctl reload
+# reload configuration
+systemctl daemon-reload 
+# start server
 systemctl start docker
 ```
 
