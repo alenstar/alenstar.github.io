@@ -2,7 +2,7 @@
 categories = ["y"]
 date = "2017-08-02T15:56:36+08:00"
 description = ""
-tags = ["docker"， “mongodb”]
+tags = ["docker", "mongodb"]
 title = "Docker下部署MongoDB"
 
 +++
