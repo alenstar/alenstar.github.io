@@ -20,3 +20,17 @@ alias youdao='python3 /opt/skill/youdao.py'
 # 命令别名 findstr for string search within file
 alias findstr='find `pwd` -type f |xargs grep -s -i -n --binary-files=without-match'
 ```
+
+3. Shell 重定向
+
+>
+0表示标准输入  
+1表示标准输出  
+2表示标准错误输出  
+> 默认为标准输出重定向，与 1> 相同  
+2>&1 意思是把 标准错误输出 重定向到 标准输出.  
+&>file 意思是把 标准输出 和 标准错误输出 都重定向到文件file中  
+
+
+
+
