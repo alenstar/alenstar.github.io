@@ -16,6 +16,7 @@ title = "网站收集"
     + [libuv中文教程](http://luohaha.github.io/Chinese-uvbook)
     + [Deep into Node](https://yjhjstz.gitbooks.io/deep-into-node)
     + [Dlib](http://dlib.net/)
+    + [Google-cpp-styleguide](http://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide)
     
 2. Golang
     
