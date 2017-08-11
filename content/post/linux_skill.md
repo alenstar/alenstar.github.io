@@ -32,5 +32,47 @@ alias findstr='find `pwd` -type f |xargs grep -s -i -n --binary-files=without-ma
 &>file 意思是把 标准输出 和 标准错误输出 都重定向到文件file中  
 
 
+4. Docker 镜像加速
+
+修改(不存在则创建) /etc/docker/daemon.json 文件并添加上 registry-mirrors 键值。
+
+```
+{
+  "registry-mirrors": ["https://registry.docker-cn.com"]
+}
+```
+
+重启 Docker
+
+```
+systemctl daemon-reload
+systemctl restart docker
+```
+
+5. npm 镜像加速
+
+安装 cnpm 
+
+```
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+```
+
+或者使用别名
+
+```
+alias cnpm="npm --registry=https://registry.npm.taobao.org \
+--cache=$HOME/.npm/.cache/cnpm \
+--disturl=https://npm.taobao.org/dist \
+--userconfig=$HOME/.cnpmrc"
+
+# Or alias it in .bashrc or .zshrc
+$ echo '\n#alias for cnpm\nalias cnpm="npm --registry=https://registry.npm.taobao.org \
+  --cache=$HOME/.npm/.cache/cnpm \
+  --disturl=https://npm.taobao.org/dist \
+  --userconfig=$HOME/.cnpmrc"' >> ~/.zshrc && source ~/.zshrc
+```
+
+使用 cnpm 替代 npm
+
 
 
