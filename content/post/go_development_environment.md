@@ -21,7 +21,7 @@ go将从这里寻找package, go get 下载的package将保存刀$GOPATH/src目�
 
 ```   
 $ sudo echo "export GOPATH=$HOME/workspace/golang" >> ~/.bashrc  
-$ sudo echo "export export PATH=$GOPATH/bin:$PATH" >> ~/.bashrc  
+$ sudo echo "export PATH=$GOPATH/bin:$PATH" >> ~/.bashrc  
 ```  
 
 #### 2. 测试golang环境  

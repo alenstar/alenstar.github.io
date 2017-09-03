@@ -1,7 +1,7 @@
 +++
 categories = ["y"]
 date = "2017-08-02T15:56:36+08:00"
-description = ""
+description = "一步一步打造容器化MongoDB"
 tags = ["docker", "mongodb"]
 title = "Docker下部署MongoDB"
 

@@ -16,7 +16,8 @@ title = "网站收集"
     + [libuv中文教程](http://luohaha.github.io/Chinese-uvbook)
     + [Deep into Node](https://yjhjstz.gitbooks.io/deep-into-node)
     + [Dlib](http://dlib.net/)
-
+    + [Google-cpp-styleguide](http://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide)
+    
 2. Golang
     
     + [Build web application with Golang](https://astaxie.gitbooks.io/build-web-application-with-golang)
@@ -48,3 +49,4 @@ title = "网站收集"
     + [Raft协议演示动画](http://thesecretlivesofdata.com/raft/)
     + [以太坊wiki](https://github.com/ethereum/wiki)
     + [QML Book](https://cwc1987.gitbooks.io/qmlbook-in-chinese)
+    + [Learn OpenGL Chiness](https://learnopengl-cn.readthedocs.io/zh)
