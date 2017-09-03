@@ -16,34 +16,35 @@ title = "网站收集"
     + [libuv中文教程](http://luohaha.github.io/Chinese-uvbook)
     + [Deep into Node](https://yjhjstz.gitbooks.io/deep-into-node)
     + [Dlib](http://dlib.net/)
-    
+
 2. Golang
     
     + [Build web application with Golang](https://astaxie.gitbooks.io/build-web-application-with-golang)
     + [ACL, RBAC, ABAC 角色控制模块](https://github.com/casbin/casbin)
-    
+
 3. Rust
     
     + [Rust By Example](https://rustbyexample.com)
     + [Rust-book-chinese](https://kaisery.gitbooks.io/rust-book-chinese)
     + [Rust Primer](https://rustcc.gitbooks.io/rustprimer)
     + [Rust macro](https://daseinphaos.github.io/tlborm-chinese/book)
-    
+
 4. Python
 
     + [Python-data-structure-cn](https://facert.gitbooks.io/python-data-structure-cn)
-    
+
 5. Linux
 
     + [Linux-insides-cn](https://xinqiu.gitbooks.io/linux-insides-cn)
-    
+
 6. Vue
 
     + [Vue官方文档](https://router.vuejs.org/zh-cn)
-        
+
 6. Other
     
     + [Rust Play](https://play.rust-lang.org)
     + [编程学习-书籍](https://www.markbj.com/book/)
     + [Raft协议演示动画](http://thesecretlivesofdata.com/raft/)
     + [以太坊wiki](https://github.com/ethereum/wiki)
+    + [QML Book](https://cwc1987.gitbooks.io/qmlbook-in-chinese)
