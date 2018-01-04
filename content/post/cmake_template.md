@@ -95,7 +95,7 @@ endif(NOT CMAKE_BUILD_TYPE)
 ### 子CMakeLists.txt文件
 
 ```
-cmake_minimum_required(VERSION 2.6) / cmake 版本要求
+cmake_minimum_required(VERSION 2.6) # cmake 版本要求
 project(lib) # 项目名称
 
 # 设置option 
@@ -157,4 +157,58 @@ set_target_properties(myTarget PROPERTIES
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF
 )
+```
+
+###  其他
+
+```
+# copy local file
+#configure_file(${CMAKE_SOURCE_DIR}/libsqlite3.so ${CMAKE_BINARY_DIR}/libsqlite3.so COPYONLY)
+
+# add local library
+add_library(sqlite3 SHARED IMPORTED) # or STATIC instead of SHARED
+set_target_properties(sqlite3 PROPERTIES
+   IMPORTED_LOCATION "${USER_LIB_PATH}/libsqlite3.so"
+#   INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/include")
+#target_link_libraries(<TARGET> sqlite3)
+```
+
+### OS define
+
+```
+if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    set(WINDOWS TRUE)
+    message(WARNING "only for Windows")
+else()
+    set(LINUX TRUE)
+    message(WARNING "only for linux")
+endif()
+```
+
+### cross build
+
+```
+if(BUILD_FOR_ARM)
+    SET(CROSS_TOOLS_PATH /opt/crosstools/arm-2009q3/bin/arm-none-linux-gnueabi)
+    SET(CROSS_ROOT_PATH /opt/crosstools/sys-root)
+
+    # this one is important
+    SET(CMAKE_SYSTEM_NAME Linux)
+    #this one not so much
+    SET(CMAKE_SYSTEM_VERSION 1)
+
+    # specify the cross compiler
+    SET(CMAKE_C_COMPILER   ${CROSS_TOOLS_PATH}-gcc)
+    SET(CMAKE_CXX_COMPILER ${CROSS_TOOLS_PATH}-g++)
+
+    # where is the target environment
+    SET(CMAKE_FIND_ROOT_PATH  ${CROSS_ROOT_PATH})
+
+    # search for programs in the build host directories
+    SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+    # for libraries and headers in the target directories
+    SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+    SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+endif()
+
 ```
