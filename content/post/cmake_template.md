@@ -53,6 +53,16 @@ if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
     message(FATAL_ERROR "Do not build in-source.\nPlease remove CMakeCache.txt and the CMakeFiles/ directory.\nThen: mkdir build ; cd build ; cmake .. ; make")
 endif()
 
+if( CMAKE_BUILD_TYPE STREQUAL "Release" )
+    add_definitions(-DNODEBUG)
+else()
+    add_definitions(-DDEBUG)
+	#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -ggdb")
+	#set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -ggdb")
+	#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -ggdb")
+	#set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -ggdb")
+set(CMAKE_CXX_STANDARD 11)
+
 # 设置变量 PROJECT_NAME 并初始化， 使用 ${XXX} 引用, 如: ${PROJECT_NAME} 
 set(PROJECT_NAME "xxx")
 
