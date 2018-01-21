@@ -161,6 +161,19 @@ set_target_properties(myTarget PROPERTIES
 )
 ```
 
+### 设置运行时库搜索路径 (gcc -Wl,-rpath=./)
+
+```
+set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+set(CMAKE_INSTALL_RPATH "./")
+```
+
+### 设置链接时库搜索路径 (gcc -L./)
+
+```
+LINK_DIRECTORIES("./lib")
+```
+
 ###  其他-使用自定义动态/静态库
 
 ```
