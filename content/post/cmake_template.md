@@ -61,6 +61,8 @@ else()
 	#set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0 -ggdb")
 	#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -O0 -ggdb")
 	#set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb")
+endif()
+	
 set(CMAKE_CXX_STANDARD 11)
 
 # 设置变量 PROJECT_NAME 并初始化， 使用 ${XXX} 引用, 如: ${PROJECT_NAME} 
@@ -159,18 +161,47 @@ set_target_properties(myTarget PROPERTIES
 )
 ```
 
-###  其他
+###  其他-使用自定义动态/静态库
 
 ```
-# copy local file
-#configure_file(${CMAKE_SOURCE_DIR}/libsqlite3.so ${CMAKE_BINARY_DIR}/libsqlite3.so COPYONLY)
+# copy local file 拷贝文件
+configure_file(${CMAKE_SOURCE_DIR}/libsqlite3.so ${CMAKE_BINARY_DIR}/libsqlite3.so COPYONLY)
 
-# add local library
+# add local library 添加库文件
 add_library(sqlite3 SHARED IMPORTED) # or STATIC instead of SHARED
+
+# 设置库文件属性（文件路径，头文件目录）
 set_target_properties(sqlite3 PROPERTIES
-   IMPORTED_LOCATION "${USER_LIB_PATH}/libsqlite3.so"
-#   INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/include")
-#target_link_libraries(<TARGET> sqlite3)
+   IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/libsqlite3.so"
+   INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/include")
+
+# 添加到链接目标
+target_link_libraries(<TARGET> sqlite3)
+```
+
+### 使用自定义命令
+
+```
+# 添加命令， OUTPUT 输出， COMMAND 命令
+add_custom_command(
+    OUTPUT  ${CMAKE_BINARY_DIR}/message.proto3.pb.cc
+    COMMAND ${PROTOC} --cpp_out=${CMAKE_BINARY_DIR} --proto_path=${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/message.proto3
+)
+# 添加到 OUTPUT 到 SRCS 变量中 （OUTPUT必须被依赖，否则不会执行命令）
+List (APPEND SRCS  ${CMAKE_BINARY_DIR}/message.proto3.pb.cc)
+```
+
+### 包含cmake格式的配置文件
+
+```
+include(xxxx.cmake)
+```
+
+### 包含子工程
+
+```
+# 添加子目录, 子目录要包含CMakeLists.txt文件
+add_subdirectory(subdir) 
 ```
 
 ### OS define
@@ -211,4 +242,36 @@ if(BUILD_FOR_ARM)
     SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 endif()
 
+```
+### 使用文件配置交叉编译工具链
+
+```
+# 文件 arm-none-linux-gnueabi-gcc.cmake
+SET(CROSS_TOOLS_PATH /opt/crosstools/arm-2009q3/bin/arm-none-linux-gnueabi)
+SET(CROSS_ROOT_PATH /opt/crosstools/sys-root)
+
+# this one is important
+SET(CMAKE_SYSTEM_NAME Linux)
+#this one not so much
+SET(CMAKE_SYSTEM_VERSION 1)
+
+# specify the cross compiler
+SET(CMAKE_C_COMPILER   ${CROSS_TOOLS_PATH}-gcc)
+SET(CMAKE_CXX_COMPILER ${CROSS_TOOLS_PATH}-g++)
+
+# where is the target environment
+SET(CMAKE_FIND_ROOT_PATH  ${CROSS_ROOT_PATH})
+
+# search for programs in the build host directories
+SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+# for libraries and headers in the target directories
+SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+```
+
+```
+# 使用交叉工具链编译工程
+mkdir build
+cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-linux-gnueabi-gcc.cmake ..
 ```
