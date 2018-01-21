@@ -17,6 +17,8 @@ title = "网站收集"
     + [Deep into Node](https://yjhjstz.gitbooks.io/deep-into-node)
     + [Dlib](http://dlib.net/)
     + [Google-cpp-styleguide](http://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide)
+    + [C++基础框架](https://github.com/acl-dev/acl)
+    + [C++优秀库](http://en.cppreference.com/w/cpp/links/libs)
     
 2. Golang
     
