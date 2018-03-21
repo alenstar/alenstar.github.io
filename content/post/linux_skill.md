@@ -125,3 +125,53 @@ UseTab: Never
 
 ```
 
+7. Linux 动态库符号导出
+	
+-fvisibility=hidden
+	
+>	gcc 在链接时设置 -fvisibility=hidden ，则不加 visibility 声明的都默认为 hidden ; 
+>	gcc 默认设置 -fvisibility=default，即全部可见；
+>	在 gcc 中加了这个设置之后表示所有的函数都是对外不可见了，
+>   然后在代码里面对于想公开的函数加上 __attribute__((visibility("default")))
+
+```
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef BUILDING_DLL
+    #ifdef __GNUC__
+      #define DLL_PUBLIC __attribute__((dllexport))
+    #else
+      #define DLL_PUBLIC __declspec(dllexport) // Note: actually gcc seems to also supports this syntax.
+    #endif
+  #else
+    #ifdef __GNUC__
+      #define DLL_PUBLIC __attribute__((dllimport))
+    #else
+      #define DLL_PUBLIC __declspec(dllimport) // Note: actually gcc seems to also supports this syntax.
+  #endif
+  #define DLL_LOCAL
+#else
+  #if __GNUC__ >= 4
+    #define DLL_PUBLIC __attribute__ ((visibility("default")))
+    #define DLL_LOCAL  __attribute__ ((visibility("hidden")))
+  #else
+    #define DLL_PUBLIC
+    #define DLL_LOCAL
+  #endif
+#endif
+```
+
+8. Linux 动态库路径
+
+编译时添加RPATH
+
+> -Wl,-rpath=./  
+
+将链接库的目录添加到/etc/ld.so.conf文件中
+
+设置运行是路径
+
+> export LD_LIBRARY_PATH=/opt/gtk/lib:$LD_LIBRARY_PATH
+
+从当前动态库找符号调用,避免调用到其他库的同名符号
+ 
+> -Wl,-Bsymbolic
