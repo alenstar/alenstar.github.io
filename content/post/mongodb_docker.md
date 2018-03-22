@@ -24,6 +24,14 @@ systemctl daemon-reload
 systemctl start docker
 ```
 
+新版的 docker 可以通过修改 `/etc/docker/daemon.json` (不存在可创建) 来配置 docker 镜像仓库
+
+```
+{
+  "registry-mirrors": ["https://registry.docker-cn.com"]
+}
+```
+
 2. ENTRYPOINT 与 CMD
 
 ```
