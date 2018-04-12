@@ -1,0 +1,247 @@
+    <!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="alenstar">
+		<meta name="description" content="alenstar blog">
+		<meta name="generator" content="Hugo 0.36.1" />
+		<title>发布个人博客 &middot; alenstar blog</title>
+		<link rel="shortcut icon" href="https://alenstar.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/style.css">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="https://alenstar.github.io/css/font-awesome.min.css">
+		
+
+		
+        
+        
+        
+		
+	</head>
+
+    <body>
+	<div class="body-box">
+       <nav class="main-nav">
+	
+	
+		<a href='https://alenstar.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://alenstar.github.io/post'>Archive</a>
+	<a href='https://alenstar.github.io/tags'>Tags</a>
+	<a href='https://alenstar.github.io/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        发布个人博客
+                    </h1>
+                    <h2 class="headline">
+                    May 13, 2017 07:41
+                    · 1493 words
+                    · 3 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://alenstar.github.io/tags/git">git</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    
+
+<h3 id="1-修改blog仓库设置">1. 修改blog仓库设置</h3>
+
+<p>github可以自动检测pages, 我们按它的规则发布到gh-pages分支, 或者发布到docs目录下, 通过YourName.github.io就可以进入我们的blog.</p>
+
+<p>但是笔者使用过程中发现发布到gh-pages分支时,访问blog的路径成了YourName.github.io/yourblog,没有实现我想要的效果, 访问blog的路径为YourName.github.io, 而发布到docs目录太麻烦, 而其不便于管理, 就不考虑了.</p>
+
+<p>于是笔者想到发布到master分支, 使用dev分支管理文章, master分支用于发布, 这就可以使用YourName.github.io域名直接访问blog.</p>
+
+<p>我们可以使用CI/CD服务来实现我们的blog的自动构建和发布, 这样可以省去手工构建和发布的繁琐事务, 每次 git push 之后自动构建并发布到master分支, 实现自动化运维.</p>
+
+<h4 id="1-1-建立dev分支-移除master分支">1.1 建立dev分支, 移除master分支</h4>
+
+<pre><code>#建立并进入dev分支
+$ git checkout -b dev
+#移除master分支
+$ git push origin --delete master
+$ git branch -d master
+#同步dev分支
+$ git push -u origin dev
+</code></pre>
+
+<h4 id="1-2-配置远程仓库">1.2 配置远程仓库</h4>
+
+<p>进入github仓库设置页面(Settings), 修改 repository name 为 YourName.github.io 这种形式.</p>
+
+<p>进入github仓库设置页面(Settings)下的Branches子页, 修改 Default branch 为 dev 分支</p>
+
+<h3 id="2-配置-ci-cd">2. 配置 CI/CD</h3>
+
+<p>CI/CD服务我们可以使用wercker, 它提供免费的服务.</p>
+
+
+<figure >
+    
+        <img src="/images/wercker.jpg" />
+    
+    
+</figure>
+
+
+<p>访问 (Wercker)[<a href="http://www.wercker.com/">http://www.wercker.com/</a>] , 选择 Get Started for free, 进入登录页面, 我们用github登录就可以啦.</p>
+
+<p>点击 Create 按钮创建一个Application, 选择 Use Github, 进入github仓库选择页面, 选择我们的blog仓库 YourName.github.io  其它默认, 直到Finsih.</p>
+
+<h4 id="2-1-配置wercker-yml">2.1 配置wercker.yml</h4>
+
+<p><em>yml文件使用空格缩进</em></p>
+
+<p>在Wercker的Registry下我们可以看到很多wercker.yml配置脚本, 这里我就直接贴出我的配置啦.</p>
+
+<pre><code>box: debian
+build:
+  steps:
+    - arjen/hugo-build:
+        theme: cactus-plus
+        flags: --buildDrafts=true
+    - script:
+        name: ls stuff
+        code: |
+          ls -haltr /pipeline/source/public
+
+deploy:
+  steps:
+    - script:
+        name: ls output
+        code: |
+          ls -haltr /pipeline/output
+    - script:
+        name: ls source
+        code: |
+          ls -haltr /pipeline/source
+    - install-packages:
+        packages: git ssh-client liberror-perl
+    - sf-zhou/gh-pages@0.2.6:
+        token: $GIT_TOKEN
+        domain: alenstar.github.io
+        basedir: public
+        branch: master
+
+</code></pre>
+
+<p>按我个人的理解, box字段说明构建用的容器类型, build 和 deploy 是两个pipeline, 用于构建和部署的.</p>
+
+<p>build下的theme字段改成自己的主题名就好.</p>
+
+<p>deploy下的branch设置为master, 用于发布的分支； basedir是要发布的内容目录, 它是在build阶段生成.</p>
+
+<h4 id="2-2-提交wercker-yml-开始第一次构建">2.2 提交wercker.yml, 开始第一次构建</h4>
+
+<pre><code>$ git add wercker.yml 
+$ git commit -m &quot;added wercker.yml&quot;
+$ git push
+</code></pre>
+
+<p>回到Wercker下, 我们可以在Applications下blog应用的Runs看到构建脚本开始运行了.</p>
+
+<h4 id="2-3-配置wercker的workflows">2.3 配置Wercker的Workflows</h4>
+
+<p>回到Wercker下, 进入Applications, 选择我们的blog应用, 在Workflows下, 可以看到build pipeline, 现在我们要添加deploy pipeline 来实现自动部署, 点击 Add new pipeline, 设置Name 和 YML Pipeline name 为deploy, 然后Create即可.</p>
+
+<p>再回到Workflows下, 将deploy关联到build后面, 点&rdquo;+&ldquo;就可以的.</p>
+
+<h4 id="2-4-配置wercker的environment">2.4 配置Wercker的Environment</h4>
+
+<p>由于Wercker部署应用时要修改仓库(创建部署用分支), 所以要添加TOKEN.</p>
+
+<p>先到github的个人设置页面 Generate new token, 并拷贝.</p>
+
+<p>设置环境变量的Key为GIT_TOKEN(和wercker.yml下的deploy的token相同, 不含$符号), 将拷贝的token粘贴到Value下, 勾选Protected, 并添加.</p>
+
+<h3 id="3-触发workflow">3. 触发Workflow</h3>
+
+<p>在本地blog仓库下添加新文章, 编辑之后, 添加并提交到dev分支, 就可以触发Workflow, 在Wercker上我们可以看到各个阶段的执行情况.</p>
+
+<h3 id="4-访问我们的blog">4. 访问我们的blog</h3>
+
+<p>打开 <a href="https://YourName.github.io">https://YourName.github.io</a> 地址就可以访问我们的blog了.</p>
+
+                </section>
+            </article>
+            
+            
+            
+            
+
+            
+
+            
+
+            
+    
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/alenstar">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> alenstar
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+	</div>
+
+	
+
+        <script src="https://alenstar.github.io/js/jquery-2.2.4.min.js"></script>
+<script src="https://alenstar.github.io/js/main.js"></script>
+<script src="https://alenstar.github.io/js/highlight.min.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

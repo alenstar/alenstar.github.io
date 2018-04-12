@@ -1,0 +1,816 @@
+    <!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="alenstar">
+		<meta name="description" content="alenstar blog">
+		<meta name="generator" content="Hugo 0.36.1" />
+		<title>DuiLib xml配置项 &middot; alenstar blog</title>
+		<link rel="shortcut icon" href="https://alenstar.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/style.css">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="https://alenstar.github.io/css/font-awesome.min.css">
+		
+
+		
+        
+        
+        
+		
+	</head>
+
+    <body>
+	<div class="body-box">
+       <nav class="main-nav">
+	
+	
+		<a href='https://alenstar.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://alenstar.github.io/post'>Archive</a>
+	<a href='https://alenstar.github.io/tags'>Tags</a>
+	<a href='https://alenstar.github.io/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        DuiLib xml配置项
+                    </h1>
+                    <h2 class="headline">
+                    Jun 15, 2017 10:10
+                    · 3346 words
+                    · 7 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://alenstar.github.io/tags/c/c&#43;&#43;">c/c&#43;&#43;</a>
+                          
+                              <a href="https://alenstar.github.io/tags/duilib">duilib</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    <p>本文参考<a href="http://blog.csdn.net/wang03989/article/details/41577267">http://blog.csdn.net/wang03989/article/details/41577267</a>
+对部分不理解的地方添加自己的理解或者删除</p>
+
+<hr />
+
+<p>DUILibxml配置项</p>
+
+<p>Window 子节点属性</p>
+
+<blockquote>
+<p>|&mdash; Image 图片信息<br />
+|&mdash;&ndash; name string // 控件<br />
+|&mdash;&ndash; restype string // 资源类型 png，icon 等<br />
+|&mdash;&ndash; mask unsigned long  // 给不支持alpha通道的图片格式（如bmp）指定透明色<br />
+|<br />
+|&mdash; Font 字体信息<br />
+|&mdash; |&mdash; id string  // 字体ID， 可被其它标签引用<br />
+|&mdash; |&mdash; name string  // 字体名， 微软雅黑， 宋体 等<br />
+|&mdash; |&mdash; size long  // 字体大小
+|&mdash; |&mdash; bold bool  //  设置粗体
+|&mdash; |&mdash; underline bool // 设置下划线
+|&mdash; |&mdash; default bool // 设置为默认字体<br />
+|<br />
+|&mdash; Default 默认属性<br />
+|&mdash; |&mdash; name string  // 属性名
+|&mdash; |&mdash; value string // 属性值， 值内双引号 “ 用 &quot; 代替<br />
+|&mdash; |&mdash; shared bool // 是否共享</p>
+</blockquote>
+
+<p>Window 根节点属性</p>
+
+<blockquote>
+<p>|&mdash; size    窗体初始化大小 SIZE(int cx, int cy)<br />
+|&mdash; sizebox 窗体区域 RECT(long left, long top, long right,long bottom)<br />
+|&mdash; caption 窗体标题栏区域 RECT(long left, long top, long right,long bottom)<br />
+|&mdash; roundcorner 圆角大小 SIZE(int cx, int cy)<br />
+|&mdash; mininfo 窗体最小大小 SIZE(int cx, int cy)<br />
+|&mdash; maxinfo 窗体最大大小 SIZE(int cx, int cy)<br />
+|&mdash; showdirty 窗体显示 bool [true|false]<br />
+|&mdash; alpha 窗体透明度 int<br />
+|&mdash; bktrans 背景是否支持透明 bool [true|false]<br />
+|&mdash; disabledfontcolor 无效字体颜色 string #RRGGBBAA<br />
+|&mdash; defaultfontcolor 默认字体颜色 string #RRGGBBAA<br />
+|&mdash; linkfontcolor 链接正常字体色 string #RRGGBBAA<br />
+|&mdash; linkhoverfontcolor链接悬停字体色 string #RRGGBBAA<br />
+|&mdash; selectedcolor 字体被选后颜色 string #RRGGBBAA</p>
+</blockquote>
+
+<p>公共资源<br />
+Image</p>
+
+<blockquote>
+<p>|&mdash; file/res string  // 设置Image资源位置， 可以是文件或者资源ID（只能选其一）<br />
+|&mdash; restype string  // 设置资源类型（png,icon 等）， 在设置了res是有效<br />
+|&mdash; dest RECT(long left, long top, long right,long bottom) // 贴图的目标位置<br />
+|&mdash; source RECT(long left, long top, long right,long bottom) // 将要贴图的部分<br />
+|&mdash; corner RECT(long left, long top, long right,long bottom) // 按照scale9方式绘制（九宫格）<br />
+|&mdash; mask string #FFFFFFFF  // 给不支持alpha通道的图片格式（如bmp）指定透明色<br />
+|&mdash; fade byte  // 设置图片绘制的透明度<br />
+|&mdash; hole bool [true|false]  // 指定scale9绘制时要不要绘制中间部分<br />
+|&mdash; xtiled bool [true|false]  // x轴是否拉伸<br />
+|&mdash; ytiled bool [true|false]  // y轴是否拉伸<br />
+// 使用说明：<br />
+// aaa.jpg</p>
+
+<pre><code>file='aaa.jpg' dest='0,0,0,0' source='0,0,0,0' corner='0,0,0,0'  
+mask='#FF0000' fade='255' hole='false' xtiled='false' ytiled='false' 
+</code></pre>
+
+<pre><code>res='102' restype='jpg' dest='0,0,0,0' source='0,0,0,0' corner='0,0,0,0'  
+mask='#FF0000' fade='255' hole='false' xtiled='false' ytiled='false' 
+</code></pre>
+</blockquote>
+
+<p>控件Control</p>
+
+<p>控件基类<br />
+Control CControlUI</p>
+
+<blockquote>
+<p>|&mdash; pos RECT(long left, long top, long right,long bottom)<br />
+|&mdash; relativepos (int nMoveXPercent, int nMoveYPercent,int nZoomXPercent,int nZoomYPercent)<br />
+|&mdash; padding RECT(long left, long top, long right,long bottom)<br />
+|&mdash; bkcolor/bkcolor1 string #RRGGBBAA<br />
+|&mdash; bkcolor2 string #RRGGBBAA<br />
+|&mdash; bkcolor3 string #RRGGBBAA<br />
+|&mdash; bordercolor string #RRGGBBAA<br />
+|&mdash; focusbordercolor string #RRGGBBAA<br />
+|&mdash; bordersize int<br />
+|&mdash; borderround SIZE(int x, int y)<br />
+|&mdash; bkimage Image 背景图片属性<br />
+|&mdash; width int<br />
+|&mdash; height int<br />
+|&mdash; minwidth int<br />
+|&mdash; minheight int<br />
+|&mdash; maxwidth int<br />
+|&mdash; maxheight int<br />
+|&mdash; name string<br />
+|&mdash; text string<br />
+|&mdash; tooltip string<br />
+|&mdash; userdata string<br />
+|&mdash; enabled bool [true|false]<br />
+|&mdash; mouse bool [true|false]<br />
+|&mdash; visible bool [true|false]<br />
+|&mdash; float bool [true|false]<br />
+|&mdash; shortcut TCHAR<br />
+|&mdash; menu bool [true|false]</p>
+</blockquote>
+
+<p>容器<br />
+Container CContainerUI</p>
+
+<blockquote>
+<p>|&mdash; inset RECT(long left, long top, long right,long bottom)<br />
+|&mdash; mousechild bool [true|false]<br />
+|&mdash; vscrollbar bool [true|false]<br />
+|&mdash; hscrollbar bool [true|false]<br />
+|&mdash; childpadding int</p>
+</blockquote>
+
+<p>布局管理器</p>
+
+<p>VerticalLayout CVerticalLayoutUI : public CContainerUI // 垂直放置控件</p>
+
+<blockquote>
+<p>|&mdash; sepheight int<br />
+|&mdash; sepimm bool [true|false]<br />
+|&mdash; CContainerUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>HorizontalLayout CHorizontalLayoutUI : public CContainerUI // 水平放置控件</p>
+
+<blockquote>
+<p>|&mdash; sepwidth int<br />
+|&mdash; sepimm bool [true|false]<br />
+|&mdash; CContainerUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>DialogLayout CDialogLayoutUI : public CContainerUI</p>
+
+<blockquote>
+<p>|&mdash; CContainerUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>TileLayout CTitleLayoutUI : public CContainerUI</p>
+
+<blockquote>
+<p>|&mdash; columns int<br />
+|&mdash; CContainerUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>TabLayout CTabLayoutUI : public CContainerUI</p>
+
+<blockquote>
+<p>|&mdash; selectedid int<br />
+|&mdash; CContainerUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>Edit CEditUI : public CLabelUI  //编辑框</p>
+
+<blockquote>
+<p>|&mdash; readonly bool [true|false] // 设置为只读<br />
+|&mdash; password bool [true|false]  // 设置为密码框<br />
+|&mdash; maxchar int<br />
+|&mdash; normalimage Image 属性 // 通常状态图片<br />
+|&mdash; hotimage Image 属性 // 鼠标悬停状态图片<br />
+|&mdash; focusedimage Image 属性 // 焦点状态图片<br />
+|&mdash; disabledimage Image 属性 // 禁用状态图片<br />
+|&mdash; nativebkcolor string #RRGGBBAA<br />
+|&mdash; CLabelUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>List CListUI : public CVerticalLayoutUI, public IListUI // 列表</p>
+
+<blockquote>
+<p>|&mdash; header string bool [hidden|Show]<br />
+|&mdash; headerbkimage string path<br />
+|&mdash; scrollselect bool [true|false]<br />
+|&mdash; multiexpanding bool [true|false]<br />
+|&mdash; itemfont int Font列表的索引号<br />
+|&mdash; itemalign string enum [left|center|right]<br />
+|&mdash; itemendellipsis bool [true|false]<br />
+|&mdash; itemtextpadding RECT(long left, long top, long right,long bottom)<br />
+|&mdash; itemtextcolor string #RRGGBBAA<br />
+|&mdash; itembkcolor string #RRGGBBAA<br />
+|&mdash; itemimage string path<br />
+|&mdash; itemselectedtextcolor string #RRGGBBAA<br />
+|&mdash; itemselectedbkcolor string #RRGGBBAA<br />
+|&mdash; itemselectedimage string path<br />
+|&mdash; itemhottextcolor string #RRGGBBAA<br />
+|&mdash; itemhotbkcolor string #RRGGBBAA<br />
+|&mdash; itemhotimage Image 属性<br />
+|&mdash; |&mdash; file string path<br />
+|&mdash; |&mdash; corner RECT(long left, long top, long right,long bottom)<br />
+|&mdash; itemdisabledtextcolor string #RRGGBBAA<br />
+|&mdash; itemdisabledbkcolor string #RRGGBBAA<br />
+|&mdash; itemdisabledimage Image 属性<br />
+|&mdash; itemlinecolor string #RRGGBBAA<br />
+|&mdash; itemshowhtml bool [true|false]<br />
+|&mdash; CVerticalLayoutUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>ListHeaderItem CListHeaderItemUI : public CControlUI</p>
+
+<blockquote>
+<p>|&mdash; dragable bool [true|false]<br />
+|&mdash; sepwidth int<br />
+|&mdash; align string enum [left|center|right]<br />
+|&mdash; itemshowhtml bool [true|false]<br />
+|&mdash; endellipsis bool [true|false]<br />
+|&mdash; font int Font列表的索引号<br />
+|&mdash; textcolor string #RRGGBBAA<br />
+|&mdash; textpadding RECT(long left, long top, long right,long bottom)<br />
+|&mdash; showhtml bool [true|false]<br />
+|&mdash; normalimage Image 属性<br />
+|&mdash; hotimage Image 属性<br />
+|&mdash; pushedimage Image 属性<br />
+|&mdash; focusedimage Image 属性<br />
+|&mdash; sepimage Image 属性</p>
+</blockquote>
+
+<p>CListElementUI : public CControlUI, public IListItemUI</p>
+
+<blockquote>
+<p>|&mdash; selected value 有此属性就选中<br />
+|&mdash; CControlUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>ListExpandElement CListExpandElementUI : public CListTextElementUI</p>
+
+<blockquote>
+<p>|&mdash; expander RECT(long left, long top, long right,long bottom)<br />
+|&mdash; hideself bool [true|false]<br />
+|&mdash; selected bool<br />
+|&mdash; CListTextElementUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>ListContainerElement CListContainerElementUI List容器</p>
+
+<blockquote>
+<p>|&mdash; selected value 有此属性就选中</p>
+</blockquote>
+
+<p>ListHeader CListHeaderUI // 列表头</p>
+
+<p>CListLabelElementUI : public CListElementUI<br />
+ListTextElement CListTextElementUI : public CListLabelElementUI // 列表元素</p>
+
+<p>Label CLabelUI : public CControlUI // 标签</p>
+
+<blockquote>
+<p>|&mdash; align string enum [left|center|right]<br />
+|&mdash; endellipsis bool [true|false]<br />
+|&mdash; font int Font列表的索引号<br />
+|&mdash; textcolor string #RRGGBBAA<br />
+|&mdash; disabledtextcolor string #RRGGBBAA<br />
+|&mdash; textpadding RECT(long left, long top, long right,long bottom)<br />
+|&mdash; showhtml bool [true|false]<br />
+|&mdash; CControlUI::SetAttribute( pstrName, pstrValue )</p>
+</blockquote>
+
+<p>Text CTextUI : public CLabelUI // 文本框</p>
+
+<p>Combo CComboUI : public CContainerUI, public IListOwnerUI // 下拉框</p>
+
+<blockquote>
+<p>|&mdash; textpadding RECT(long left, long top, long right,long bottom)<br />
+|&mdash; normalimage Image 属性<br />
+|&mdash; hotimage Image 属性<br />
+|&mdash; pushedimage Image 属性<br />
+|&mdash; focusedimage Image 属性<br />
+|&mdash; disabledimage Image 属性<br />
+|&mdash; dropbox string<br />
+|&mdash; itemfont int Font列表的索引号<br />
+|&mdash; itemalign string enum [left|center|right]<br />
+|&mdash; itemtextpadding RECT(long left, long top, long right,long bottom)<br />
+|&mdash; itemtextcolor string #RRGGBBAA<br />
+|&mdash; itembkcolor string #RRGGBBAA<br />
+|&mdash; itemimage Image 属性<br />
+|&mdash; itemselectedtextcolor string #RRGGBBAA<br />
+|&mdash; itemselectedimage Image 属性<br />
+|&mdash; itemhottextcolor string #RRGGBBAA<br />
+|&mdash; itemhotbkcolor string #RRGGBBAA<br />
+|&mdash; itemhotimage Image 属性<br />
+|&mdash; itemdisabledtextcolor string #RRGGBBAA<br />
+|&mdash; itemdisabledbkcolor string #RRGGBBAA<br />
+|&mdash; itemdisabledimage Image 属性<br />
+|&mdash; itemlinecolor string #RRGGBBAA<br />
+|&mdash; itemshowhtml bool [true|false]<br />
+|&mdash; CContainerUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>Button CButtonUI : public CLabelUI // 按钮</p>
+
+<blockquote>
+<p>|&mdash; normalimage Image 属性<br />
+|&mdash; hotimage Image 属性<br />
+|&mdash; pushedimage Image 属性<br />
+|&mdash; focusedimage Image 属性<br />
+|&mdash; disabledimage Image 属性<br />
+|&mdash; hottextcolor string #RRGGBBAA<br />
+|&mdash; pushedtextcolor string #RRGGBBAA<br />
+|&mdash; focusedtextcolor string #RRGGBBAA<br />
+|&mdash; CLabelUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>Option COptionUI : public CButtonUI // 单选框</p>
+
+<blockquote>
+<p>|&mdash; group string<br />
+|&mdash; selected bool [true|false]<br />
+|&mdash; selectedimage Image 属性<br />
+|&mdash; foreimage Image 属性<br />
+|&mdash; selectedtextcolor string #RRGGBBAA<br />
+|&mdash; CButtonUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>Progress CProgressUI : public CLabelUI // 进度条</p>
+
+<blockquote>
+<p>|&mdash; fgimage Image 属性<br />
+|&mdash; hor bool<br />
+|&mdash; min int<br />
+|&mdash; max int<br />
+|&mdash; value int<br />
+|&mdash; CLabelUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>Slider CSliderUI : public CProgressUI // 滑动器</p>
+
+<blockquote>
+<p>|&mdash; thumbimage Image 属性<br />
+|&mdash; thumbhotimage Image 属性<br />
+|&mdash; thumbpushedimage Image 属性<br />
+|&mdash; thumbsize SIZE(int x, int y)<br />
+|&mdash; step int<br />
+|&mdash; CProgressUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>RichEdit CRichEditUI : public CContainerUI, public IMessageFilterUI // 富文本编辑框</p>
+
+<blockquote>
+<p>|&mdash; vscrollbar bool [true|false]<br />
+|&mdash; autovscroll bool [true|false]<br />
+|&mdash; hscrollbar bool [true|false]<br />
+|&mdash; autohscroll bool [true|false]<br />
+|&mdash; wanttab bool [true|false]<br />
+|&mdash; wantreturn bool [true|false]<br />
+|&mdash; wantctrlreturn bool [true|false]<br />
+|&mdash; rich bool [true|false]<br />
+|&mdash; multiline bool [false|true]<br />
+|&mdash; readonly bool [true|false]<br />
+|&mdash; numberonly bool [true|false]<br />
+|&mdash; password bool [true|false]<br />
+|&mdash; align string enum [left|center|right]<br />
+|&mdash; font int Font列表的索引号<br />
+|&mdash; textcolor string #RRGGBBAA<br />
+|&mdash; CContainerUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>ActiveX CActiveXUI : public CControlUI // ActiveX控件（可嵌入IE）</p>
+
+<blockquote>
+<p>|&mdash; clsid string<br />
+|&mdash; modulename string<br />
+|&mdash; delaycreate bool [true|false]<br />
+|&mdash; CControlUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>ScrollBar CScrollBarUI : public CControlUI // 滚动条</p>
+
+<blockquote>
+<p>|&mdash; button1normalimage Image 属性<br />
+|&mdash; button1hotimage Image 属性<br />
+|&mdash; button1pushedimage Image 属性<br />
+|&mdash; button1disabledimage Image 属性<br />
+|&mdash; button2normalimage Image 属性<br />
+|&mdash; button2hotimage Image 属性<br />
+|&mdash; button2pushedimage Image 属性<br />
+|&mdash; button2disabledimage Image 属性<br />
+|&mdash; thumbnormalimage Image 属性<br />
+|&mdash; thumbhotimage Image 属性<br />
+|&mdash; thumbpushedimage Image 属性<br />
+|&mdash; thumbdisabledimage Image 属性<br />
+|&mdash; railnormalimage Image 属性<br />
+|&mdash; railhotimage Image 属性<br />
+|&mdash; railpushedimage Image 属性<br />
+|&mdash; raildisabledimage Image 属性<br />
+|&mdash; bknormalimage Image 属性<br />
+|&mdash; bkhotimage Image 属性<br />
+|&mdash; bkpushedimage Image 属性<br />
+|&mdash; bkdisabledimage Image 属性<br />
+|&mdash; hor bool [true|false]<br />
+|&mdash; linesize int<br />
+|&mdash; range int<br />
+|&mdash; value int<br />
+|&mdash; showbutton1 bool [true|false]<br />
+|&mdash; showbutton2 bool [true|false]<br />
+|&mdash; CControlUI::SetAttribute(pstrName, pstrValue)</p>
+</blockquote>
+
+<p>控件的通用属性<br />
+stretch STRETCHMODE</p>
+
+<blockquote>
+<p>|&mdash; move_x<br />
+|&mdash; move_y<br />
+|&mdash; move_xy<br />
+|&mdash; size_x<br />
+|&mdash; size_y<br />
+|&mdash; size_xy<br />
+|&mdash; group<br />
+|&mdash; line</p>
+</blockquote>
+
+<p>duilib支持部分html标签， 如：</p>
+
+<pre><code>Bold: &lt;b&gt;text&lt;/b&gt;  &lt;!-- 粗体 --&gt;
+Color: &lt;c #xxxxxx&gt;text&lt;/c&gt;  &lt;!-- 应用颜色（十六进制）到text上 --&gt;
+Font: &lt;f x&gt;text&lt;/f&gt;  &lt;!-- 应用字体（x是字体ID）到text上 --&gt; 
+Italic: &lt;i&gt;text&lt;/i&gt;  &lt;!-- 斜体 --&gt; 
+Link: &lt;a x&gt;text&lt;/a&gt;  &lt;!-- 连接标签（x是连接地址 or 程序 app:notepad） --&gt;
+NewLine &lt;n&gt;  &lt;!-- 新行 --&gt;
+Paragraph: &lt;p x&gt;text&lt;/p&gt;  &lt;!-- 段落 --&gt;
+Raw Text: &lt;r&gt;text&lt;/r&gt; &lt;!-- 原始文本 --&gt;
+Selected: &lt;s&gt;text&lt;/s&gt; &lt;!-- 选中状态的文本 --&gt;
+Underline: &lt;u&gt;text&lt;/u&gt; &lt;!-- 带下划线的文本 --&gt;
+</code></pre>
+
+<p>示例</p>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;Window caption=&quot;0,0,0,36&quot; roundcorner=&quot;5,5&quot; size=&quot;300,400&quot; sizebox=&quot;6,6,6,6&quot; mininfo=&quot;80,60&quot;&gt;
+  &lt;Font id=&quot;0&quot; name=&quot;微软雅黑&quot; size=&quot;12&quot; bold=&quot;false&quot; default=&quot;true&quot; shared=&quot;true&quot; /&gt;
+  &lt;Font id=&quot;1&quot; name=&quot;微软雅黑&quot; size=&quot;12&quot; bold=&quot;true&quot; shared=&quot;true&quot; /&gt;  
+  &lt;Default name=&quot;Combo&quot; value=&quot;normalimage=&amp;quot;res='118' restype='png' source='0,0,100,22' corner='2,2,20,2'&amp;quot; hotimage=&amp;quot;res='118' restype='png' source='0,22,100,44' corner='2,2,22,2'&amp;quot; pushedimage=&amp;quot;res='118' restype='png' source='0,44,100,66' corner='2,2,22,2'&amp;quot;&quot; /&gt;
+  &lt;Default name=&quot;VScrollBar&quot; value=&quot;thumbcolor=&amp;quot;#FFFF0000&amp;quot;&quot; shared=&quot;true&quot; /&gt;
+  &lt;VerticalLayout bkcolor=&quot;#FFFFFFFF&quot; bordersize=&quot;2&quot; bordercolor=&quot;#FF0934DA&quot;&gt;
+    &lt;HorizontalLayout name=&quot;header&quot; height=&quot;36&quot; bkcolor=&quot;#FF4775CC&quot;&gt;
+      &lt;HorizontalLayout&gt;
+        &lt;Control width=&quot;10&quot;/&gt;
+        &lt;Label name=&quot;apptitle&quot; text=&quot;标题&quot; font=&quot;1&quot; textcolor=&quot;#FFFFFFFF&quot; /&gt;
+      &lt;/HorizontalLayout&gt;
+      &lt;HorizontalLayout height=&quot;25&quot; width=&quot;96&quot;&gt;
+        &lt;Button name=&quot;minbtn&quot; tooltip=&quot;最小化&quot; height=&quot;18&quot; width=&quot;26&quot; normalimage=&quot;res='103' restype='png'&quot; hotimage=&quot;res='104' restype='png'&quot; pushedimage=&quot;res='105' restype='png'&quot;/&gt;
+        &lt;Button name=&quot;maxbtn&quot; tooltip=&quot;最大化&quot; height=&quot;18&quot; width=&quot;25&quot; normalimage=&quot;res='106' restype='png'&quot; hotimage=&quot;res='107' restype='png'&quot; pushedimage=&quot;res='108' restype='png'&quot;/&gt;
+        &lt;Button name=&quot;restorebtn&quot; visible=&quot;false&quot; tooltip=&quot;恢复&quot; height=&quot;18&quot; width=&quot;25&quot; normalimage=&quot;res='109' restype='png'&quot; hotimage=&quot;res='110' restype='png'&quot; pushedimage=&quot;res='111' restype='png'&quot;/&gt;
+        &lt;Button name=&quot;closebtn&quot; tooltip=&quot;关闭&quot; height=&quot;18&quot; width=&quot;43&quot; normalimage=&quot;res='112' restype='png'&quot; hotimage=&quot;res='113' restype='png'&quot; pushedimage=&quot;res='114' restype='png'&quot;/&gt;
+      &lt;/HorizontalLayout&gt;
+    &lt;/HorizontalLayout&gt;
+    &lt;VerticalLayout name=&quot;body&quot; padding=&quot;2,0,2,2&quot;&gt;
+      &lt;HorizontalLayout padding=&quot;10,10,10,10&quot;&gt;
+        &lt;VerticalLayout inset=&quot;8,4,2,2&quot; width=&quot;80&quot;&gt;
+          &lt;Label text=&quot;标签:&quot; textcolor=&quot;#000000&quot; font=&quot;1&quot;&gt;&lt;/Label&gt;
+        &lt;/VerticalLayout&gt;
+        &lt;VerticalLayout inset=&quot;8,4,2,2&quot; width=&quot;80&quot;&gt;
+          &lt;Option name=&quot;radio&quot; text=&quot;单选框&quot; height=&quot;23&quot; textpadding=&quot;20,0,0,0&quot; align=&quot;left&quot;  normalimage=&quot;res='127' restype='png' dest='0,5,15,20'&quot; hotimage=&quot;res='128' restype='png' dest='0,5,15,20'&quot; selectedimage=&quot;res='129' restype='png' dest='0,5,15,20'&quot; width=&quot;60&quot;/&gt;
+        &lt;/VerticalLayout&gt;
+      &lt;/HorizontalLayout&gt;
+      &lt;HorizontalLayout padding=&quot;10,10,10,10&quot;&gt;
+        &lt;VerticalLayout inset=&quot;8,4,2,2&quot; width=&quot;80&quot;&gt;
+          &lt;Text text=&quot;文本框&quot; textcolor=&quot;#000000&quot; font=&quot;1&quot;&gt;&lt;/Text&gt;
+        &lt;/VerticalLayout&gt;
+        &lt;VerticalLayout&gt;
+          &lt;Edit height=&quot;23&quot; text=&quot;编辑框&quot; bordercolor=&quot;#C6CFD8&quot; name=&quot;input&quot; bkimage=&quot;res='139' source='0,0,258,23' corner='1,1,1,1' restype='png'&quot;/&gt;
+        &lt;/VerticalLayout&gt;
+      &lt;/HorizontalLayout&gt;
+      &lt;HorizontalLayout padding=&quot;10,10,10,10&quot;&gt;
+        &lt;VerticalLayout inset=&quot;8,4,2,2&quot; width=&quot;80&quot;&gt;
+          &lt;Text text=&quot;密码:&quot; textcolor=&quot;#000000&quot; font=&quot;1&quot;&gt;&lt;/Text&gt;
+        &lt;/VerticalLayout&gt;
+        &lt;VerticalLayout&gt;
+          &lt;Edit height=&quot;23&quot; password=&quot;true&quot; text=&quot;密码框&quot; bordercolor=&quot;#C6CFD8&quot; name=&quot;input&quot; bkimage=&quot;res='139' source='0,0,258,23' corner='1,1,1,1' restype='png'&quot;/&gt;
+        &lt;/VerticalLayout&gt;
+      &lt;/HorizontalLayout&gt;
+      &lt;HorizontalLayout padding=&quot;10,10,10,10&quot;&gt;
+        &lt;VerticalLayout inset=&quot;8,4,2,2&quot; width=&quot;80&quot;&gt;
+          &lt;Label /&gt;
+          &lt;Button name=&quot;btn&quot; text=&quot;按钮&quot; height=&quot;23&quot; width=&quot;64&quot; normalimage=&quot;res='115' restype='png'&quot; hotimage=&quot;res='116' restype='png'&quot; pushedimage=&quot;res='117' restype='png'&quot;/&gt;
+        &lt;/VerticalLayout&gt;
+      &lt;/HorizontalLayout&gt;
+    &lt;/VerticalLayout&gt;
+  &lt;/VerticalLayout&gt;
+&lt;/Window&gt;
+</code></pre>
+
+<hr />
+
+<p>基本使用</p>
+
+<pre><code>#pragma once
+#define WIN32_LEAN_AND_MEAN	
+#define _CRT_SECURE_NO_DEPRECATE
+#include &lt;windows.h&gt;
+#include &lt;objbase.h&gt;
+#include &quot;..\DuiLib\UIlib.h&quot;
+using namespace DuiLib;
+#ifdef _DEBUG
+#   ifdef _UNICODE
+#       pragma comment(lib, &quot;..\\bin\\DuiLib_ud.lib&quot;)
+#   else
+#       pragma comment(lib, &quot;..\\bin\\DuiLib_d.lib&quot;)
+#   endif
+#else
+#   ifdef _UNICODE
+#       pragma comment(lib, &quot;..\\bin\\DuiLib_u.lib&quot;)
+#   else
+#       pragma comment(lib, &quot;..\\bin\\DuiLib.lib&quot;)
+#   endif
+#endif
+// 窗口实例及消息响应部分
+class CFrameWindowWnd : public CWindowWnd, public INotifyUI
+{
+public:
+    CFrameWindowWnd() { };
+    LPCTSTR GetWindowClassName() const { 
+		return _T(&quot;UIMainFrame&quot;); 
+	};
+    UINT GetClassStyle() const { 
+		return UI_CLASSSTYLE_FRAME | CS_DBLCLKS; 
+	};
+    void OnFinalMessage(HWND /*hWnd*/) { 
+		delete this; 
+	};
+    void Notify(TNotifyUI&amp; msg) // 事件处理  
+    {
+        if( msg.sType == _T(&quot;click&quot;) ) {
+            if( msg.pSender-&gt;GetName() == _T(&quot;closebtn&quot;) ) {
+                Close();
+            }
+        }
+    }
+    LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
+    {
+        if( uMsg == WM_CREATE ) {
+            m_pm.Init(m_hWnd);
+            CControlUI *pButton = new CButtonUI;
+            pButton-&gt;SetName(_T(&quot;closebtn&quot;));
+            pButton-&gt;SetBkColor(0xFFFF0000);
+            m_pm.AttachDialog(pButton);
+            m_pm.AddNotifier(this);
+            return 0;
+        }
+        else if( uMsg == WM_DESTROY ) {
+            ::PostQuitMessage(0);
+        }
+        LRESULT lRes = 0;
+        if( m_pm.MessageHandler(uMsg, wParam, lParam, lRes) ) 
+			return lRes;
+        return CWindowWnd::HandleMessage(uMsg, wParam, lParam);
+    }
+public:
+    CPaintManagerUI m_pm;
+};
+// 程序入口及Duilib初始化部分
+int APIENTRY WinMain(HINSTANCE hInstance, 
+	HINSTANCE /*hPrevInstance*/, 
+	LPSTR /*lpCmdLine*/, int nCmdShow)
+{
+    CPaintManagerUI::SetInstance(hInstance);
+    CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath());
+    CFrameWindowWnd* pFrame = new CFrameWindowWnd();
+    if( pFrame == NULL ) return 0;
+    pFrame-&gt;Create(NULL, _T(&quot;测试&quot;), UI_WNDSTYLE_FRAME, WS_EX_WINDOWEDGE);
+    pFrame-&gt;ShowWindow(true);
+    CPaintManagerUI::MessageLoop();
+    return 0;
+}
+</code></pre>
+
+<p>加载XML界面</p>
+
+<pre><code>LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	if( uMsg == WM_CREATE ) {
+	    m_pm.Init(m_hWnd);
+	    CDialogBuilder builder;
+	    CControlUI* pRoot = builder.Create(_T(&quot;test1.xml&quot;), 
+				(UINT)0, NULL, &amp;m_pm);
+	    ASSERT(pRoot &amp;&amp; &quot;Failed to parse XML&quot;);
+	    m_pm.AttachDialog(pRoot);
+	    m_pm.AddNotifier(this);
+	    return 0;
+	}
+	else if( uMsg == WM_DESTROY ) {
+	    ::PostQuitMessage(0);
+	}
+	else if( uMsg == WM_NCACTIVATE ) {
+	    if( !::IsIconic(m_hWnd) ) {
+	        return (wParam == 0) ? TRUE : FALSE;
+	    }
+	}
+	else if( uMsg == WM_NCCALCSIZE ) {
+	    return 0;
+	}
+	else if( uMsg == WM_NCPAINT ) {
+	    return 0;
+	}
+	LRESULT lRes = 0;
+	if( m_pm.MessageHandler(uMsg, wParam, lParam, lRes) ) 
+			return lRes;
+	return CWindowWnd::HandleMessage(uMsg, wParam, lParam);
+}
+</code></pre>
+
+<p>事件处理<br />
+duilib支持两种事件处理方式：</p>
+
+<ol>
+<li>实现INotifyUI接口<br /></li>
+</ol>
+
+<pre><code>class CLoginFrameWnd : public CWindowWnd, public INotifyUI
+{
+public:
+	// ……
+    void Notify(TNotifyUI&amp; msg)
+    {
+        if( msg.sType == _T(&quot;click&quot;) ) {
+            if( msg.pSender-&gt;GetName() == _T(&quot;closebtn&quot;) ) { 
+				PostQuitMessage(0); 
+				return; 
+			}
+            else if( msg.pSender-&gt;GetName() == _T(&quot;loginBtn&quot;) ) { 
+				Close(); 
+				return; 
+			}
+        }
+        else if( msg.sType == _T(&quot;itemselect&quot;) ) {
+            if( msg.pSender-&gt;GetName() == _T(&quot;accountcombo&quot;) ) {
+                CEditUI* pAccountEdit = static_cast&lt;CEditUI*&gt;(m_pm.FindControl(_T(&quot;accountedit&quot;)));
+                if( pAccountEdit ) 
+					pAccountEdit-&gt;SetText(msg.pSender-&gt;GetText());
+            }
+        }
+	}
+}
+</code></pre>
+
+<ol>
+<li>代理机制<br /></li>
+</ol>
+
+<pre><code>class CLoginFrameWnd : public CWindowWnd, public INotifyUI
+{
+public:
+	// ……
+	bool OnAlphaChanged(void* param) {
+        	TNotifyUI* pMsg = (TNotifyUI*)param;
+        	if( pMsg-&gt;sType == _T(&quot;valuechanged&quot;) ) {
+            m_pm.SetTransparent((static_cast&lt;CSliderUI*&gt;(pMsg-&gt;pSender))-&gt;GetValue());
+        	}
+        	return true;
+	}
+	void OnPrepare() 
+    	{
+        	CSliderUI* pSilder = static_cast&lt;CSliderUI*&gt;(m_pm.FindControl(_T(&quot;alpha_controlor&quot;)));
+        	if( pSilder ) 
+			pSilder-&gt;OnNotify += MakeDelegate(this, &amp;CFrameWindowWnd::OnAlphaChanged);
+    }
+}
+// OnPrepare函数需要在控件创建完成之后调用。
+</code></pre>
+
+<p>duilib支持从外部加载资源，也支持windows的res资源，还可以动态加载皮肤。<br />
+外部资源使用zip打包即可。<br />
+在WinMain函数中CPaintManagerUI::SetInstance(hInstance)的后面加入CPaintManagerUI::SetResourceZip(_T(&ldquo;xxx.zip&rdquo;))，如</p>
+
+<pre><code>int APIENTRY WinMain(HINSTANCE hInstance, 
+	HINSTANCE /*hPrevInstance*/, 
+	LPSTR /*lpCmdLine*/, int nCmdShow)
+{
+    CManager::SetInstance(hInstance);
+	CManager::SetResourcePath(CManager::GetInstancePath());
+	CPaintManagerUI::SetResourceZip(_T(&quot;xxx.zip&quot;));
+	// ……
+
+	return 0;
+}
+</code></pre>
+
+<p>动态换肤</p>
+
+<pre><code>CPaintManagerUI::SetResourceZip(_T(&quot;skin2.zip&quot;)); // 或者skin1.zip
+CPaintManagerUI::ReloadSkin();
+</code></pre>
+
+                </section>
+            </article>
+            
+            
+            
+            
+
+            
+
+            
+
+            
+    
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/alenstar">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> alenstar
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+	</div>
+
+	
+
+        <script src="https://alenstar.github.io/js/jquery-2.2.4.min.js"></script>
+<script src="https://alenstar.github.io/js/main.js"></script>
+<script src="https://alenstar.github.io/js/highlight.min.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

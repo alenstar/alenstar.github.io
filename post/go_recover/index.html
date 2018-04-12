@@ -1,0 +1,171 @@
+    <!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="alenstar">
+		<meta name="description" content="alenstar blog">
+		<meta name="generator" content="Hugo 0.36.1" />
+		<title>go 获取 panic 时详细的桟信息 &middot; alenstar blog</title>
+		<link rel="shortcut icon" href="https://alenstar.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/style.css">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="https://alenstar.github.io/css/font-awesome.min.css">
+		
+
+		
+        
+        
+        
+		
+	</head>
+
+    <body>
+	<div class="body-box">
+       <nav class="main-nav">
+	
+	
+		<a href='https://alenstar.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://alenstar.github.io/post'>Archive</a>
+	<a href='https://alenstar.github.io/tags'>Tags</a>
+	<a href='https://alenstar.github.io/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        go 获取 panic 时详细的桟信息
+                    </h1>
+                    <h2 class="headline">
+                    Oct 12, 2017 22:40
+                    · 155 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://alenstar.github.io/tags/golang">golang</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    
+
+<p>当程序异常 panic 时 golang 的 recover() 方法可以很方便地恢复, 但是没有详细的桟信息不便于定位异常, 这里介绍一个简单的方法来获取桟信息</p>
+
+<h5 id="runtime-stack">runtime.Stack</h5>
+
+<blockquote>
+<p>runtime.Stack(buf []byte, all bool) int<br />
+buf 输出桟信息<br />
+all 为 true 时包含其它 goroutine 的信息<br />
+return 桟信息的长度</p>
+</blockquote>
+
+<h5 id="示例">示例</h5>
+
+<pre><code>package main
+
+import &quot;fmt&quot;
+import &quot;math&quot;
+import &quot;runtime&quot;
+
+func myrecover() {
+	if err := recover(); err != nil {
+		trace := make([]byte, 1&lt;&lt;16)
+		n := runtime.Stack(trace, true)
+		s := fmt.Sprintf(&quot;panic: '%v'\n, Stack Trace:\n %s&quot;, err, string(trace[:int(math.Min(float64(n), float64(7000)))]))
+		// 输出详细的桟信息
+		fmt.Println(s)
+	}
+}
+
+func testpanic() {
+	defer myrecover()
+	panic(&quot;test recover&quot;)
+}
+
+func main() {
+	fmt.Println(&quot;test begin&quot;)
+	testpanic()
+	fmt.Println(&quot;test end&quot;)
+}
+
+</code></pre>
+
+                </section>
+            </article>
+            
+            
+            
+            
+
+            
+
+            
+
+            
+    
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/alenstar">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> alenstar
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+	</div>
+
+	
+
+        <script src="https://alenstar.github.io/js/jquery-2.2.4.min.js"></script>
+<script src="https://alenstar.github.io/js/main.js"></script>
+<script src="https://alenstar.github.io/js/highlight.min.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

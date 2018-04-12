@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go on alenstar blog</title>
+    <link>https://alenstar.github.io/tags/go/</link>
+    <description>Recent content in Go on alenstar blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 12 Apr 2018 14:33:09 +0800</lastBuildDate>
+    
+	<atom:link href="https://alenstar.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linux 配置静态 IP</title>
+      <link>https://alenstar.github.io/post/linux_static_ip/</link>
+      <pubDate>Thu, 12 Apr 2018 14:33:09 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/linux_static_ip/</guid>
+      <description>Edit /etc/network/interfaces, enter: $ sudo vi /etc/network/interfaces The syntax is as follows: route add -net $NET netmask $MASK gw $GATEWAY route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.1.254 You need to add above syntax to post-up command as follows: post-up command post-up route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.1.254 Configure static ip address # 自动启动设备 auto eth0 # 允许热插拔 allow-hotplug</description>
+    </item>
+    
+    <item>
+      <title>go 反射应用-结构体复制</title>
+      <link>https://alenstar.github.io/post/go_reflect/</link>
+      <pubDate>Sun, 03 Sep 2017 14:33:09 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/go_reflect/</guid>
+      <description>实例代码 package main import ( &amp;quot;errors&amp;quot; &amp;quot;fmt&amp;quot; &amp;quot;reflect&amp;quot; ) type People struct{ Age int Name string Hobby []string Tags map[string]string } func reflectCopy(dst, src reflect.Value) error { if dst.Kind() == src.Kind() { //if dst.CanSet() { // 对于复杂类型(map slice 等)会直接拷贝引用地址 // dst.Set(src) /*} else*/ { switch dst.Kind() { //case</description>
+    </item>
+    
+    <item>
+      <title>go channel 使用总结</title>
+      <link>https://alenstar.github.io/post/go_channel/</link>
+      <pubDate>Wed, 21 Jun 2017 17:49:45 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/go_channel/</guid>
+      <description>go中channel的声明使用chan关键字， 后面接chan中可以存入的类型; 对channel的操作使用 &amp;lt;- (读) 和 -&amp;gt; (写), 注意在go中 &amp;lt;- 和</description>
+    </item>
+    
+    <item>
+      <title>go interface</title>
+      <link>https://alenstar.github.io/post/go_interface/</link>
+      <pubDate>Sun, 14 May 2017 19:23:04 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/go_interface/</guid>
+      <description>介绍 go的interface不同于其它语言, 它是隐式实现的, 不用特意声明实现了T接口, 只要实现T接口的方法, 我们就说它实现了T接口, 不过这也</description>
+    </item>
+    
+    <item>
+      <title>go 单元测试框架 assert</title>
+      <link>https://alenstar.github.io/post/go_testing_assert/</link>
+      <pubDate>Sun, 14 May 2017 15:30:18 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/go_testing_assert/</guid>
+      <description>安装 使用 go get. $ go get gopkg.in/go-playground/assert.v1 更新安装 $ go get -u gopkg.in/go-playground/assert.v1 使用 import . &amp;quot;gopkg.in/go-playground/assert.v1&amp;quot; 示例 示例代码 package config import ( // 导入assert包 . &amp;quot;gopkg.in/go-playground/assert.v1&amp;quot; &amp;quot;testing&amp;quot; ) func TestConfig(t *testing.T) { // 断言String(&amp;quot;ke</description>
+    </item>
+    
+    <item>
+      <title>golang开发环境搭建</title>
+      <link>https://alenstar.github.io/post/go_development_environment/</link>
+      <pubDate>Fri, 12 May 2017 23:50:33 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/go_development_environment/</guid>
+      <description>安装golang工具包 笔者使用的是Debian sid 直接使用apt-get安装就好 $ sudo apt-get install golang -y 配置环境变量 1. 配置GOPATH go将从这里寻找pa</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,217 @@
+    <!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="alenstar">
+		<meta name="description" content="alenstar blog">
+		<meta name="generator" content="Hugo 0.36.1" />
+		<title>Rust Rc 和 Arc  &middot; alenstar blog</title>
+		<link rel="shortcut icon" href="https://alenstar.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/style.css">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="https://alenstar.github.io/css/font-awesome.min.css">
+		
+
+		
+        
+        
+        
+		
+	</head>
+
+    <body>
+	<div class="body-box">
+       <nav class="main-nav">
+	
+	
+		<a href='https://alenstar.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://alenstar.github.io/post'>Archive</a>
+	<a href='https://alenstar.github.io/tags'>Tags</a>
+	<a href='https://alenstar.github.io/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        Rust Rc 和 Arc 
+                    </h1>
+                    <h2 class="headline">
+                    Aug 2, 2017 14:03
+                    · 604 words
+                    · 2 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://alenstar.github.io/tags/rust">rust</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    <p>std::rc::Rc<T> 一种单线程的引用计数指针(非安全)，它实现了 <code>Deref</code> （使用 Rc::get_mut(Rc<T>) 取得可变引用） ，及继承了 <code>T</code> 的方法。</p>
+
+<p>std::sync::Arc<T> 一种线程安全的引用计数指针，和 std::rc::Rc<T> 一样，实现了 <code>Deref</code> ，不同的是 std::sync::Arc<T> 可应在多线程下使用。</p>
+
+<ol>
+<li>Rc 基本使用</li>
+</ol>
+
+<pre><code>use std::rc::Rc;
+
+pub struct S {
+    flag: bool,
+}
+
+impl S {
+    fn set(&amp;mut self, ok: bool) {
+        self.flag = ok;
+    }
+
+    fn print(&amp;self) {
+        println!(&quot;{:?}&quot;, self.flag);
+    }
+}
+
+fn main() {
+    let s: Rc&lt;S&gt; = Rc::new(S { flag: false });
+    s.print(); // 直接访问 S.print() 方法
+    println!(&quot;{:?}&quot;, s.flag); // 直接访问 S.flag 字段
+}
+
+</code></pre>
+
+<ol>
+<li>可变引用</li>
+</ol>
+
+<p>使用 Rc::get_mut(Rc<T>) 可以取得可变引用</p>
+
+<pre><code>fn main() {
+    // 可变绑定， 内部字段可变性从外部继承， Rc&lt;S&gt; 可变时， S 才可变
+    let mut s: Rc&lt;S&gt; = Rc::new(S { flag: false });
+    println!(&quot;{:?}&quot;, s.flag);
+    // 取出可变引用， S.set(ok:bool) 要求 self 为可变引用( &amp;mut )
+    Rc::get_mut(&amp;mut s).unwrap().set(true);
+    s.print();
+}
+
+</code></pre>
+
+<ol>
+<li>Clone</li>
+</ol>
+
+<p><code>Clone</code> triat 用来实现 <code>Rc</code> 的引用计数，需要编程人员自己来控制。</p>
+
+<pre><code>fn main() {
+    let s: Rc&lt;S&gt; = Rc::new(S { flag: false });
+    println!(&quot;{:?}&quot;, s.flag);
+    // 调用 clone 增加引用计数并获得一个引用副本; 前一个s被隐藏
+    let s = s.clone();
+    s.print();
+}
+</code></pre>
+
+<ol>
+<li>Clone 与 Rc::get_mut</li>
+</ol>
+
+<p><code>Rc::get_mut</code> 要求 Rc<T> 只有一个时才可用</p>
+
+<pre><code>fn main() {
+    // 可变绑定， 内部字段可变性从外部继承， Rc&lt;S&gt; 可变时， S 才可变
+    let mut s: Rc&lt;S&gt; = Rc::new(S { flag: false });
+    println!(&quot;{:?}&quot;, s.flag);
+    // 调用 clone 增加引用计数并获得一个引用副本file:///opt/workspace/beego/src/github.com/alenstar/alenstar.github.io/content/post/rust_copy_move.md
+
+    let mut s2 = s.clone();
+    
+    // 绑定一个闭包， 以 move 的方式捕获外部变量
+    let move_s = move |s:Rc&lt;S&gt;| {s.print();};
+    // move s 到闭包
+    // move_s(s); // 去除注释， 程序可正常运行；应为s被移动到闭包内， 闭包处理结束后就销毁了，引用对象就只剩一个了
+    
+    // 取出可变引用， S.set(ok:bool) 要求 self 为可变引用( &amp;mut )
+    Rc::get_mut(&amp;mut s2).unwrap().set(true); // panic, unwrap 返回 None, 此时存在两个引用
+    s2.print();
+}
+}
+</code></pre>
+
+                </section>
+            </article>
+            
+            
+            
+            
+
+            
+
+            
+
+            
+    
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/alenstar">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> alenstar
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+	</div>
+
+	
+
+        <script src="https://alenstar.github.io/js/jquery-2.2.4.min.js"></script>
+<script src="https://alenstar.github.io/js/main.js"></script>
+<script src="https://alenstar.github.io/js/highlight.min.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

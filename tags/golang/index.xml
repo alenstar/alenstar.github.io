@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang on alenstar blog</title>
+    <link>https://alenstar.github.io/tags/golang/</link>
+    <description>Recent content in Golang on alenstar blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 12 Oct 2017 22:40:03 +0800</lastBuildDate>
+    
+	<atom:link href="https://alenstar.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>go 获取 panic 时详细的桟信息</title>
+      <link>https://alenstar.github.io/post/go_recover/</link>
+      <pubDate>Thu, 12 Oct 2017 22:40:03 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/go_recover/</guid>
+      <description>当程序异常 panic 时 golang 的 recover() 方法可以很方便地恢复, 但是没有详细的桟信息不便于定位异常, 这里介绍一个简单的方法来获取桟信息 runtime.Stack runtime.Stack(buf []byte, all bool) int buf 输出桟信息 all 为</description>
+    </item>
+    
+  </channel>
+</rss>

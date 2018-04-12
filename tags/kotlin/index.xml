@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kotlin on alenstar blog</title>
+    <link>https://alenstar.github.io/tags/kotlin/</link>
+    <description>Recent content in Kotlin on alenstar blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 27 May 2017 14:52:02 +0800</lastBuildDate>
+    
+	<atom:link href="https://alenstar.github.io/tags/kotlin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Java 和 Kotlin 单例实现</title>
+      <link>https://alenstar.github.io/post/java_and_kotlin_singleton/</link>
+      <pubDate>Sat, 27 May 2017 14:52:02 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/java_and_kotlin_singleton/</guid>
+      <description>Java Java中实现单例，我们可以有很多种实现方法，但是这给程序员带来了额外的负担，不仅要考虑线程安全还要考虑效率问题。 1, 懒汉实现， 线程不安全 public</description>
+    </item>
+    
+  </channel>
+</rss>

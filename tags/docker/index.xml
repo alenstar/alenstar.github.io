@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on alenstar blog</title>
+    <link>https://alenstar.github.io/tags/docker/</link>
+    <description>Recent content in Docker on alenstar blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 22 Mar 2018 15:52:36 +0800</lastBuildDate>
+    
+	<atom:link href="https://alenstar.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker下部署 Gogs &amp; Drone</title>
+      <link>https://alenstar.github.io/post/gogs_drone/</link>
+      <pubDate>Thu, 22 Mar 2018 15:52:36 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/gogs_drone/</guid>
+      <description>参考文档 http://docs.drone.io/install-for-gogs/ 修改Docker默认的镜像目录 为了提高镜像拉取速度，我们可以使用国内的仓库。 可以通过修改 /etc/docker/daemon.json (不存在可创建) 来配置 docker 镜像仓库 { &amp;quot;registry-mirrors&amp;quot;: [&amp;quot;https://registry.docker-cn.com&amp;quot;] }</description>
+    </item>
+    
+    <item>
+      <title>Docker下部署MongoDB</title>
+      <link>https://alenstar.github.io/post/mongodb_docker/</link>
+      <pubDate>Wed, 02 Aug 2017 15:56:36 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/mongodb_docker/</guid>
+      <description>修改Docker默认的镜像目录 # stop server systemctl stop docker # 用以下一行来替换 ExecStart=/usr/bin/dockerd -H fd:// $DOCKER_OPTS # ExecStart=/usr/bin/docker daemon -g /opt/docker -H fd:// $DOCKER_OPTS # /opt/docker 为自定义目录 vim /lib/systemd/system/docker.service # reload configuration systemctl daemon-reload # start server systemctl start docker 新版的 docker 可以通</description>
+    </item>
+    
+  </channel>
+</rss>

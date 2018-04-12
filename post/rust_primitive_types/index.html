@@ -1,0 +1,248 @@
+    <!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="alenstar">
+		<meta name="description" content="alenstar blog">
+		<meta name="generator" content="Hugo 0.36.1" />
+		<title>Rust 原生类型 &middot; alenstar blog</title>
+		<link rel="shortcut icon" href="https://alenstar.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/style.css">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="https://alenstar.github.io/css/font-awesome.min.css">
+		
+
+		
+        
+        
+        
+		
+	</head>
+
+    <body>
+	<div class="body-box">
+       <nav class="main-nav">
+	
+	
+		<a href='https://alenstar.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://alenstar.github.io/post'>Archive</a>
+	<a href='https://alenstar.github.io/tags'>Tags</a>
+	<a href='https://alenstar.github.io/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        Rust 原生类型
+                    </h1>
+                    <h2 class="headline">
+                    May 15, 2017 22:10
+                    · 1091 words
+                    · 3 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://alenstar.github.io/tags/rust">rust</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    
+
+<p>Rust是基于表达式的语言, 它只有两种语句:
+* 声明语句
+* 表达式语句
+其它一切是表达式.</p>
+
+<h3 id="布尔型-bool">布尔型 bool</h3>
+
+<p>bool型只有两种值, <code>true</code> or <code>false</code> :</p>
+
+<pre><code>let x = true；// 声明不可变绑定x, rust自动推导出类型为bool型 rust以 ';' 表示一个表达式结束
+let y: bool = false；// 声明bool型不可变绑定y
+</code></pre>
+
+<h3 id="char">char</h3>
+
+<p><code>char</code> 类型代表一个单独的 Unicode 字符的值。你可以用单引号（ <code>'</code> ）创建 <code>char</code> ：</p>
+
+<pre><code>let x = 'x';
+let unicode = '\u{fe0f}';
+</code></pre>
+
+<p>不像其它语言，这意味着Rust的 <code>char</code> 并不是 1 个字节，而是 4 个。</p>
+
+<h3 id="数字类型">数字类型</h3>
+
+<p>Rust有一些分类的大量数字类型：有符号和无符号，定长和变长，浮点和整型。</p>
+
+<blockquote>
+<ul>
+<li>i8      有符号8位整型<br /></li>
+<li>i16     有符号16位整型<br /></li>
+<li>i32     有符号32位整型<br /></li>
+<li>i64     有符号64位整型<br /></li>
+<li>u8      无符号8位整型<br /></li>
+<li>u16     无符号16位整型<br /></li>
+<li>u32     无符号32位整型<br /></li>
+<li>u64     无符号64位整型<br /></li>
+<li>isize   有符号size整型<br /></li>
+<li>usize   无符号size整型<br /></li>
+<li>f32     有符号单精度浮点型<br /></li>
+<li>f64     有符号双精度浮点型<br /></li>
+</ul>
+</blockquote>
+
+<p><code>size</code> 是指可变大小类型, 如依赖机器的指针</p>
+
+<p>如果一个数字常量没有推断它类型的条件，它采用默认类型：</p>
+
+<pre><code>let x = 42; // `x` has type `i32`
+let y = 1.0; // `y` has type `f64`
+</code></pre>
+
+<h3 id="数组">数组</h3>
+
+<p>一个定长相同类型的元素列表。数组默认是不可变的。</p>
+
+<pre><code>let a = [1,2,3]; // 长度为3的i32类型的数组 [i32; 3]
+let mut m = [1,2,3]；// 可变数组 [i32; 3]
+</code></pre>
+
+<p>数组的类型是[T; N]。在泛型部分的时候讨论这个T标记。N是一个编译时常量，代表数组的长度。</p>
+
+<pre><code>let a = [0, 20]; // [i32; 20]型数组, 长度20, 初始值0
+println!(&quot;a has {} elements&quot;, a.len()); // a.len()获取数组长度
+println!(&quot;the first element is: {}&quot;, a[0]); // 下标访问数组元素
+println!(&quot;the second element is: {}&quot;, a[1]); // 
+</code></pre>
+
+<h3 id="切片-slices">切片 (Slices)</h3>
+
+<p>一个切片（slice）是一个数组的引用（或者“视图”）。它有利于安全，有效的访问数组的一部分而不用进行拷贝。比如，你可能只想要引用读入到内存的文件中的一行。原理上，切片并不是直接创建的，而是引用一个已经存在的变量。切片有预定义的长度，可以是可变也可以是不可变的。</p>
+
+<h5 id="切片语法-slicing-syntax">切片语法（Slicing syntax）</h5>
+
+<p>你可以用一个 <code>&amp;</code> 和 <code>[]</code> 的组合从多种数据类型创建一个切片。<code>&amp;</code> 表明切片类似于引用。带有一个范围的 <code>[]</code> ，允许你定义切片的长度：</p>
+
+<pre><code>let a = [0,1,2,3,4]; // 数组
+let complete = &amp;a[..];  // 包含所有元素的切片
+let middle = &amp;a[1..4]; // 只包含a[1],a[2],a[3]三个元素的切片. 可以看做[1, 4)区间
+</code></pre>
+
+<p>切片用有&amp;[T]类型.</p>
+
+<h3 id="元组-tuples">元组 (Tuples)</h3>
+
+<p>元组（tuples）是固定大小的有序列表。</p>
+
+<pre><code>let x = (1, &quot;hello&quot;); // 自动推导类型
+let x:(i32, &amp;str) = (1, &quot;hello&quot;); // 声明类型, `&amp;str`是`str`类型(原始字符串类型)的引用
+</code></pre>
+
+<h4 id="元组解构-destructuring-let">元组解构 (destructuring let)</h4>
+
+<pre><code>let (x,y,z) = (2, '3', &quot;4&quot;); // x = 2, y = '3', z = &quot;4&quot;
+</code></pre>
+
+<pre><code>(0, ); // 一个元素的元组
+(0);  // 0
+</code></pre>
+
+<h4 id="元组索引-tuple-indexing">元组索引 (Tuple Indexing)</h4>
+
+<p>使用 <code>.</code> 访问元素</p>
+
+<pre><code>let tuple = (1, 2, 3);
+let x = tuple.0; // 索引从零开始
+let y = tuple.1;
+let z = tuple.2;
+</code></pre>
+
+<h3 id="函数">函数</h3>
+
+<p>在Rust中函数也是一个类型</p>
+
+<pre><code>fn foo(x: i32) -&gt; i32 { x } // 函数实例, 返回值为x
+
+let x: fn(i32) -&gt; i32 = foo; // 将函数foo绑定到x上
+</code></pre>
+
+                </section>
+            </article>
+            
+            
+            
+            
+
+            
+
+            
+
+            
+    
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/alenstar">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> alenstar
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+	</div>
+
+	
+
+        <script src="https://alenstar.github.io/js/jquery-2.2.4.min.js"></script>
+<script src="https://alenstar.github.io/js/main.js"></script>
+<script src="https://alenstar.github.io/js/highlight.min.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo on alenstar blog</title>
+    <link>https://alenstar.github.io/tags/hugo/</link>
+    <description>Recent content in Hugo on alenstar blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 13 May 2017 06:31:12 +0800</lastBuildDate>
+    
+	<atom:link href="https://alenstar.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>建立个人博客</title>
+      <link>https://alenstar.github.io/post/blog_build/</link>
+      <pubDate>Sat, 13 May 2017 06:31:12 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/blog_build/</guid>
+      <description>1. 安装hugo 先要配置好go开发环境 $ go get -v github.com/spf13/hugo $ go install github.com/spf13/hugo 2. 生成站点 使用hugo new site 命令生成站点, 如生成到$HOME/workspace/blo</description>
+    </item>
+    
+  </channel>
+</rss>

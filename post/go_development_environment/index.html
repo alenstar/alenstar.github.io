@@ -1,0 +1,185 @@
+    <!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="alenstar">
+		<meta name="description" content="alenstar blog">
+		<meta name="generator" content="Hugo 0.36.1" />
+		<title>golang开发环境搭建 &middot; alenstar blog</title>
+		<link rel="shortcut icon" href="https://alenstar.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/style.css">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="https://alenstar.github.io/css/font-awesome.min.css">
+		
+
+		
+        
+        
+        
+		
+	</head>
+
+    <body>
+	<div class="body-box">
+       <nav class="main-nav">
+	
+	
+		<a href='https://alenstar.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://alenstar.github.io/post'>Archive</a>
+	<a href='https://alenstar.github.io/tags'>Tags</a>
+	<a href='https://alenstar.github.io/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        golang开发环境搭建
+                    </h1>
+                    <h2 class="headline">
+                    May 12, 2017 23:50
+                    · 517 words
+                    · 2 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://alenstar.github.io/tags/go">go</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    
+
+<h3 id="安装golang工具包">安装golang工具包</h3>
+
+<p>笔者使用的是Debian sid 直接使用apt-get安装就好</p>
+
+<pre><code>$ sudo apt-get install golang -y  
+</code></pre>
+
+<h3 id="配置环境变量">配置环境变量</h3>
+
+<h4 id="1-配置gopath">1. 配置GOPATH</h4>
+
+<p>go将从这里寻找package, go get 下载的package将保存刀$GOPATH/src目录下, go install 安装的程序将放在$GOPATH/bin目录下, %GOPATH/pkg下放的是预编译的package object文件</p>
+
+<pre><code>$ sudo echo &quot;export GOPATH=$HOME/workspace/golang&quot; &gt;&gt; ~/.bashrc  
+$ sudo echo &quot;export PATH=$GOPATH/bin:$PATH&quot; &gt;&gt; ~/.bashrc  
+</code></pre>
+
+<h4 id="2-测试golang环境">2. 测试golang环境</h4>
+
+<p>golang按 域名/用户名(或组织名)/项目名 的形式组织package.</p>
+
+<p>我们也可以使用这种方式来开发和管理项目</p>
+
+<h5 id="2-1-创建测试用项目目录">2.1 创建测试用项目目录</h5>
+
+<pre><code>$ mkdir -p $GOPATH/hello.com/test/hello  
+</code></pre>
+
+<h5 id="2-2-编写hello-go程序">2.2 编写hello.go程序</h5>
+
+<pre><code>$ touch $GOPATH/hello.com/test/hello/main.go
+</code></pre>
+
+<p>用喜欢的编辑器打开main.go文件编辑</p>
+
+<pre><code>// 包名, main包是入口
+package main
+
+// 导入fmt包, fmt提供Printf等系列函数
+import &quot;fmt&quot;
+
+// main函数, 入口函数
+func main() {
+    // 输出道控制台
+	fmt.Printf(&quot;Hello, world.\n&quot;)
+}
+</code></pre>
+
+<h5 id="2-3-运行和安装hello程序">2.3 运行和安装hello程序</h5>
+
+<p>进入$GOPATH/hello.com/test/hello目录</p>
+
+<p>使用 go run main.go 运行程序, 可以看到&rdquo;Hello, world.&ldquo;输出.</p>
+
+<p>用 go install (或者 go install hello.com/test/hello)安装hello程序到%GOPATH/bin目录下, 这样就可以直接运行hello程序啦-v-</p>
+
+                </section>
+            </article>
+            
+            
+            
+            
+
+            
+
+            
+
+            
+    
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/alenstar">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> alenstar
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+	</div>
+
+	
+
+        <script src="https://alenstar.github.io/js/jquery-2.2.4.min.js"></script>
+<script src="https://alenstar.github.io/js/main.js"></script>
+<script src="https://alenstar.github.io/js/highlight.min.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

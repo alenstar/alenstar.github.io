@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Markdown on alenstar blog</title>
+    <link>https://alenstar.github.io/tags/markdown/</link>
+    <description>Recent content in Markdown on alenstar blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 14 Jul 2017 09:37:22 +0800</lastBuildDate>
+    
+	<atom:link href="https://alenstar.github.io/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Markdown 基本语法说明</title>
+      <link>https://alenstar.github.io/post/markdown_syntax/</link>
+      <pubDate>Fri, 14 Jul 2017 09:37:22 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/markdown_syntax/</guid>
+      <description>Github上的Markdown语法说明 Markdown: Syntax Main Basics Syntax License Dingus Overview Philosophy Inline HTML Automatic Escaping for Special Characters Block Elements Paragraphs and Line Breaks Headers Blockquotes Lists Code Blocks Horizontal Rules Span Elements Links Emphasis Code Images Miscellaneous Backslash Escapes Automatic Links Note: This document is itself written using Markdown; you can</description>
+    </item>
+    
+  </channel>
+</rss>

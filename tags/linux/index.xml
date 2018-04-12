@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on alenstar blog</title>
+    <link>https://alenstar.github.io/tags/linux/</link>
+    <description>Recent content in Linux on alenstar blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 05 Aug 2017 13:00:17 +0800</lastBuildDate>
+    
+	<atom:link href="https://alenstar.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linux 小技巧</title>
+      <link>https://alenstar.github.io/post/linux_skill/</link>
+      <pubDate>Sat, 05 Aug 2017 13:00:17 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/linux_skill/</guid>
+      <description>有道词典(Python3) # 使用命令别名 alias youdao=&#39;python3 /opt/skill/youdao.py&#39; 文件内部搜索(自动递归子目录, 忽略二进制文件) # 命令别名 findstr for string search within file alias findstr=&#39;find `pwd` -type f |xargs grep -s -i -n --binary-files=without-match&#39; Shell 重</description>
+    </item>
+    
+    <item>
+      <title>cmake 入门学习</title>
+      <link>https://alenstar.github.io/post/cmake_template/</link>
+      <pubDate>Sat, 01 Jul 2017 16:17:33 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/cmake_template/</guid>
+      <description>首先我们来看看我们的工程目录结构 $ tree myproject myproject # 工程目录 ├── CMakeLists.txt # 入口CMakeLists.txt文件 ├── example.c ├── include # 头文件目录 │ ├── arch.h │ ├─</description>
+    </item>
+    
+  </channel>
+</rss>

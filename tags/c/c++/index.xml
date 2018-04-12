@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C/C&#43;&#43; on alenstar blog</title>
+    <link>https://alenstar.github.io/tags/c/c&#43;&#43;/</link>
+    <description>Recent content in C/C&#43;&#43; on alenstar blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 15 Jun 2017 10:10:08 +0800</lastBuildDate>
+    
+	<atom:link href="https://alenstar.github.io/tags/c/c++/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>DuiLib xml配置项</title>
+      <link>https://alenstar.github.io/post/duilib_xml/</link>
+      <pubDate>Thu, 15 Jun 2017 10:10:08 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/duilib_xml/</guid>
+      <description>本文参考http://blog.csdn.net/wang03989/article/details/41577267 对部分不理解的地方添加</description>
+    </item>
+    
+    <item>
+      <title>c&#43;&#43; placement new</title>
+      <link>https://alenstar.github.io/post/cplusplus_placement_new/</link>
+      <pubDate>Wed, 31 May 2017 20:16:00 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/cplusplus_placement_new/</guid>
+      <description>大家都知道, 在c++里new是用来动态创建和初始化对象的, delete是用来销毁new创造的对象的. 使用new创建对象时,首先是分配对象使用</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;11 类型推导和元组</title>
+      <link>https://alenstar.github.io/post/type_inference_and_tuple/</link>
+      <pubDate>Sun, 14 May 2017 08:39:43 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/type_inference_and_tuple/</guid>
+      <description>类型推导 在标准C++和C，使用参数必须明确的指出其类型。然而，随着模版类型的出现以及模板元编程的技巧，某物的类型，特别是函数定义明确的回返类</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;11 bind function &amp; lambda expressions</title>
+      <link>https://alenstar.github.io/post/bind_function_lambda/</link>
+      <pubDate>Sun, 14 May 2017 07:48:00 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/bind_function_lambda/</guid>
+      <description>在C++中，可调用实体主要包括函数，函数指针，函数引用，可以隐式转换为函数指定的对象，或者实现了opetator()的对象（即C++98中的</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;11 移动语义和右值引用</title>
+      <link>https://alenstar.github.io/post/move_semantics_and_rvalue_references/</link>
+      <pubDate>Sat, 13 May 2017 13:28:13 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/move_semantics_and_rvalue_references/</guid>
+      <description>以下内容引自wikipedia 什么是右值? 在C++11提出右值引用之前，C++03及更早的C++标准中，表达式的“值分类”（value cat</description>
+    </item>
+    
+  </channel>
+</rss>

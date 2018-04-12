@@ -1,0 +1,208 @@
+    <!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="alenstar">
+		<meta name="description" content="alenstar blog">
+		<meta name="generator" content="Hugo 0.36.1" />
+		<title>C&#43;&#43;11 类型推导和元组 &middot; alenstar blog</title>
+		<link rel="shortcut icon" href="https://alenstar.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/style.css">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="https://alenstar.github.io/css/font-awesome.min.css">
+		
+
+		
+        
+        
+        
+		
+	</head>
+
+    <body>
+	<div class="body-box">
+       <nav class="main-nav">
+	
+	
+		<a href='https://alenstar.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://alenstar.github.io/post'>Archive</a>
+	<a href='https://alenstar.github.io/tags'>Tags</a>
+	<a href='https://alenstar.github.io/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        C&#43;&#43;11 类型推导和元组
+                    </h1>
+                    <h2 class="headline">
+                    May 14, 2017 08:39
+                    · 741 words
+                    · 2 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://alenstar.github.io/tags/c/c&#43;&#43;">c/c&#43;&#43;</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    
+
+<h1 id="类型推导">类型推导</h1>
+
+<p>在标准C++和C，使用参数必须明确的指出其类型。然而，随着模版类型的出现以及模板元编程的技巧，某物的类型，特别是函数定义明确的回返类型，就不容易表示。在这样的情况下，将中间结果存储于参数是件困难的事，可能会需要知道特定的元编程程序库的内部情况。</p>
+
+<p>auto关键字可以推导出类型, 方便编程</p>
+
+<pre><code>#include &lt;vector&gt;
+
+int main()
+{
+  const std::vector&lt;int&gt; v(1);
+  auto a = v[0]；// a為int型別
+  decltype（v[0]) b = 0;   // b為const int&amp;型別，即
+                      // std::vector&lt;int&gt;::operator[]（size_type）const的回返型別
+  auto c = 0;         // c為int型別
+  auto d = c;         // d為int型別      
+  decltype(c) e;      // e為int型別，c實體的型別 
+  decltype((c)) f = e; // f為int&amp;型別，因為（c）是左值
+  decltype(0) g;      // g為int型別，因為0是右值
+}
+</code></pre>
+
+<h1 id="std-tuple元组">std::tuple元组</h1>
+
+<p>std::pair 可以打包最多两个值到一个类里,常用在需要返回两个值的函数里,因为可以不需要自己定义一个wrapper类,普通集合类肯定不能用,因为C++的集合只能存储泛型的(相同类型)对象. 如果要存储超过2个不同类型的对象, 可以使用 std::tuple, 它能存储最多10个不同对象类型.</p>
+
+<p>std::tuple是一个类模板,它能存储固定大小的(10个 vs2010)不同类型对象,它是std::pair的泛化类型.</p>
+
+<p>std::tuple 也可以结合std::tie 来接收函数返回时 unpack 集合里的元素.</p>
+
+<pre><code>typedef std::tuple &lt;int, double, long &amp;, const char *&gt; test_tuple;
+long lengthy = 12;
+test_tuple proof (18, 6.5, lengthy, &quot;Ciao!&quot;);
+
+lengthy = std::get&lt;0&gt;(proof);  // 將proof的第一個元素賦值給lengthy（索引從零開始起跳）
+std::get&lt;3&gt;(proof) = &quot; Beautiful!&quot;;  // 修改proof的第四個元素
+
+std::tuple&lt;int, int&gt; foo_tuple() 
+{
+  return {1, -1};  // Error until C++17
+  return std::make_tuple(1, -1); // Always works
+}
+
+</code></pre>
+
+<h3 id="std-tie-解元组">std::tie 解元组</h3>
+
+<pre><code>#include &lt;tuple&gt;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;stdexcept&gt;
+ 
+std::tuple&lt;double, char, std::string&gt; get_student(int id)
+{
+    if (id == 0) return std::make_tuple(3.8, 'A', &quot;Lisa Simpson&quot;);
+    if (id == 1) return std::make_tuple(2.9, 'C', &quot;Milhouse Van Houten&quot;);
+    if (id == 2) return std::make_tuple(1.7, 'D', &quot;Ralph Wiggum&quot;);
+    throw std::invalid_argument(&quot;id&quot;);
+}
+ 
+int main()
+{
+    auto student0 = get_student(0);
+    std::cout &lt;&lt; &quot;ID: 0, &quot;
+              &lt;&lt; &quot;GPA: &quot; &lt;&lt; std::get&lt;0&gt;(student0) &lt;&lt; &quot;, &quot;
+              &lt;&lt; &quot;grade: &quot; &lt;&lt; std::get&lt;1&gt;(student0) &lt;&lt; &quot;, &quot;
+              &lt;&lt; &quot;name: &quot; &lt;&lt; std::get&lt;2&gt;(student0) &lt;&lt; '\n';
+ 
+    double gpa1;
+    char grade1;
+    std::string name1;
+    std::tie(gpa1, grade1, name1) = get_student(1); // 解元组
+    std::cout &lt;&lt; &quot;ID: 1, &quot;
+              &lt;&lt; &quot;GPA: &quot; &lt;&lt; gpa1 &lt;&lt; &quot;, &quot;
+              &lt;&lt; &quot;grade: &quot; &lt;&lt; grade1 &lt;&lt; &quot;, &quot;
+              &lt;&lt; &quot;name: &quot; &lt;&lt; name1 &lt;&lt; '\n';
+}
+</code></pre>
+
+                </section>
+            </article>
+            
+            
+            
+            
+
+            
+
+            
+
+            
+    
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/alenstar">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> alenstar
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+	</div>
+
+	
+
+        <script src="https://alenstar.github.io/js/jquery-2.2.4.min.js"></script>
+<script src="https://alenstar.github.io/js/main.js"></script>
+<script src="https://alenstar.github.io/js/highlight.min.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

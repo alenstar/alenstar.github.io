@@ -1,0 +1,278 @@
+    <!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="alenstar">
+		<meta name="description" content="alenstar blog">
+		<meta name="generator" content="Hugo 0.36.1" />
+		<title>C&#43;&#43;11 bind function &amp; lambda expressions &middot; alenstar blog</title>
+		<link rel="shortcut icon" href="https://alenstar.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/style.css">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="https://alenstar.github.io/css/font-awesome.min.css">
+		
+
+		
+        
+        
+        
+		
+	</head>
+
+    <body>
+	<div class="body-box">
+       <nav class="main-nav">
+	
+	
+		<a href='https://alenstar.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://alenstar.github.io/post'>Archive</a>
+	<a href='https://alenstar.github.io/tags'>Tags</a>
+	<a href='https://alenstar.github.io/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        C&#43;&#43;11 bind function &amp; lambda expressions
+                    </h1>
+                    <h2 class="headline">
+                    May 14, 2017 07:48
+                    · 1675 words
+                    · 4 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://alenstar.github.io/tags/c/c&#43;&#43;">c/c&#43;&#43;</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    
+
+<p>在C++中，可调用实体主要包括函数，函数指针，函数引用，可以隐式转换为函数指定的对象，或者实现了opetator()的对象（即C++98中的functor)。C++0x中，新增加了一个std::function对象，std::function对象是对C++中现有的可调用实体的一种类型安全的包裹(函数指针这类可调用实体，是类型不安全的)。</p>
+
+<p>在学习之前, 我们先要知道什么是闭包(closure):<br />
+在一些语言中，在函数中可以（嵌套）定义另一个函数时，如果内部的函数引用了外部的函数的变量，则可能产生闭包。运行时，一旦外部的 函数被执行，一个闭包就形成了，闭包中包含了内部函数的代码，以及所需外部函数中的变量的引用。其中所引用的变量称作上值(upvalue)。</p>
+
+<hr />
+
+<h1 id="std-bind-std-function">std::bind &amp; std::function</h1>
+
+<p>std::function是一种通用、多态的函数封装。std::function的实例可以对任何可以调用的目标实体进行存储、复制、和调用操作，这些目标实体包括普通函数、Lambda表达式、函数指针、以及其它函数对象等。std::function对象是对C++中现有的可调用实体的一种类型安全的包裹(函数指针这类可调用实体，是类型不安全的)。</p>
+
+<p>通常std::function是一个函数对象类，它包装其它任意的函数对象，被包装的函数对象具有类型为T1, …,TN的N个参数，并且返回一个可转换到R类型的值。std::function使用 模板转换构造函数接收被包装的函数对象；特别是，闭包类型可以隐式地转换为std::function。</p>
+
+<p>使用它们可以实现类似函数指针的功能。std::function可以绑定到全局函数/类静态成员函数(类静态成员函数与全局函数没有区别),如果要绑定到类的非静态成员函数，则需要使用std::bind。</p>
+
+<h3 id="示例代码">示例代码</h3>
+
+<pre><code>#include &lt;functional&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+std::function&lt; int(int)&gt; Functional;
+
+// 普通函数
+int TestFunc(int a)
+{
+    return a;
+}
+
+// Lambda表达式
+auto lambda = [](int a)-&gt;int{ return a; };
+
+// 仿函数(functor)
+class Functor
+{
+public:
+    int operator()(int a)
+    {
+        return a;
+    }
+};
+
+// 1.类成员函数
+// 2.类静态函数
+class TestClass
+{
+public:
+    int ClassMember(int a) { return a; }
+    static int StaticMember(int a) { return a; }
+};
+
+int main()
+{
+    // 普通函数
+    Functional = TestFunc;
+    int result = Functional(10);
+    cout &lt;&lt; &quot;普通函数：&quot;&lt;&lt; result &lt;&lt; endl;
+
+    // Lambda表达式
+    Functional = lambda;
+    result = Functional(20);
+    cout &lt;&lt; &quot;Lambda表达式：&quot;&lt;&lt; result &lt;&lt; endl;
+
+    // 仿函数
+    Functor testFunctor;
+    Functional = testFunctor;
+    result = Functional(30);
+    cout &lt;&lt; &quot;仿函数：&quot;&lt;&lt; result &lt;&lt; endl;
+
+    // 类成员函数
+    TestClass testObj;
+    Functional = std::bind(
+        &amp;TestClass::ClassMember, // 非静态成员函数
+        testObj,                 // 对象指针
+        std::placeholders::_1    // 形参站位符, 可以用来改变形参顺序, 
+                                 // 如  std::placeholders::_1,  std::placeholders::_3 ,  std::placeholders::_2
+    );
+    result = Functional(40);
+    cout &lt;&lt; &quot;类成员函数：&quot;&lt;&lt; result &lt;&lt; endl;
+
+    // 类静态函数
+    Functional = TestClass::StaticMember;
+    result = Functional(50);
+    cout &lt;&lt; &quot;类静态函数：&quot;&lt;&lt; result &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+
+<h3 id="注意事项">注意事项</h3>
+
+<p>关于可调用实体转换为std::function对象需要遵守以下两条原则：</p>
+
+<blockquote>
+<p>转换后的std::function对象的参数能转换为可调用实体的参数；<br />
+可调用实体的返回值能转换为std::function对象的返回值。</p>
+</blockquote>
+
+<p>std::function对象最大的用处就是在实现函数回调，使用者需要注意，它不能被用来检查相等或者不相等，但是可以与NULL或者nullptr进行比较。</p>
+
+<h1 id="lambda-expressions">lambda expressions</h1>
+
+<p>lambda可以很方便地实现std::function, 也是用来实现closure的东东, 它的最大用途也是在回调函数.</p>
+
+<h4 id="语法-syntax">语法(syntax)</h4>
+
+<blockquote>
+<p>[](){} // 最基本的lambda表达式</p>
+
+<p>[]: 捕获列表</p>
+
+<p>(): 形参列表, ()-&gt;int 这是显示声明返回值类型, lambda可以自动推导出返回类型, 一般可不写</p>
+
+<p>{}: 函数体</p>
+</blockquote>
+
+<h4 id="捕获列表">捕获列表</h4>
+
+<blockquote>
+<p>[]      // 沒有定义任何变量。使用未定义变量会引发错误。<br />
+[x, &amp;y] // x以传值方式传入（默认），y以引用方式传入。<br />
+[&amp;]     // 任何被使用到的外部变量都隐式地以引用方式加以引用。<br />
+[=]     // 任何被使用到的外部变量都隐式地以传值方式加以引用。<br />
+[&amp;, x]  // x显式地以传值方式加以引用。其余变量以引用方式加以引用。<br />
+[=, &amp;z] // z显式地以引用方式加以引用。其余变量以传值方式加以引用。</p>
+</blockquote>
+
+<h4 id="示例">示例</h4>
+
+<pre><code>[](int x, int y) { return x + y; } //自动推出返回值类型为int
+
+[](int x, int y) -&gt; int { int z = x + y; return z + x; } //声明返回值类型为int
+
+// closure实现
+std::vector&lt;int&gt; someList;
+int total = 0;
+std::for_each(someList.begin(), someList.end(),
+    [&amp;total](int x) { // 以引用的方式捕获total(外部变量)
+        total += x;   // 修改外部变量
+    }
+);
+std::cout &lt;&lt; total;
+
+// 配合auto, 我们也可以这样写
+auto myLambdaFunc = [this]() { this-&gt;SomePrivateMemberFunction(); }; //捕获this指针
+auto myOnheapLambdaFunc = new auto([=] { /*...*/ }); // 以值传递方式捕获其它外部变量
+
+</code></pre>
+
+                </section>
+            </article>
+            
+            
+            
+            
+
+            
+
+            
+
+            
+    
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/alenstar">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> alenstar
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+	</div>
+
+	
+
+        <script src="https://alenstar.github.io/js/jquery-2.2.4.min.js"></script>
+<script src="https://alenstar.github.io/js/main.js"></script>
+<script src="https://alenstar.github.io/js/highlight.min.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

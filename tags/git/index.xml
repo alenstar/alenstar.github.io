@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on alenstar blog</title>
+    <link>https://alenstar.github.io/tags/git/</link>
+    <description>Recent content in Git on alenstar blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 21 Jul 2017 14:24:29 +0800</lastBuildDate>
+    
+	<atom:link href="https://alenstar.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Git 用法总结</title>
+      <link>https://alenstar.github.io/post/git_start_manual/</link>
+      <pubDate>Fri, 21 Jul 2017 14:24:29 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/git_start_manual/</guid>
+      <description>Git用法简介 Git 版本控制系统 管理维护版本的变更， 发布稳定版， 跟进开发版， 方便问题的跟踪和修复。 配置环境 $ git config --global user.name &amp;quot;用户名&amp;quot</description>
+    </item>
+    
+    <item>
+      <title>发布个人博客</title>
+      <link>https://alenstar.github.io/post/blog_deploy/</link>
+      <pubDate>Sat, 13 May 2017 07:41:41 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/blog_deploy/</guid>
+      <description>1. 修改blog仓库设置 github可以自动检测pages, 我们按它的规则发布到gh-pages分支, 或者发布到docs目录下, 通过YourN</description>
+    </item>
+    
+  </channel>
+</rss>

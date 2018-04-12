@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Other on alenstar blog</title>
+    <link>https://alenstar.github.io/tags/other/</link>
+    <description>Recent content in Other on alenstar blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 03 Aug 2017 14:04:18 +0800</lastBuildDate>
+    
+	<atom:link href="https://alenstar.github.io/tags/other/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>网站收集</title>
+      <link>https://alenstar.github.io/post/website_collection/</link>
+      <pubDate>Thu, 03 Aug 2017 14:04:18 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/website_collection/</guid>
+      <description>C/C++ C++ Programming Guidelines ZeroMQ The Guide OpenFrameworks libuv中文教程 Deep into Node Dlib Google-cpp-styleguide C++基础框架 C++优秀库 Golang Build web application with Golang ACL, RBAC, ABAC 角色控制模块 Rust Rust By Example Rust-book-chinese Rust Primer Rust macro Python Python-data-structure-cn Linux Linux-insides-cn Vue Vue官方文</description>
+    </item>
+    
+  </channel>
+</rss>

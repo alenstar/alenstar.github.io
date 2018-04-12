@@ -1,0 +1,331 @@
+    <!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="alenstar">
+		<meta name="description" content="alenstar blog">
+		<meta name="generator" content="Hugo 0.36.1" />
+		<title>Git 用法总结 &middot; alenstar blog</title>
+		<link rel="shortcut icon" href="https://alenstar.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/style.css">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="https://alenstar.github.io/css/font-awesome.min.css">
+		
+
+		
+        
+        
+        
+		
+	</head>
+
+    <body>
+	<div class="body-box">
+       <nav class="main-nav">
+	
+	
+		<a href='https://alenstar.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://alenstar.github.io/post'>Archive</a>
+	<a href='https://alenstar.github.io/tags'>Tags</a>
+	<a href='https://alenstar.github.io/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        Git 用法总结
+                    </h1>
+                    <h2 class="headline">
+                    Jul 21, 2017 14:24
+                    · 748 words
+                    · 2 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://alenstar.github.io/tags/git">git</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    
+
+<h2 id="git用法简介">Git用法简介</h2>
+
+<h5 id="git-版本控制系统">Git 版本控制系统</h5>
+
+<p>管理维护版本的变更， 发布稳定版， 跟进开发版，
+方便问题的跟踪和修复。</p>
+
+<ul>
+<li><strong><em>配置环境</em></strong></li>
+</ul>
+
+<pre><code>$ git config --global user.name &quot;用户名&quot;  
+$ git config --global user.email &quot;用户邮箱地址&quot;
+</code></pre>
+
+<ul>
+<li><strong><em>生成SSH密钥</em></strong></li>
+</ul>
+
+<pre><code>$ ssh-keygen -t rsa -b 4096 -C &quot;邮箱地址&quot; # 按提示设置密码并确认。
+$ ssh-agent -s 
+$ ssh-add ~/.ssh/id_rsa
+$ # 拷贝 ~/.ssh/id_rsa.pub 中的公钥到剪切板， 然后粘贴到git托管服务器的用户账号的SSH密钥添加页面
+</code></pre>
+
+<ul>
+<li><strong><em>建立本地仓库</em></strong></li>
+</ul>
+
+<pre><code>git init
+</code></pre>
+
+<ul>
+<li><strong><em>添加文件</em></strong></li>
+</ul>
+
+<pre><code>$ git add files
+</code></pre>
+
+<ul>
+<li><strong><em>删除文件</em></strong></li>
+</ul>
+
+<pre><code>$ git rm files
+$ # Tips 撤销删除 git checkout -- files
+</code></pre>
+
+<ul>
+<li><strong><em>提交变更</em></strong></li>
+</ul>
+
+<pre><code>$ git add xxx # 添加要提交的文件和变动到暂存区
+$ git commit -m “变更说明” # 提交
+$ # -------
+$ # 撤销未暂存的修改
+$ git checkout xxx_file_name # 要撤销的文件名
+$ # or: git checkout . # 撤销未暂存的所有修改
+</code></pre>
+
+<ul>
+<li><strong><em>撤销（暂存区的）修改</em></strong></li>
+</ul>
+
+<pre><code>$ git reset HEAD files
+</code></pre>
+
+<ul>
+<li><strong><em>撤销提交并重做</em></strong></li>
+</ul>
+
+<pre><code>$ git commit -m &quot;Something terribly misguided&quot;             # (1)
+$ git reset HEAD~                                          # (2)
+&lt;&lt; edit files as necessary &gt;&gt;                              # (3)
+$ git add ...                                              # (4)
+$ git commit -c ORIG_HEAD                                  # (5)
+</code></pre>
+
+<ul>
+<li><strong><em>关联远程仓库</em></strong></li>
+</ul>
+
+<pre><code>$ git remote add origin xxx # origin 远程仓库别名（默认origin）; xxx 是远程仓库地址  
+$ # git remote remove origin # 移除远程仓库关联
+</code></pre>
+
+<ul>
+<li><strong><em>同步到远程仓库</em></strong></li>
+</ul>
+
+<pre><code>$ git push 
+# #或者 git push -u origin master （关联仓库之后的第一次同步）
+</code></pre>
+
+<ul>
+<li><strong><em>从远程仓库更新</em></strong></li>
+</ul>
+
+<pre><code>$ git pull
+</code></pre>
+
+<ul>
+<li><strong><em>查看分支</em></strong></li>
+</ul>
+
+<pre><code>$ git branch -a
+</code></pre>
+
+<ul>
+<li><strong><em>创建分支</em></strong></li>
+</ul>
+
+<pre><code>$ git branch branchname
+</code></pre>
+
+<ul>
+<li><strong><em>删除分支</em></strong></li>
+</ul>
+
+<pre><code>git branch -d|-D branchname
+</code></pre>
+
+<ul>
+<li><strong><em>切换分支</em></strong></li>
+</ul>
+
+<pre><code>$ git checkout branchname
+</code></pre>
+
+<ul>
+<li><strong><em>查看标签</em></strong></li>
+</ul>
+
+<pre><code>$ git tag
+</code></pre>
+
+<ul>
+<li><strong><em>创建标签</em></strong></li>
+</ul>
+
+<pre><code>$ git tag -a tagname -m “tag message” commit_id
+</code></pre>
+
+<ul>
+<li><strong><em>删除标签</em></strong></li>
+</ul>
+
+<pre><code>$ git tag-d tagname
+</code></pre>
+
+<ul>
+<li><strong><em>切换标签</em></strong><br /></li>
+</ul>
+
+<pre><code>$ git tag tagname
+</code></pre>
+
+<ul>
+<li><strong><em>推送标签到远程</em></strong><br /></li>
+</ul>
+
+<pre><code>$ git push origin --tags|tagname
+</code></pre>
+
+<ul>
+<li><strong><em>子模块(submodule)</em></strong></li>
+</ul>
+
+<pre><code>$ # 添加子模块
+$ git submodule add xxx(模块路径和模块名) yyy(url地址) 
+$ # -------
+$ # 克隆clone有子模块的项目
+$ git submodule update --init --recursive
+$ # -------
+$ # 删除子模块
+$ mv a/submodule a/submodule_tmp
+$ git submodule deinit -f -- a/submodule    
+$ rm -rf .git/modules/a/submodule
+$ # ---------
+$ git rm -f a/submodule
+$ # Note: a/submodule (no trailing slash)
+$ # ---------
+$ # or, if you want to leave it in your working tree
+$ git rm --cached a/submodule
+$ mv a/submodule_tmp a/submodule
+</code></pre>
+
+<ul>
+<li><strong><em>忽略文件</em></strong><br /></li>
+</ul>
+
+<p>在仓库根目录下新建.gitignore文件。</p>
+
+<p>添加规则到.gitignore文件来忽略不用跟踪的文件目录或通配规则，
+如：</p>
+
+<pre><code>Debug
+*.so
+*.exe
+*.dll
+*.o
+</code></pre>
+
+                </section>
+            </article>
+            
+            
+            
+            
+
+            
+
+            
+
+            
+    
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/alenstar">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> alenstar
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+	</div>
+
+	
+
+        <script src="https://alenstar.github.io/js/jquery-2.2.4.min.js"></script>
+<script src="https://alenstar.github.io/js/main.js"></script>
+<script src="https://alenstar.github.io/js/highlight.min.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

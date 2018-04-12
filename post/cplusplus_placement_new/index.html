@@ -1,0 +1,186 @@
+    <!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="alenstar">
+		<meta name="description" content="alenstar blog">
+		<meta name="generator" content="Hugo 0.36.1" />
+		<title>c&#43;&#43; placement new &middot; alenstar blog</title>
+		<link rel="shortcut icon" href="https://alenstar.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/style.css">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="https://alenstar.github.io/css/font-awesome.min.css">
+		
+
+		
+        
+        
+        
+		
+	</head>
+
+    <body>
+	<div class="body-box">
+       <nav class="main-nav">
+	
+	
+		<a href='https://alenstar.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://alenstar.github.io/post'>Archive</a>
+	<a href='https://alenstar.github.io/tags'>Tags</a>
+	<a href='https://alenstar.github.io/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        c&#43;&#43; placement new
+                    </h1>
+                    <h2 class="headline">
+                    May 31, 2017 20:16
+                    · 399 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://alenstar.github.io/tags/c/c&#43;&#43;">c/c&#43;&#43;</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    
+
+<p>大家都知道, 在c++里new是用来动态创建和初始化对象的, delete是用来销毁new创造的对象的.
+使用new创建对象时,首先是分配对象使用的内存空间,然后调用构造函数完成对象的初始化.
+delete时调用对象的析构函数, 然后释放内存.</p>
+
+<p>如果我们想在已经存在的内存上构造对象那该在某些做呢?</p>
+
+<p><code>placement new</code> 正是可以实现我们的需求.</p>
+
+<p><code>placement new</code> 是用来在已经分配的内存上初始化对象用的, 无论是在 <code>堆</code> 还是 <code>桟</code> 都可以.</p>
+
+<h3 id="示例">示例</h3>
+
+<pre><code>#include &lt;iostream&gt;
+
+class ClassT{
+	public:
+		ClassT(){
+			std::cout &lt;&lt; &quot;constructor&quot; &lt;&lt; std::endl;
+		}
+		~ClassT(){
+			std::cout &lt;&lt; &quot;destroyer&quot; &lt;&lt; std::endl;
+		}
+};
+
+int main(int argc, const char** argv) {
+	void* p1 = malloc(sizeof(ClassT)); // 分配堆内存
+	ClassT* c1 = new (p1) ClassT(); // 在p1上构造对象
+
+	char p2[sizeof(ClassT)]; // 分配桟内存
+	ClassT* c2 = new (p2) ClassT(); // 在p2上构造对象
+
+	c1-&gt;~ClassT(); // 手动调用析构函数
+	c2-&gt;~ClassT(); // 手动调用析构函数
+
+	std::cout&lt;&lt; &quot;delete c1&quot; &lt;&lt; std::endl;
+	delete c1; // 释放对象, 自动调用析构函数
+
+	std::cout&lt;&lt; &quot;delete c2&quot; &lt;&lt; std::endl;
+	delete c2; // error c2使用的是桟空间, 离开作用域自动回收
+
+	std::cout&lt;&lt; &quot;free p1&quot; &lt;&lt; std::endl;
+	free(p1); // error 内存已经释放
+
+	return 0;
+}
+</code></pre>
+
+<p>使用 <code>placement new</code> 时, 尽量手动调用析构函数, 内存释放应该又内存申请方管理和释放.</p>
+
+<h3 id="用途">用途</h3>
+
+<ol>
+<li>对象池</li>
+</ol>
+
+<p>可以通过预分配内存空间, 减小开销, 使用时再用 <code>placement new</code> 初始化.</p>
+
+                </section>
+            </article>
+            
+            
+            
+            
+
+            
+
+            
+
+            
+    
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/alenstar">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> alenstar
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+	</div>
+
+	
+
+        <script src="https://alenstar.github.io/js/jquery-2.2.4.min.js"></script>
+<script src="https://alenstar.github.io/js/main.js"></script>
+<script src="https://alenstar.github.io/js/highlight.min.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

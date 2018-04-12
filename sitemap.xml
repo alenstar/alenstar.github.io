@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://alenstar.github.io/post/linux_static_ip/</loc>
+    <lastmod>2018-04-12T14:33:09+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/gogs_drone/</loc>
+    <lastmod>2018-03-22T15:52:36+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/go_recover/</loc>
+    <lastmod>2017-10-12T22:40:03+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/go_reflect/</loc>
+    <lastmod>2017-09-03T14:33:09+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/linux_skill/</loc>
+    <lastmod>2017-08-05T13:00:17+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/website_collection/</loc>
+    <lastmod>2017-08-03T14:04:18+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/mongodb_docker/</loc>
+    <lastmod>2017-08-02T15:56:36+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/rust_copy_move/</loc>
+    <lastmod>2017-08-02T14:55:36+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/rust_rc/</loc>
+    <lastmod>2017-08-02T14:03:20+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/git_start_manual/</loc>
+    <lastmod>2017-07-21T14:24:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/rust_traits/</loc>
+    <lastmod>2017-07-20T13:43:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/rust_deref_derefmut/</loc>
+    <lastmod>2017-07-20T12:26:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/markdown_syntax/</loc>
+    <lastmod>2017-07-14T09:37:22+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/cmake_template/</loc>
+    <lastmod>2017-07-01T16:17:33+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/go_channel/</loc>
+    <lastmod>2017-06-21T17:49:45+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/duilib_xml/</loc>
+    <lastmod>2017-06-15T10:10:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/rust_pattern_match_and_error_handling/</loc>
+    <lastmod>2017-06-06T15:16:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/cplusplus_placement_new/</loc>
+    <lastmod>2017-05-31T20:16:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/javascript_websocket/</loc>
+    <lastmod>2017-05-27T16:42:34+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/java_and_kotlin_singleton/</loc>
+    <lastmod>2017-05-27T14:52:02+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/rust_primitive_types/</loc>
+    <lastmod>2017-05-15T22:10:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/go_interface/</loc>
+    <lastmod>2017-05-14T19:23:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/go_testing_assert/</loc>
+    <lastmod>2017-05-14T15:30:18+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/type_inference_and_tuple/</loc>
+    <lastmod>2017-05-14T08:39:43+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/bind_function_lambda/</loc>
+    <lastmod>2017-05-14T07:48:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/rust_development_environment/</loc>
+    <lastmod>2017-05-13T20:42:57+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/move_semantics_and_rvalue_references/</loc>
+    <lastmod>2017-05-13T13:28:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/blog_deploy/</loc>
+    <lastmod>2017-05-13T07:41:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/blog_build/</loc>
+    <lastmod>2017-05-13T06:31:12+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/go_development_environment/</loc>
+    <lastmod>2017-05-12T23:50:33+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/about/</loc>
+    <lastmod>2015-06-20T14:02:37+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/</loc>
+    <lastmod>2015-06-20T14:02:37+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/bash/</loc>
+    <lastmod>2017-08-05T13:00:17+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/blog/</loc>
+    <lastmod>2017-05-13T06:31:12+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/c/c&#43;&#43;/</loc>
+    <lastmod>2017-06-15T10:10:08+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/docker/</loc>
+    <lastmod>2018-03-22T15:52:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/duilib/</loc>
+    <lastmod>2017-06-15T10:10:08+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/git/</loc>
+    <lastmod>2017-07-21T14:24:29+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/go/</loc>
+    <lastmod>2018-04-12T14:33:09+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/golang/</loc>
+    <lastmod>2017-10-12T22:40:03+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/hugo/</loc>
+    <lastmod>2017-05-13T06:31:12+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/java/</loc>
+    <lastmod>2017-05-27T14:52:02+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/javascript/</loc>
+    <lastmod>2017-05-27T16:42:34+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/kotlin/</loc>
+    <lastmod>2017-05-27T14:52:02+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/linux/</loc>
+    <lastmod>2017-08-05T13:00:17+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/markdown/</loc>
+    <lastmod>2017-07-14T09:37:22+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/mongodb/</loc>
+    <lastmod>2018-03-22T15:52:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/other/</loc>
+    <lastmod>2017-08-03T14:04:18+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/post/</loc>
+    <lastmod>2018-04-12T14:33:09+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/tags/rust/</loc>
+    <lastmod>2017-08-02T14:55:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/categories/y/</loc>
+    <lastmod>2018-04-12T14:33:09+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenstar.github.io/</loc>
+    <lastmod>2018-04-12T14:33:09+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

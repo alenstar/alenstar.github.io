@@ -1,0 +1,170 @@
+    <!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="alenstar">
+		<meta name="description" content="alenstar blog">
+		<meta name="generator" content="Hugo 0.36.1" />
+		<title>Rust 移动语义和拷贝语义 &middot; alenstar blog</title>
+		<link rel="shortcut icon" href="https://alenstar.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/style.css">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="https://alenstar.github.io/css/font-awesome.min.css">
+		
+
+		
+        
+        
+        
+		
+	</head>
+
+    <body>
+	<div class="body-box">
+       <nav class="main-nav">
+	
+	
+		<a href='https://alenstar.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://alenstar.github.io/post'>Archive</a>
+	<a href='https://alenstar.github.io/tags'>Tags</a>
+	<a href='https://alenstar.github.io/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        Rust 移动语义和拷贝语义
+                    </h1>
+                    <h2 class="headline">
+                    Aug 2, 2017 14:55
+                    · 174 words
+                    · 1 minute read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://alenstar.github.io/tags/rust">rust</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    <p>Rust 函数调用时传参和变量绑定时默认使用移动语义 <code>move</code> ， 只有实现 <code>Copy</code> trait 时才进行拷贝。
+在Rust中只有基本类型和少数结构实现了 <code>Copy</code> ，其他自定义结构需要自己来实现。</p>
+
+<pre><code>
+// Copy 继承自 Clone
+// 注释掉编译会出错， 
+#[derive(Copy, Clone)]
+pub struct S {
+    flag: bool,
+    value: i32,
+}
+
+impl S {
+    fn new() -&gt; S {
+        S {
+            flag: false,
+            value: 0,
+        }
+    }
+    fn set_flag(&amp;mut self, ok: bool) {
+        self.flag = ok;
+    }
+
+    fn set_value(&amp;mut self, value: i32) {
+        self.value = value;
+    }
+
+    fn print(&amp;self) {
+        println!(&quot;{:?} {:?}&quot;, self.flag, self.value);
+    }
+}
+
+fn main() {
+    let set_flag = |mut s: S| { s.set_flag(true); s.print();};
+    let mut s = S::new();
+    // 自动 copy s ， 机使用 Copy 语义
+    set_flag(s);
+    s.print();
+}
+
+
+</code></pre>
+
+                </section>
+            </article>
+            
+            
+            
+            
+
+            
+
+            
+
+            
+    
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/alenstar">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> alenstar
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+	</div>
+
+	
+
+        <script src="https://alenstar.github.io/js/jquery-2.2.4.min.js"></script>
+<script src="https://alenstar.github.io/js/main.js"></script>
+<script src="https://alenstar.github.io/js/highlight.min.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

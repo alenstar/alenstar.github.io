@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rust on alenstar blog</title>
+    <link>https://alenstar.github.io/tags/rust/</link>
+    <description>Recent content in Rust on alenstar blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 02 Aug 2017 14:55:36 +0800</lastBuildDate>
+    
+	<atom:link href="https://alenstar.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rust 移动语义和拷贝语义</title>
+      <link>https://alenstar.github.io/post/rust_copy_move/</link>
+      <pubDate>Wed, 02 Aug 2017 14:55:36 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/rust_copy_move/</guid>
+      <description>Rust 函数调用时传参和变量绑定时默认使用移动语义 move ， 只有实现 Copy trait 时才进行拷贝。 在Rust中只有基本类型和少数结构实现了 Copy ，其他自定义结构需要自己</description>
+    </item>
+    
+    <item>
+      <title>Rust Rc 和 Arc </title>
+      <link>https://alenstar.github.io/post/rust_rc/</link>
+      <pubDate>Wed, 02 Aug 2017 14:03:20 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/rust_rc/</guid>
+      <description>std::rc::Rc 一种单线程的引用计数指针(非安全)，它实现了 Deref （使用 Rc::get_mut(Rc) 取得可变引用） ，及继承了 T 的方法。 std::sync::Arc 一种线程安全的引用计数指针，和 std::rc::Rc 一样，实现了 Deref ，</description>
+    </item>
+    
+    <item>
+      <title>Rust traits</title>
+      <link>https://alenstar.github.io/post/rust_traits/</link>
+      <pubDate>Thu, 20 Jul 2017 13:43:27 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/rust_traits/</guid>
+      <description>定义一个 triat pub trait Print { fn print(&amp;amp;self); // 必须实现 fn printex(&amp;amp;self) {} // 可以不实现 } 我们定义了 triat Print， 它有两个方法 print 和 printex ， 其中 print 是必须被实现的。 实现特征 Print // 定义结构 Node</description>
+    </item>
+    
+    <item>
+      <title>Rust Deref &amp; DerefMuf 类型转换</title>
+      <link>https://alenstar.github.io/post/rust_deref_derefmut/</link>
+      <pubDate>Thu, 20 Jul 2017 12:26:19 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/rust_deref_derefmut/</guid>
+      <description>示例代码 // 引入 triats Deref DerefMut use std::ops::{Deref, DerefMut}; #[derive(Debug)] pub struct Node { x: i32, y: i32, w: u32, h: u32, } impl Node { fn new(w: u32, h: u32) -&amp;gt; Node { Node { x: 0, y: 0, w: w, h: h, } } fn get_position(&amp;amp;self) -&amp;gt; (i32, i32) { (self.x, self.y) } fn get_size(&amp;amp;self) -&amp;gt; (u32, u32) { (self.w, self.h) } } #[derive(Debug)]</description>
+    </item>
+    
+    <item>
+      <title>Rust 模式匹配和错误处理</title>
+      <link>https://alenstar.github.io/post/rust_pattern_match_and_error_handling/</link>
+      <pubDate>Tue, 06 Jun 2017 15:16:41 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/rust_pattern_match_and_error_handling/</guid>
+      <description>什么时模式匹配（Pattern Match）？ 汉语字典中对 模式 的解释是：事物的标准样式。 在计算机科学中，它指特定类型的数据（往往是序列或树形结</description>
+    </item>
+    
+    <item>
+      <title>Rust 原生类型</title>
+      <link>https://alenstar.github.io/post/rust_primitive_types/</link>
+      <pubDate>Mon, 15 May 2017 22:10:40 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/rust_primitive_types/</guid>
+      <description>Rust是基于表达式的语言, 它只有两种语句: * 声明语句 * 表达式语句 其它一切是表达式. 布尔型 bool bool型只有两种值, true or false : let x = true；/</description>
+    </item>
+    
+    <item>
+      <title>Rust开发环境搭建</title>
+      <link>https://alenstar.github.io/post/rust_development_environment/</link>
+      <pubDate>Sat, 13 May 2017 20:42:57 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/rust_development_environment/</guid>
+      <description>1. 安装 Rust curl https://sh.rustup.rs -sSf | sh 2. 配置环境变量 在 Rust 开发环境中，所有工具都安装到 ~/.cargo/bin 目录， 并且您能够在这里找到 Rust 工具链，包括 rustc、cargo 及 rustu</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on alenstar blog</title>
+    <link>https://alenstar.github.io/post/</link>
+    <description>Recent content in Posts on alenstar blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 12 Apr 2018 14:33:09 +0800</lastBuildDate>
+    
+	<atom:link href="https://alenstar.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linux 配置静态 IP</title>
+      <link>https://alenstar.github.io/post/linux_static_ip/</link>
+      <pubDate>Thu, 12 Apr 2018 14:33:09 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/linux_static_ip/</guid>
+      <description>Edit /etc/network/interfaces, enter: $ sudo vi /etc/network/interfaces The syntax is as follows: route add -net $NET netmask $MASK gw $GATEWAY route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.1.254 You need to add above syntax to post-up command as follows: post-up command post-up route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.1.254 Configure static ip address # 自动启动设备 auto eth0 # 允许热插拔 allow-hotplug</description>
+    </item>
+    
+    <item>
+      <title>Docker下部署 Gogs &amp; Drone</title>
+      <link>https://alenstar.github.io/post/gogs_drone/</link>
+      <pubDate>Thu, 22 Mar 2018 15:52:36 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/gogs_drone/</guid>
+      <description>参考文档 http://docs.drone.io/install-for-gogs/ 修改Docker默认的镜像目录 为了提高镜像拉取速度，我们可以使用国内的仓库。 可以通过修改 /etc/docker/daemon.json (不存在可创建) 来配置 docker 镜像仓库 { &amp;quot;registry-mirrors&amp;quot;: [&amp;quot;https://registry.docker-cn.com&amp;quot;] }</description>
+    </item>
+    
+    <item>
+      <title>go 获取 panic 时详细的桟信息</title>
+      <link>https://alenstar.github.io/post/go_recover/</link>
+      <pubDate>Thu, 12 Oct 2017 22:40:03 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/go_recover/</guid>
+      <description>当程序异常 panic 时 golang 的 recover() 方法可以很方便地恢复, 但是没有详细的桟信息不便于定位异常, 这里介绍一个简单的方法来获取桟信息 runtime.Stack runtime.Stack(buf []byte, all bool) int buf 输出桟信息 all 为</description>
+    </item>
+    
+    <item>
+      <title>go 反射应用-结构体复制</title>
+      <link>https://alenstar.github.io/post/go_reflect/</link>
+      <pubDate>Sun, 03 Sep 2017 14:33:09 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/go_reflect/</guid>
+      <description>实例代码 package main import ( &amp;quot;errors&amp;quot; &amp;quot;fmt&amp;quot; &amp;quot;reflect&amp;quot; ) type People struct{ Age int Name string Hobby []string Tags map[string]string } func reflectCopy(dst, src reflect.Value) error { if dst.Kind() == src.Kind() { //if dst.CanSet() { // 对于复杂类型(map slice 等)会直接拷贝引用地址 // dst.Set(src) /*} else*/ { switch dst.Kind() { //case</description>
+    </item>
+    
+    <item>
+      <title>Linux 小技巧</title>
+      <link>https://alenstar.github.io/post/linux_skill/</link>
+      <pubDate>Sat, 05 Aug 2017 13:00:17 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/linux_skill/</guid>
+      <description>有道词典(Python3) # 使用命令别名 alias youdao=&#39;python3 /opt/skill/youdao.py&#39; 文件内部搜索(自动递归子目录, 忽略二进制文件) # 命令别名 findstr for string search within file alias findstr=&#39;find `pwd` -type f |xargs grep -s -i -n --binary-files=without-match&#39; Shell 重</description>
+    </item>
+    
+    <item>
+      <title>网站收集</title>
+      <link>https://alenstar.github.io/post/website_collection/</link>
+      <pubDate>Thu, 03 Aug 2017 14:04:18 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/website_collection/</guid>
+      <description>C/C++ C++ Programming Guidelines ZeroMQ The Guide OpenFrameworks libuv中文教程 Deep into Node Dlib Google-cpp-styleguide C++基础框架 C++优秀库 Golang Build web application with Golang ACL, RBAC, ABAC 角色控制模块 Rust Rust By Example Rust-book-chinese Rust Primer Rust macro Python Python-data-structure-cn Linux Linux-insides-cn Vue Vue官方文</description>
+    </item>
+    
+    <item>
+      <title>Docker下部署MongoDB</title>
+      <link>https://alenstar.github.io/post/mongodb_docker/</link>
+      <pubDate>Wed, 02 Aug 2017 15:56:36 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/mongodb_docker/</guid>
+      <description>修改Docker默认的镜像目录 # stop server systemctl stop docker # 用以下一行来替换 ExecStart=/usr/bin/dockerd -H fd:// $DOCKER_OPTS # ExecStart=/usr/bin/docker daemon -g /opt/docker -H fd:// $DOCKER_OPTS # /opt/docker 为自定义目录 vim /lib/systemd/system/docker.service # reload configuration systemctl daemon-reload # start server systemctl start docker 新版的 docker 可以通</description>
+    </item>
+    
+    <item>
+      <title>Rust 移动语义和拷贝语义</title>
+      <link>https://alenstar.github.io/post/rust_copy_move/</link>
+      <pubDate>Wed, 02 Aug 2017 14:55:36 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/rust_copy_move/</guid>
+      <description>Rust 函数调用时传参和变量绑定时默认使用移动语义 move ， 只有实现 Copy trait 时才进行拷贝。 在Rust中只有基本类型和少数结构实现了 Copy ，其他自定义结构需要自己</description>
+    </item>
+    
+    <item>
+      <title>Rust Rc 和 Arc </title>
+      <link>https://alenstar.github.io/post/rust_rc/</link>
+      <pubDate>Wed, 02 Aug 2017 14:03:20 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/rust_rc/</guid>
+      <description>std::rc::Rc 一种单线程的引用计数指针(非安全)，它实现了 Deref （使用 Rc::get_mut(Rc) 取得可变引用） ，及继承了 T 的方法。 std::sync::Arc 一种线程安全的引用计数指针，和 std::rc::Rc 一样，实现了 Deref ，</description>
+    </item>
+    
+    <item>
+      <title>Git 用法总结</title>
+      <link>https://alenstar.github.io/post/git_start_manual/</link>
+      <pubDate>Fri, 21 Jul 2017 14:24:29 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/git_start_manual/</guid>
+      <description>Git用法简介 Git 版本控制系统 管理维护版本的变更， 发布稳定版， 跟进开发版， 方便问题的跟踪和修复。 配置环境 $ git config --global user.name &amp;quot;用户名&amp;quot</description>
+    </item>
+    
+    <item>
+      <title>Rust traits</title>
+      <link>https://alenstar.github.io/post/rust_traits/</link>
+      <pubDate>Thu, 20 Jul 2017 13:43:27 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/rust_traits/</guid>
+      <description>定义一个 triat pub trait Print { fn print(&amp;amp;self); // 必须实现 fn printex(&amp;amp;self) {} // 可以不实现 } 我们定义了 triat Print， 它有两个方法 print 和 printex ， 其中 print 是必须被实现的。 实现特征 Print // 定义结构 Node</description>
+    </item>
+    
+    <item>
+      <title>Rust Deref &amp; DerefMuf 类型转换</title>
+      <link>https://alenstar.github.io/post/rust_deref_derefmut/</link>
+      <pubDate>Thu, 20 Jul 2017 12:26:19 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/rust_deref_derefmut/</guid>
+      <description>示例代码 // 引入 triats Deref DerefMut use std::ops::{Deref, DerefMut}; #[derive(Debug)] pub struct Node { x: i32, y: i32, w: u32, h: u32, } impl Node { fn new(w: u32, h: u32) -&amp;gt; Node { Node { x: 0, y: 0, w: w, h: h, } } fn get_position(&amp;amp;self) -&amp;gt; (i32, i32) { (self.x, self.y) } fn get_size(&amp;amp;self) -&amp;gt; (u32, u32) { (self.w, self.h) } } #[derive(Debug)]</description>
+    </item>
+    
+    <item>
+      <title>Markdown 基本语法说明</title>
+      <link>https://alenstar.github.io/post/markdown_syntax/</link>
+      <pubDate>Fri, 14 Jul 2017 09:37:22 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/markdown_syntax/</guid>
+      <description>Github上的Markdown语法说明 Markdown: Syntax Main Basics Syntax License Dingus Overview Philosophy Inline HTML Automatic Escaping for Special Characters Block Elements Paragraphs and Line Breaks Headers Blockquotes Lists Code Blocks Horizontal Rules Span Elements Links Emphasis Code Images Miscellaneous Backslash Escapes Automatic Links Note: This document is itself written using Markdown; you can</description>
+    </item>
+    
+    <item>
+      <title>cmake 入门学习</title>
+      <link>https://alenstar.github.io/post/cmake_template/</link>
+      <pubDate>Sat, 01 Jul 2017 16:17:33 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/cmake_template/</guid>
+      <description>首先我们来看看我们的工程目录结构 $ tree myproject myproject # 工程目录 ├── CMakeLists.txt # 入口CMakeLists.txt文件 ├── example.c ├── include # 头文件目录 │ ├── arch.h │ ├─</description>
+    </item>
+    
+    <item>
+      <title>go channel 使用总结</title>
+      <link>https://alenstar.github.io/post/go_channel/</link>
+      <pubDate>Wed, 21 Jun 2017 17:49:45 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/go_channel/</guid>
+      <description>go中channel的声明使用chan关键字， 后面接chan中可以存入的类型; 对channel的操作使用 &amp;lt;- (读) 和 -&amp;gt; (写), 注意在go中 &amp;lt;- 和</description>
+    </item>
+    
+    <item>
+      <title>DuiLib xml配置项</title>
+      <link>https://alenstar.github.io/post/duilib_xml/</link>
+      <pubDate>Thu, 15 Jun 2017 10:10:08 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/duilib_xml/</guid>
+      <description>本文参考http://blog.csdn.net/wang03989/article/details/41577267 对部分不理解的地方添加</description>
+    </item>
+    
+    <item>
+      <title>Rust 模式匹配和错误处理</title>
+      <link>https://alenstar.github.io/post/rust_pattern_match_and_error_handling/</link>
+      <pubDate>Tue, 06 Jun 2017 15:16:41 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/rust_pattern_match_and_error_handling/</guid>
+      <description>什么时模式匹配（Pattern Match）？ 汉语字典中对 模式 的解释是：事物的标准样式。 在计算机科学中，它指特定类型的数据（往往是序列或树形结</description>
+    </item>
+    
+    <item>
+      <title>c&#43;&#43; placement new</title>
+      <link>https://alenstar.github.io/post/cplusplus_placement_new/</link>
+      <pubDate>Wed, 31 May 2017 20:16:00 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/cplusplus_placement_new/</guid>
+      <description>大家都知道, 在c++里new是用来动态创建和初始化对象的, delete是用来销毁new创造的对象的. 使用new创建对象时,首先是分配对象使用</description>
+    </item>
+    
+    <item>
+      <title>websocket Javascript 客户端</title>
+      <link>https://alenstar.github.io/post/javascript_websocket/</link>
+      <pubDate>Sat, 27 May 2017 16:42:34 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/javascript_websocket/</guid>
+      <description>构造方法 WebSocket WebSocket(url, protocols); 参数 url: 连接地址， ws://xxxxx:xx or wss://xxxxx:xx (tsl/ssl 加密) protocols: 可选参数 方法 发送数据 &amp;gt; send(data) 支持string arraybuffer blob(二进制大对象块) 等类型数据 关闭连接 &amp;gt; clsoe(code, reason) 关</description>
+    </item>
+    
+    <item>
+      <title>Java 和 Kotlin 单例实现</title>
+      <link>https://alenstar.github.io/post/java_and_kotlin_singleton/</link>
+      <pubDate>Sat, 27 May 2017 14:52:02 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/java_and_kotlin_singleton/</guid>
+      <description>Java Java中实现单例，我们可以有很多种实现方法，但是这给程序员带来了额外的负担，不仅要考虑线程安全还要考虑效率问题。 1, 懒汉实现， 线程不安全 public</description>
+    </item>
+    
+    <item>
+      <title>Rust 原生类型</title>
+      <link>https://alenstar.github.io/post/rust_primitive_types/</link>
+      <pubDate>Mon, 15 May 2017 22:10:40 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/rust_primitive_types/</guid>
+      <description>Rust是基于表达式的语言, 它只有两种语句: * 声明语句 * 表达式语句 其它一切是表达式. 布尔型 bool bool型只有两种值, true or false : let x = true；/</description>
+    </item>
+    
+    <item>
+      <title>go interface</title>
+      <link>https://alenstar.github.io/post/go_interface/</link>
+      <pubDate>Sun, 14 May 2017 19:23:04 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/go_interface/</guid>
+      <description>介绍 go的interface不同于其它语言, 它是隐式实现的, 不用特意声明实现了T接口, 只要实现T接口的方法, 我们就说它实现了T接口, 不过这也</description>
+    </item>
+    
+    <item>
+      <title>go 单元测试框架 assert</title>
+      <link>https://alenstar.github.io/post/go_testing_assert/</link>
+      <pubDate>Sun, 14 May 2017 15:30:18 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/go_testing_assert/</guid>
+      <description>安装 使用 go get. $ go get gopkg.in/go-playground/assert.v1 更新安装 $ go get -u gopkg.in/go-playground/assert.v1 使用 import . &amp;quot;gopkg.in/go-playground/assert.v1&amp;quot; 示例 示例代码 package config import ( // 导入assert包 . &amp;quot;gopkg.in/go-playground/assert.v1&amp;quot; &amp;quot;testing&amp;quot; ) func TestConfig(t *testing.T) { // 断言String(&amp;quot;ke</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;11 类型推导和元组</title>
+      <link>https://alenstar.github.io/post/type_inference_and_tuple/</link>
+      <pubDate>Sun, 14 May 2017 08:39:43 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/type_inference_and_tuple/</guid>
+      <description>类型推导 在标准C++和C，使用参数必须明确的指出其类型。然而，随着模版类型的出现以及模板元编程的技巧，某物的类型，特别是函数定义明确的回返类</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;11 bind function &amp; lambda expressions</title>
+      <link>https://alenstar.github.io/post/bind_function_lambda/</link>
+      <pubDate>Sun, 14 May 2017 07:48:00 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/bind_function_lambda/</guid>
+      <description>在C++中，可调用实体主要包括函数，函数指针，函数引用，可以隐式转换为函数指定的对象，或者实现了opetator()的对象（即C++98中的</description>
+    </item>
+    
+    <item>
+      <title>Rust开发环境搭建</title>
+      <link>https://alenstar.github.io/post/rust_development_environment/</link>
+      <pubDate>Sat, 13 May 2017 20:42:57 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/rust_development_environment/</guid>
+      <description>1. 安装 Rust curl https://sh.rustup.rs -sSf | sh 2. 配置环境变量 在 Rust 开发环境中，所有工具都安装到 ~/.cargo/bin 目录， 并且您能够在这里找到 Rust 工具链，包括 rustc、cargo 及 rustu</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;11 移动语义和右值引用</title>
+      <link>https://alenstar.github.io/post/move_semantics_and_rvalue_references/</link>
+      <pubDate>Sat, 13 May 2017 13:28:13 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/move_semantics_and_rvalue_references/</guid>
+      <description>以下内容引自wikipedia 什么是右值? 在C++11提出右值引用之前，C++03及更早的C++标准中，表达式的“值分类”（value cat</description>
+    </item>
+    
+    <item>
+      <title>发布个人博客</title>
+      <link>https://alenstar.github.io/post/blog_deploy/</link>
+      <pubDate>Sat, 13 May 2017 07:41:41 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/blog_deploy/</guid>
+      <description>1. 修改blog仓库设置 github可以自动检测pages, 我们按它的规则发布到gh-pages分支, 或者发布到docs目录下, 通过YourN</description>
+    </item>
+    
+    <item>
+      <title>建立个人博客</title>
+      <link>https://alenstar.github.io/post/blog_build/</link>
+      <pubDate>Sat, 13 May 2017 06:31:12 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/blog_build/</guid>
+      <description>1. 安装hugo 先要配置好go开发环境 $ go get -v github.com/spf13/hugo $ go install github.com/spf13/hugo 2. 生成站点 使用hugo new site 命令生成站点, 如生成到$HOME/workspace/blo</description>
+    </item>
+    
+    <item>
+      <title>golang开发环境搭建</title>
+      <link>https://alenstar.github.io/post/go_development_environment/</link>
+      <pubDate>Fri, 12 May 2017 23:50:33 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/go_development_environment/</guid>
+      <description>安装golang工具包 笔者使用的是Debian sid 直接使用apt-get安装就好 $ sudo apt-get install golang -y 配置环境变量 1. 配置GOPATH go将从这里寻找pa</description>
+    </item>
+    
+  </channel>
+</rss>

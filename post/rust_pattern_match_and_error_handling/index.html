@@ -1,0 +1,245 @@
+    <!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="alenstar">
+		<meta name="description" content="alenstar blog">
+		<meta name="generator" content="Hugo 0.36.1" />
+		<title>Rust 模式匹配和错误处理 &middot; alenstar blog</title>
+		<link rel="shortcut icon" href="https://alenstar.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/style.css">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="https://alenstar.github.io/css/font-awesome.min.css">
+		
+
+		
+        
+        
+        
+		
+	</head>
+
+    <body>
+	<div class="body-box">
+       <nav class="main-nav">
+	
+	
+		<a href='https://alenstar.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://alenstar.github.io/post'>Archive</a>
+	<a href='https://alenstar.github.io/tags'>Tags</a>
+	<a href='https://alenstar.github.io/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        Rust 模式匹配和错误处理
+                    </h1>
+                    <h2 class="headline">
+                    Jun 6, 2017 15:16
+                    · 890 words
+                    · 2 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://alenstar.github.io/tags/rust">rust</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    
+
+<h3 id="什么时模式匹配-pattern-match">什么时模式匹配（Pattern Match）？</h3>
+
+<p>汉语字典中对 <code>模式</code> 的解释是：事物的标准样式。
+在计算机科学中，它指特定类型的数据（往往是序列或树形结构）满足某一特定结构或格式。
+<code>匹配</code> 本身是指一个判断寻找过程。
+最早的模式匹配用于文本编辑器中的正则字符串搜索，之后才作为编程语言特性。</p>
+
+<p>模式匹配在计算机科学领域有两层意思。
+其一，可以特指字符串匹配算法，例如为人熟知的 KMP 字符串匹配算法、命令行工具 grep 等。
+其二，特指在一些语言中作为一种以结构的方式处理数据的工具，此时的匹配过程往往是树形匹配，与此相伴的往往还有一个特性叫 guard（守卫）。</p>
+
+<p>Rust 中模式匹配随处可见，例如在 let 变量绑定语句、 match 匹配语句中等。
+利用好模式匹配这一特性可以使代码更简洁易懂。
+Rust 支持模式匹配中的变量绑定、结构体/元组解构、守卫条件判断、数值范围匹配等特性。</p>
+
+<h3 id="模式匹配能做什么">模式匹配能做什么？</h3>
+
+<ol>
+<li>取代switch语句</li>
+</ol>
+
+<p>rust 没有switch语句， 那么遇到多分支选择的情况又该怎么处理？</p>
+
+<pre><code>match number {
+  0     =&gt; println!(&quot;zero&quot;), // 匹配 number = 0， 相当于case 0：
+  1 | 2 =&gt; println!(&quot;one or two&quot;), // 匹配 1或者2
+  3...10 =&gt; println!(&quot;three to ten&quot;), // 匹配 3到10（闭区间）
+  _     =&gt; println!(&quot;something else&quot;) // `_` 是通配符
+}
+</code></pre>
+
+<ol>
+<li>错误处理 Option</li>
+</ol>
+
+<p>很多rust库通过返回Option或者Result来返回处理结果。</p>
+
+<pre><code>pub enum Option&lt;T&gt; {
+ None, // 空， 可以用来表示null
+ Some(T), // Some(...) 需要处理的结果
+}
+</code></pre>
+
+<p>可以看到， 在Option结构中， 真正要处理的结果被装在Some中， 那么怎样取出Some中的内容呢？</p>
+
+<pre><code>match opt {
+ Some(value) =&gt; println!(&quot;value = {}&quot;, value), // 取出value
+ None =&gt; println!(&quot;Got None&quot;), // 处理错误
+}
+</code></pre>
+
+<p>有时为了方便， 我们不想处理错误的结果， 这时我们可以用 <code>unwarp</code> 函数来跳过（该崩溃的问题就让它崩溃吧）</p>
+
+<pre><code>impl&lt;T&gt; Option&lt;T&gt; {
+ fn unwrap(self) -&gt; T {
+   match self {
+   Option::Some(val) =&gt; val, // 取出val
+   Option::None =&gt;
+   panic!(&quot;called `Option::unwrap()` on a `None` value&quot;), // 出错直接panic掉
+   }
+ }
+}
+</code></pre>
+
+<ol>
+<li>错误处理 Result</li>
+</ol>
+
+<p>Option虽然方便，但是出错时没有详细的提示（就知道 <code>None</code> ），Result提供更详细的错误提示。</p>
+
+<pre><code>enum Result&lt;T, E&gt; {
+ Ok(T), // 取出结果T
+ Err(E), // 取出错误信息E
+}
+</code></pre>
+
+<h3 id="如何使用">如何使用？</h3>
+
+<p>Option<T></p>
+
+<pre><code>fn my_option(number: i32) -&gt; Option&lt;i32&gt; {
+    match number {
+        0 =&gt; Some(0),
+        1 | 2 =&gt; Some(1),
+        _ =&gt; None,
+    }
+}
+
+println!(&quot;option {0}&quot;,
+         match my_option(11) {
+             None =&gt; -1, // 失败返回-1
+             Some(x) =&gt; x, // 返回成功结果
+         });
+</code></pre>
+
+<p>Result<T, E></p>
+
+<pre><code>// `&amp;'static str` 表示错误提示信息的生命周期是静态的
+fn my_result(number: i32) -&gt; Result&lt;i32, &amp;'static str&gt; {
+    match number {
+        0 =&gt; Ok(0),
+        1 | 2 =&gt; Ok(1),
+        _ =&gt; Err(&quot;bad number&quot;), // 返回错误提示
+    }
+}
+
+println!(&quot;result {0}&quot;,
+         match my_result(11) {
+             Ok(x)=&gt; x,
+             Err(e) =&gt; {
+             println!(&quot;Err {}&quot;, e); // 打印错误信息
+                 -1 // 返回-1
+             },
+         });
+</code></pre>
+
+                </section>
+            </article>
+            
+            
+            
+            
+
+            
+
+            
+
+            
+    
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/alenstar">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> alenstar
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+	</div>
+
+	
+
+        <script src="https://alenstar.github.io/js/jquery-2.2.4.min.js"></script>
+<script src="https://alenstar.github.io/js/main.js"></script>
+<script src="https://alenstar.github.io/js/highlight.min.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

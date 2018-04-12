@@ -1,0 +1,231 @@
+    <!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="alenstar">
+		<meta name="description" content="alenstar blog">
+		<meta name="generator" content="Hugo 0.36.1" />
+		<title>建立个人博客 &middot; alenstar blog</title>
+		<link rel="shortcut icon" href="https://alenstar.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/style.css">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="https://alenstar.github.io/css/font-awesome.min.css">
+		
+
+		
+        
+        
+        
+		
+	</head>
+
+    <body>
+	<div class="body-box">
+       <nav class="main-nav">
+	
+	
+		<a href='https://alenstar.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://alenstar.github.io/post'>Archive</a>
+	<a href='https://alenstar.github.io/tags'>Tags</a>
+	<a href='https://alenstar.github.io/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        建立个人博客
+                    </h1>
+                    <h2 class="headline">
+                    May 13, 2017 06:31
+                    · 756 words
+                    · 2 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://alenstar.github.io/tags/blog">blog</a>
+                          
+                              <a href="https://alenstar.github.io/tags/hugo">hugo</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    
+
+<h3 id="1-安装hugo">1. 安装hugo</h3>
+
+<p><em>先要配置好go开发环境</em></p>
+
+<pre><code>$ go get -v github.com/spf13/hugo  
+$ go install github.com/spf13/hugo
+</code></pre>
+
+<h3 id="2-生成站点">2. 生成站点</h3>
+
+<p>使用hugo new site 命令生成站点, 如生成到$HOME/workspace/blog目录:</p>
+
+<pre><code>$ hugo new site $HOME/workspace/blog
+</code></pre>
+
+<p>这样就在$HOME/workspace/blog目录下生成啦初始站点, 进入目录:</p>
+
+<pre><code>$ cd $HOME/workspace/blog
+</code></pre>
+
+<p>站点目录结构:</p>
+
+<pre><code># blog文章目录
+content/
+layouts/
+static/
+# hugo站点配置文件
+config.toml
+</code></pre>
+
+<h3 id="3-安装主题">3. 安装主题</h3>
+
+<p>去<a href="http://themes.gohugo.io/">themes.gohugo.io</a>选一个喜欢的主题,并下载下来<br />
+exampleSite 是主题的一个示例站点，里面有配置文件、关于页面的一些示例。</p>
+
+<pre><code>#创建themes目录
+$ mkdir themes
+#下载主题cactus-plus
+$ cd themes 
+$ git clone https://github.com/nodejh/hugo-theme-cactus-plus.git 
+#移除.git, 避免和站点项目的.git冲突, 
+#当然也可以使用submodule形式组织
+$ rm -rf .git
+#将示例模板放到站点根目录
+$ mv exampleSite/* ../
+# 回到站点根目录
+$ cd ..
+</code></pre>
+
+<h3 id="4-主题配置">4. 主题配置</h3>
+
+<p>替换$HOME/workspace/blog/themes/cactus-plus/static/images目录下的图片.</p>
+
+<p>修改站点标题:</p>
+
+<blockquote>
+<p>打开 config.toml 文件<br />
+修改 baseURL 字段为<a href="https://YourUsername.github.io形式">https://YourUsername.github.io形式</a>, 或者你的域名, 用于生成CNAME<br />
+修改 title=&ldquo;xxx&rdquo; 字段<br />
+修改 [params] 的 name,description,bio(像是个性签名) 等字段</p>
+</blockquote>
+
+<h3 id="5-使用git来管理文章">5. 使用git来管理文章</h3>
+
+<p>Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。</p>
+
+<h4 id="5-1-初始化本地仓库">5.1 初始化本地仓库</h4>
+
+<pre><code>#hugo默认生成站点到public目录, 我们不需要保留它
+$ echo &quot;public&quot; &gt;&gt; .gitignore
+$ echo &quot;User-agent: *\nDisallow:&quot; &gt; static/robots.txt
+$ git init
+$ git commit -a -m &quot;Initial commit&quot;
+</code></pre>
+
+<h4 id="5-2-关联远程仓库-github">5.2 关联远程仓库(github)</h4>
+
+<p>注册并登录github, create repository</p>
+
+<pre><code>$ git remote add origin git@github.com:YourUsername/yourblog.git
+$ git push -u origin master
+</code></pre>
+
+<h3 id="6-添加文章">6. 添加文章</h3>
+
+<pre><code>#添加文章到content/post目录下
+$ hugo new post/first.md  
+#编辑文章, 添加到仓库并提交
+$ git add content
+$ git commit -m &quot;added first.md&quot;
+$ git push
+</code></pre>
+
+<h3 id="7-运行本地站点">7. 运行本地站点</h3>
+
+<p>hugo会监测文件的变动, 我们可以用浏览器访问 <a href="http://localhost:1313">http://localhost:1313</a> ,实时查看文章变动.</p>
+
+<pre><code class="language-shell">$ hugo server --theme=cactus-plus --buildDrafts  
+</code></pre>
+
+                </section>
+            </article>
+            
+            
+            
+            
+
+            
+
+            
+
+            
+    
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/alenstar">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> alenstar
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+	</div>
+
+	
+
+        <script src="https://alenstar.github.io/js/jquery-2.2.4.min.js"></script>
+<script src="https://alenstar.github.io/js/main.js"></script>
+<script src="https://alenstar.github.io/js/highlight.min.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

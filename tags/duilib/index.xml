@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Duilib on alenstar blog</title>
+    <link>https://alenstar.github.io/tags/duilib/</link>
+    <description>Recent content in Duilib on alenstar blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 15 Jun 2017 10:10:08 +0800</lastBuildDate>
+    
+	<atom:link href="https://alenstar.github.io/tags/duilib/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>DuiLib xml配置项</title>
+      <link>https://alenstar.github.io/post/duilib_xml/</link>
+      <pubDate>Thu, 15 Jun 2017 10:10:08 +0800</pubDate>
+      
+      <guid>https://alenstar.github.io/post/duilib_xml/</guid>
+      <description>本文参考http://blog.csdn.net/wang03989/article/details/41577267 对部分不理解的地方添加</description>
+    </item>
+    
+  </channel>
+</rss>

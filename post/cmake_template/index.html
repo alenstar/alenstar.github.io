@@ -1,0 +1,395 @@
+    <!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="alenstar">
+		<meta name="description" content="alenstar blog">
+		<meta name="generator" content="Hugo 0.36.1" />
+		<title>cmake 入门学习 &middot; alenstar blog</title>
+		<link rel="shortcut icon" href="https://alenstar.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/style.css">
+		<link rel="stylesheet" href="https://alenstar.github.io/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="https://alenstar.github.io/css/font-awesome.min.css">
+		
+
+		
+        
+        
+        
+		
+	</head>
+
+    <body>
+	<div class="body-box">
+       <nav class="main-nav">
+	
+	
+		<a href='https://alenstar.github.io/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://alenstar.github.io/post'>Archive</a>
+	<a href='https://alenstar.github.io/tags'>Tags</a>
+	<a href='https://alenstar.github.io/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        cmake 入门学习
+                    </h1>
+                    <h2 class="headline">
+                    Jul 1, 2017 16:17
+                    · 1438 words
+                    · 3 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://alenstar.github.io/tags/linux">linux</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    
+
+<p>首先我们来看看我们的工程目录结构</p>
+
+<pre><code>$ tree myproject
+
+myproject  # 工程目录
+├── CMakeLists.txt # 入口CMakeLists.txt文件
+├── example.c
+├── include  # 头文件目录
+│   ├── arch.h
+│   ├── base.h
+│   ├── common.h
+│   └── data.h
+├── LICENSE
+├── README.md
+└── src  # 源代码目录
+    ├── arch.c
+    ├── base.c
+    ├── CMakeLists.txt  # 子CMakeLists.txt文件
+    ├── common.c
+    └── data.c
+</code></pre>
+
+<h3 id="入口cmakelists-txt文件分析">入口CMakeLists.txt文件分析</h3>
+
+<pre><code># 设置最低cmake版本要求
+cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR) 
+
+#支持 pkg-config
+include(FindPkgConfig)
+#检查 libcurl cairo 等模块， 并获取它们的LIBS和INCLUDE, 结果保存到变量 LB_LIBS_XXX 中
+# LB_LIBS_INCLUDE_DIRS # 保存包含路径
+# LB_LIBS_LIBRARIES # 保存连接库
+pkg_check_modules(LB_LIBS REQUIRED libcurl cairo）
+
+
+# 设置项目名称
+project(myproject) 
+
+# 检查编译目录和源码是否为同一目录， 如果是则提示错误
+if(&quot;${CMAKE_SOURCE_DIR}&quot; STREQUAL &quot;${CMAKE_BINARY_DIR}&quot;)
+    message(FATAL_ERROR &quot;Do not build in-source.\nPlease remove CMakeCache.txt and the CMakeFiles/ directory.\nThen: mkdir build ; cd build ; cmake .. ; make&quot;)
+endif()
+
+if( CMAKE_BUILD_TYPE STREQUAL &quot;Release&quot; )
+    add_definitions(-DNODEBUG)
+else()
+    add_definitions(-DDEBUG)
+	#set(CMAKE_C_FLAGS &quot;${CMAKE_C_FLAGS} -fPIC -O0 -ggdb&quot;)
+	#set(CMAKE_C_FLAGS_DEBUG &quot;${CMAKE_C_FLAGS_DEBUG} -O0 -ggdb&quot;)
+	#set(CMAKE_CXX_FLAGS &quot;${CMAKE_CXX_FLAGS} -fPIC -O0 -ggdb&quot;)
+	#set(CMAKE_CXX_FLAGS_DEBUG &quot;${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb&quot;)
+endif()
+	
+set(CMAKE_CXX_STANDARD 11)
+
+# 设置变量 PROJECT_NAME 并初始化， 使用 ${XXX} 引用, 如: ${PROJECT_NAME} 
+set(PROJECT_NAME &quot;xxx&quot;)
+
+add_definitions(-DDEBUG) # 添加宏定义
+
+# 设置CMAKE_C_FLAGS, `${CMAKE_C_FLAGS}` 可取出CMAKE_C_FLAGS的值
+set(CMAKE_C_FLAGS &quot;${CMAKE_C_FLAGS} -O0 -ggdb&quot;) 
+
+# 添加include目录(-l)
+include_directories(src) 
+include_directories(include) 
+
+# 设置 XXX_TESTS 为 OFF
+set(XXX_TESTS OFF CACHE BOOL &quot;&quot;)
+# 添加子目录, 子目录要包含CMakeLists.txt文件
+add_subdirectory(src) 
+
+# 添加可执行文件 example 的生成规则, 后面接依赖文件或者文件列表
+add_executable(example example.c) 
+# 设置可执行文件 example 的链接库, 后面接的可以是系统库, 也可以是 子目录下的自定义库
+target_link_libraries(example lib) 
+
+# 检测是否配置了编译类型[Release|Debug], 如果没有配置则配置为Release
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE &quot;Release&quot; CACHE STRING
+  &quot;Choose the type of build, options are: Debug Profile Release Asan Ubsan.&quot; FORCE)
+endif(NOT CMAKE_BUILD_TYPE)
+</code></pre>
+
+<h3 id="子cmakelists-txt文件">子CMakeLists.txt文件</h3>
+
+<pre><code>cmake_minimum_required(VERSION 2.6) # cmake 版本要求
+project(lib) # 项目名称
+
+# 设置option 
+# 可以在 add_subdirectory(xxx) 时用 set(XXX OFF|ON CACHE BOOL &quot;&quot;) 来设置值
+#        名称 描述        默认值[ON | OFF]
+# option(XXX &quot;描述 ... &quot; ON) 
+option(XXX_TESTS &quot;Build xxx tests and enable testing&quot; ON)
+option(XXX_STATIC &quot;Build static library&quot; ON)
+option(XXX_SHARED &quot;Build shared library&quot; ON)
+
+# 根据 option 条件编译
+# if 语句 支持逻辑运算 [AND | OR | NOT] ; #支持else分支: if() else() endif()
+if(XXX_TESTS) 
+  # TODO
+  # enable_testing()
+  # add_subdirectory(test testdir)
+endif()
+
+# 设置包含目录( `./` 当前目录)
+include_directories(./) 
+
+# 设置文件列表SRC_FILES (自定义名称) 的文件内容( 包含的文件 )
+set(SRC_FILES arch.c base.c common.c data.c) 
+
+# 添加静态库 lib 的生成规则, 依赖 SRC_FILES
+add_library(lib STATIC ${SRC_FILES}) 
+# 添加动态态库 lib 的生成规则, 依赖 SRC_FILES
+add_library(lib_shared SHARED ${SRC_FILES}) 
+</code></pre>
+
+<h3 id="构建项目">构建项目</h3>
+
+<p>为了保持项目目录的干净, 我们一般会在build目录下进行构建</p>
+
+<pre><code>$ mkdir build # 创建构建目录
+$ cd build # 进入构建目录
+$ cmake .. # 从上级目录构建, 构建产生的临时文件和目标文件将在当前目录生成
+$ make # 生成目标
+</code></pre>
+
+<h3 id="添加-c-11-支持">添加 c++11 支持</h3>
+
+<p>添加一个编译器选项 <code>add_compile_options(-std=c++11) # CMake 2.8.12 or newer</code>  不过这种方式不够灵活</p>
+
+<p>使用set来设置cmake内置变量</p>
+
+<pre><code>set(CMAKE_CXX_STANDARD 11) # C++11...
+set(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
+set(CMAKE_CXX_EXTENSIONS OFF) #...without compiler extensions like gnu++11
+</code></pre>
+
+<p>为特定目标进行设置, <code>set_target_properties</code> 可以为要生成的目标设置属性 <code>PROPERTIES</code> 以实现不同目标的差异处理</p>
+
+<pre><code>set_target_properties(myTarget PROPERTIES
+    CXX_STANDARD 11
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF
+)
+</code></pre>
+
+<h3 id="设置运行时库搜索路径-gcc-wl-rpath">设置运行时库搜索路径 (gcc -Wl,-rpath=./)</h3>
+
+<pre><code>set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+set(CMAKE_INSTALL_RPATH &quot;./&quot;)
+</code></pre>
+
+<h3 id="设置链接时库搜索路径-gcc-l">设置链接时库搜索路径 (gcc -L./)</h3>
+
+<pre><code>LINK_DIRECTORIES(&quot;./lib&quot;)
+</code></pre>
+
+<h3 id="其他-使用自定义动态-静态库">其他-使用自定义动态/静态库</h3>
+
+<pre><code># copy local file 拷贝文件
+configure_file(${CMAKE_SOURCE_DIR}/libsqlite3.so ${CMAKE_BINARY_DIR}/libsqlite3.so COPYONLY)
+
+# add local library 添加库文件
+add_library(sqlite3 SHARED IMPORTED) # or STATIC instead of SHARED
+
+# 设置库文件属性（文件路径，头文件目录）
+set_target_properties(sqlite3 PROPERTIES
+   IMPORTED_LOCATION &quot;${CMAKE_BINARY_DIR}/libsqlite3.so&quot;
+   INTERFACE_INCLUDE_DIRECTORIES &quot;${CMAKE_SOURCE_DIR}/include&quot;)
+
+# 添加到链接目标
+target_link_libraries(&lt;TARGET&gt; sqlite3)
+</code></pre>
+
+<h3 id="使用自定义命令">使用自定义命令</h3>
+
+<pre><code># 添加命令， OUTPUT 输出， COMMAND 命令
+add_custom_command(
+    OUTPUT  ${CMAKE_BINARY_DIR}/message.proto3.pb.cc
+    COMMAND ${PROTOC} --cpp_out=${CMAKE_BINARY_DIR} --proto_path=${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/message.proto3
+)
+# 添加到 OUTPUT 到 SRCS 变量中 （OUTPUT必须被依赖，否则不会执行命令）
+List (APPEND SRCS  ${CMAKE_BINARY_DIR}/message.proto3.pb.cc)
+</code></pre>
+
+<h3 id="包含cmake格式的配置文件">包含cmake格式的配置文件</h3>
+
+<pre><code>include(xxxx.cmake)
+</code></pre>
+
+<h3 id="包含子工程">包含子工程</h3>
+
+<pre><code># 添加子目录, 子目录要包含CMakeLists.txt文件
+add_subdirectory(subdir) 
+</code></pre>
+
+<h3 id="os-define">OS define</h3>
+
+<pre><code>if (${CMAKE_SYSTEM_NAME} MATCHES &quot;Windows&quot;)
+    set(WINDOWS TRUE)
+    message(WARNING &quot;only for Windows&quot;)
+else()
+    set(LINUX TRUE)
+    message(WARNING &quot;only for linux&quot;)
+endif()
+</code></pre>
+
+<h3 id="cross-build">cross build</h3>
+
+<pre><code>if(BUILD_FOR_ARM)
+    SET(CROSS_TOOLS_PATH /opt/crosstools/arm-2009q3/bin/arm-none-linux-gnueabi)
+    SET(CROSS_ROOT_PATH /opt/crosstools/sys-root)
+
+    # this one is important
+    SET(CMAKE_SYSTEM_NAME Linux)
+    #this one not so much
+    SET(CMAKE_SYSTEM_VERSION 1)
+
+    # specify the cross compiler
+    SET(CMAKE_C_COMPILER   ${CROSS_TOOLS_PATH}-gcc)
+    SET(CMAKE_CXX_COMPILER ${CROSS_TOOLS_PATH}-g++)
+
+    # where is the target environment
+    SET(CMAKE_FIND_ROOT_PATH  ${CROSS_ROOT_PATH})
+
+    # search for programs in the build host directories
+    SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+    # for libraries and headers in the target directories
+    SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+    SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+endif()
+
+</code></pre>
+
+<h3 id="使用文件配置交叉编译工具链">使用文件配置交叉编译工具链</h3>
+
+<pre><code># 文件 arm-none-linux-gnueabi-gcc.cmake
+SET(CROSS_TOOLS_PATH /opt/crosstools/arm-2009q3/bin/arm-none-linux-gnueabi)
+SET(CROSS_ROOT_PATH /opt/crosstools/sys-root)
+
+# this one is important
+SET(CMAKE_SYSTEM_NAME Linux)
+#this one not so much
+SET(CMAKE_SYSTEM_VERSION 1)
+
+# specify the cross compiler
+SET(CMAKE_C_COMPILER   ${CROSS_TOOLS_PATH}-gcc)
+SET(CMAKE_CXX_COMPILER ${CROSS_TOOLS_PATH}-g++)
+
+# where is the target environment
+SET(CMAKE_FIND_ROOT_PATH  ${CROSS_ROOT_PATH})
+
+# search for programs in the build host directories
+SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+# for libraries and headers in the target directories
+SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+</code></pre>
+
+<pre><code># 使用交叉工具链编译工程
+mkdir build
+cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=../arm-none-linux-gnueabi-gcc.cmake ..
+</code></pre>
+
+                </section>
+            </article>
+            
+            
+            
+            
+
+            
+
+            
+
+            
+    
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/alenstar">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> alenstar
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+	</div>
+
+	
+
+        <script src="https://alenstar.github.io/js/jquery-2.2.4.min.js"></script>
+<script src="https://alenstar.github.io/js/main.js"></script>
+<script src="https://alenstar.github.io/js/highlight.min.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>
